@@ -1,0 +1,21 @@
+{
+  "name": "reviewme",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "2.5.8",
+    "jade": ">= 0.0.1",
+    "phantom": ">= 0.3.3",
+    "coffee-script": ">= 1.2.0",
+    "mongoose" : ">=  2.5.9"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "*"
+  },
+  "author": "Amir Raminfar <findamir@gmail.com>",
+  "description": "A project that can make comments on screenshots",
+  "repository": {
+    "url": ""
+  }
+}
