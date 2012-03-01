@@ -2,4 +2,31 @@
 
 body
   margin-top 30px
+  background #000
+
+.grid 
+  position fixed
+  opacity .6
+  border solid 1px white
+  $border-width = 1px
+  border-width 0
+  &.top
+    top 0
+    border-bottom-width $border-width
+    &.left
+      left 0
+      border-right-width $border-width
+    &.right
+      right 0
+  &.bottom
+    bottom 0
+    border-top 2px
+    &.left
+      left 0
+      border-right-width $border-width      
+    &.right
+      right 0
+      
+
+  
 
