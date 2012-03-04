@@ -1,2 +1,2 @@
-var  coffee   = require("coffee-script");
+require('coffee-script');
 require('./app');
