@@ -1,7 +1,7 @@
 div.gridline.h
 div.gridline.v
 
-div#tools test
+div#tools 
+  h2 Tools
   
-div#canvas
-  img(src=project.preview())
+div#canvas(style = "background-image: url(#{project.screenshot}); width: #{project.screenshotWidth}px; height: #{project.screenshotHeight}px")
