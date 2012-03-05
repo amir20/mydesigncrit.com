@@ -8,6 +8,5 @@ ProjectSchema = new Schema
     screenshot: String,
     screenshotWidth: Number,
     screenshotHeight: Number
-
   
 module.exports = mongoose.model 'Project', ProjectSchema
