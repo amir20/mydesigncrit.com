@@ -22,5 +22,6 @@
   "description": "A project that can make comments on screenshots",
   "repository": {
     "url": ""
-  }
+  },
+  "main" : "app.coffee"
 }
