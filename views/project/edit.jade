@@ -1,7 +1,5 @@
-div.gridline.h
-div.gridline.v
+include ../gridlines/index
+include tools
 
-div#tools 
-  h2 Tools
-  
-div#canvas(style = "background-image: url(#{project.screenshot}); width: #{project.screenshotWidth}px; height: #{project.screenshotHeight}px")
+div#canvas-background
+  #canvas(style = "background-image: url(#{project.screenshot}); width: #{project.screenshotWidth}px; height: #{project.screenshotHeight}px")
