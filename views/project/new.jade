@@ -1,7 +1,7 @@
-form#new-project-form.form-horizontal(method='post', action='')
+form#new-project-form.form-horizontal.text(method='post', action='')
   div.control-group
+    h1 Create A New Crit
     label.control-label Website URL
     div.controls
-      input.input-xlarge(name='url', type='text', placeholder='http://example.com')
-      input#width(name='width', type='hidden')
-      button.btn.btn-primary(type='submit') Go
+      div.input-prepend.input-append.
+        <span class="add-on">http://</span><input class="span4" name="url" type="text" placeholder="example.com"/><button class="btn btn-primary" type="submit">Go</button>

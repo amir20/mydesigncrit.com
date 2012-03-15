@@ -1,6 +1,4 @@
 $ ->
-  if $('form#new-project-form').length?
-    $('form#new-project-form input#width').val $(window).width()
 
   $canvas = $('#canvas')
   if $canvas.length?
