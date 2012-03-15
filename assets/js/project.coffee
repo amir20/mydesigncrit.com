@@ -1,20 +1,10 @@
 $ ->
-
+  gridline = new GridLine()
   $canvas = $('#canvas')
-  if $canvas.length?
+  if notEmpty $canvas
     toHandle = $('#canvas, .gridline').get()
-    mouseDownEvent = null
-    crit = null
-    $(document).mousedown( (e) ->
+    ($ document).on 'mousedown', (e) ->
       if e.target in toHandle
         e.preventDefault()
-        mouseDownEvent = e
-        crit = $('<div />', 'class': 'crit').css left: e.pageX, top: e.pageY
-        crit.appendTo $canvas
-    ).mouseup( (e) ->
-      mouseDownEvent = null
-    ).mousemove (e) ->
-      if mouseDownEvent?
-        width = e.pageX - mouseDownEvent.pageX
-        height = e.pageY - mouseDownEvent.pageY
-        crit.width(width).height(height)
+        gridline.hide()
+        new Crit($canvas, e.pageX, e.pageY, -> gridline.show())
