@@ -7,4 +7,4 @@ $ ->
       if e.target in toHandle
         e.preventDefault()
         gridline.hide()
-        new Crit($canvas, e.pageX, e.pageY, -> gridline.show())
+        new Crit($canvas, e.pageX - $canvas.position().left, e.pageY - $canvas.position().top, -> gridline.show())

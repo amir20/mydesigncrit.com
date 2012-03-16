@@ -9,10 +9,41 @@
     .crit
       absolute top left
       box-shadow 0 2px 4px #000
-      border 2px solid #888
       border-radius 2px
-      background white
-      opacity .5
+      background rgba(238, 238, 238, 0.5)
+
+      h4
+        absolute left
+        left -15px
+        top 5px
+        text-align center
+        opacity 0
+        transition opacity .5s ease
+        font-family "Helvetica Neue",Helvetica,Arial,sans-serif
+        font-weight normal
+
+        .num
+          border-top-left-radius 3px
+          border-bottom-left-radius 3px
+          background-color #ff7537
+          color black
+          width 40px
+          height 30px
+          absolute left
+          line-height 28px
+          font-size 19px
+
+        .num + .arrow
+          width 0
+          height 0
+          border-top 15px solid transparent
+          border-bottom 15px solid transparent
+          border-left 15px solid #ff7537
+          absolute left
+          left 40px
+
+
+
 
 #tools
   fixed right
