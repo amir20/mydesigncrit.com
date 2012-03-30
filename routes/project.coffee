@@ -1,6 +1,6 @@
-phantom = require 'phantom'
 Project = require '../models/project'
-gm = require('gm')
+gm = require 'gm'
+screenshot = require '../util/screenshot'
 
 module.exports = (app) ->
   app.post '/(index.:format)?', (req, res) ->
@@ -11,8 +11,8 @@ module.exports = (app) ->
       project = new Project(url: req.body.url)
       project.save (error) ->
         throw error if error
-        console.log("Created project id [#{project.id}] with [#{project.url}].")
-        saveWebShot project, (path) ->
+        console.log("Created project with id [#{project.id}] for [#{project.url}].")
+        screenshot.capture project.url, project.id, (path) ->
           project.screenshot = path.replace 'public', ''
           gm(path).size (err, size) ->
             project.screenshotWidth = size.width
@@ -23,20 +23,16 @@ module.exports = (app) ->
     else
       res.send('URL not defined')
 
-  app.get '/edit/:id', (req, res) ->
+  app.get '/edit/:id.:format?', (req, res) ->
     Project.findById req.params.id, (err, project) ->
-      res.render('project/edit', title: 'Preview', project: project)
+      if req.params.format is 'json'
+        res.send project
+      else
+        res.render('project/edit', title: 'Preview', project: project)
 
-saveWebShot = (project, callback) ->
-  phantom.create (ph) ->
-    ph.createPage (page) ->
-      console.log("Fetching [#{project.url}]")
-      page.open project.url, (status) ->
-        console.log("Saving to file [#{project.id}.png]")
-        page.evaluate (-> document.body.clientHeight), (height) ->
-          page.set 'viewportSize', width: 1024, height: height
-          path = "public/phantom/#{project.id}.png"
-          page.render path, ->
-            ph.exit()
-            callback path
-       
+  app.post '/edit/:id', (req, res) ->
+    Project.findById req.params.id, (err, project) ->
+      project.crits = req.body.crits if req.body.crits?
+      project.save ->
+        res.send project
+
