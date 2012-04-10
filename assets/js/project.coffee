@@ -14,8 +14,8 @@ class Project
         tools: @tools
         canvas: @canvas
         gridline: @gridline
-        x: e.pageX - @canvas.position().left
-        y: e.pageY - @canvas.position().top
+        x: e.pageX - @canvas.offset().left
+        y: e.pageY - @canvas.offset().top
         callback: (crit) =>
           @persist()
       )

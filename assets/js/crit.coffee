@@ -27,7 +27,7 @@ class Crit
     @doc.on mousemove: @onResize
 
   onResize: (e) =>
-    @container.width(e.pageX - @x - @canvas.position().left).height(e.pageY - @y - @canvas.position().top)
+    @container.width(e.pageX - @x - @canvas.offset().left).height(e.pageY - @y - @canvas.offset().top)
 
   onAfterCreate: =>
     @doc.off 'mousemove', @onResize
