@@ -15,10 +15,11 @@ module.exports = (app) ->
         screenshot.capture project.url, project.id, (path) ->
           project.screenshot = path.replace 'public', ''
           gm(path).size (err, size) ->
+            console.log err if err
             project.screenshotWidth = size.width
             project.screenshotHeight = size.height
             project.save (error) ->
-              throw error if error
+              console.log error if error
               if req.params.format is 'json' then res.send project else res.redirect "/edit/#{project.id}"
     else
       res.send('URL not defined')
