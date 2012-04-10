@@ -4,12 +4,13 @@ mongoose = require 'mongoose'
 bootstrap = require 'bootstrap-stylus'
 stylus = require 'stylus'
 
-mongoose.connect('mongodb://localhost/reviewme')
+mongoose.connect('mongodb://localhost/mydesigncrit')
 
 app = module.exports = express.createServer()
 
 app.configure ->
   app.set('views', "#{__dirname}/views")
+  app.set('view options', pretty: true)
   app.set('view engine', 'jade')
   app.use(express.bodyParser())
   app.use(express.methodOverride())
