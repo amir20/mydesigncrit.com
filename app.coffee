@@ -18,7 +18,6 @@ app.configure ->
   app.use require('connect-assets')(minifyBuilds: false)
 
 app.configure 'development', ->
-  app.set('view options', pretty: true)
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
 
 app.configure 'production', ->
