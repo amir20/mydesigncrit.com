@@ -6,7 +6,7 @@ BOX_TEMPLATE = jade.compile '''
 '''
 
 LIST_TEMPLATE = jade.compile '''
-li
+li(style='color: #{color}')
   span.icon
   span.title #{title}
 '''
@@ -37,8 +37,7 @@ class Crit
               .find('h4').css opacity: 1
 
     @tools.find('.placeholder').hide()
-    @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled')).appendTo(@tools.find('#crits'))
-    setTimeout (=> @listItem.css('background-color': color)), 1
+    @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: color)).appendTo(@tools.find('#crits'))
     @gridline.show()
     @container.on mouseenter: (=> @gridline.hide()), mouseleave: (=> @gridline.show())
 

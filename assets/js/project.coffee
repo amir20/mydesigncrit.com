@@ -1,5 +1,5 @@
 class Project
-  constructor: (@id, @gridline = new GridLine(), @canvas = ($ '#canvas'), @tools = ($ '#tools')) ->
+  constructor: (@id, @gridline = new GridLine(), @canvas = ($ '#canvas'), @tools = ($ '#sidebar')) ->
     @crits = []
     ($ document).on mousedown: @onNewCrit
     @load() if @id?
