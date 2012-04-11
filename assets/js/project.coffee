@@ -6,7 +6,7 @@ class Project
 
 
   onNewCrit: (e) =>
-    if e.target in @gridline.lines or e.target is @canvas.get()
+    if e.target in @gridline.lines or e.target in @canvas.get()
       e.preventDefault()
       @gridline.hide()
       @crits.push new Crit(
