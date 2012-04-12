@@ -13,6 +13,18 @@
       border-radius 2px
       background rgba(238, 238, 238, 0.5)
 
+      .show-after
+        visibility hidden
+
+      .close
+        display none
+        opacity .5
+        &:hover
+          opacity .8
+
+      &:hover .close
+        display block
+
       h4
         absolute left
         left -52px
@@ -64,4 +76,8 @@
   #crits
     li
       margin 3px 0
+
+      a
+        cursor pointer
+
   

@@ -1,24 +1,27 @@
 class Project
-  constructor: (@id, @gridline = new GridLine(), @canvas = ($ '#canvas'), @tools = ($ '#sidebar')) ->
+  constructor: (@id, @gridline = new GridLine(), @canvas = ($ '#canvas'), @sidebar = ($ '#sidebar')) ->
     @crits = []
     ($ document).on mousedown: @onNewCrit
     @load() if @id?
-
 
   onNewCrit: (e) =>
     if e.target in @gridline.lines or e.target in @canvas.get()
       e.preventDefault()
       @gridline.hide()
+      @sidebar.find('.placeholder').remove()
       @crits.push new Crit(
-        num: @crits.length + 1
-        tools: @tools
+        project: this
+        sidebar: @sidebar
         canvas: @canvas
         gridline: @gridline
-        x: e.pageX - @canvas.offset().left
-        y: e.pageY - @canvas.offset().top
+        event: e
         callback: (crit) =>
           @persist()
       )
+  remove: (critToRemove) ->
+    @crits.splice(@crits.indexOf(critToRemove), 1)
+    crit.updateNum i + 1 for crit, i in @crits
+    @persist()
 
   persist: ->
     crits = []
@@ -28,7 +31,8 @@ class Project
 
   load: ->
     $.get(document.location + '.json').success (project) =>
+      @sidebar.find('.placeholder').remove() if project.crits.length > 0
       for array in project.crits
-        @crits.push new Crit(num: @crits.length + 1, tools: @tools, canvas: @canvas, gridline: @gridline, array: array)
+        @crits.push new Crit(project: this, sidebar: @sidebar, canvas: @canvas, gridline: @gridline, array: array)
 
 window.Project = Project
