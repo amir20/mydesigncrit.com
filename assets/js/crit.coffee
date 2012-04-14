@@ -49,8 +49,8 @@ class Crit
     @listItem.find('.close').on click: => @project.remove(this)
     @listItem.find('a.title').on(
       click: => @project.select(this)
-      mouseover: => @onListItemMouseover
-      mouseout: => @onListItemMouseout
+      mouseover: @onListItemMouseover
+      mouseout: @onListItemMouseout
     ).text(@comment)
     @container.on click: => @project.select(this)
 
