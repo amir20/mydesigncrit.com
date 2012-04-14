@@ -1,5 +1,32 @@
 div#sidebar
-  h2 Crits
-  ol#crits
-    li.placeholder You have not created any crits yet.
+  #crit-list
+    .page-header
+      h2 Crits
+    ol#crits
+      li.placeholder You have not created any crits yet.
+
+  form#crit-options.hide
+
+    .page-header
+      h2 Edit
+    .control-group.pull-right
+      btn#remove-crit.btn.btn-small.btn-danger
+        i.icon-white.icon-ban-circle
+        |  Remove
+
+    .control-group.pull-left
+      .controls
+        .btn-group.thumbs(data-toggle='buttons-radio')
+          button.btn.thumbs-up
+          button.btn.thumbs-down
+
+    .control-group
+      .controls
+        | <textarea id="crit-comment" placeholder="Enter your comment"></textarea>
+    btn#cancel-crit.btn.btn-small.btn-warning.pull-left
+      i.icon-white.icon-remove
+      |  Cancel
+    btn#save-crit.btn.btn-small.btn-success.pull-right
+      i.icon-white.icon-ok
+      |  Save
 

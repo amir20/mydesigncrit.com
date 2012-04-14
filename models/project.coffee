@@ -3,7 +3,7 @@ Schema = mongoose.Schema
 
 Crit = new mongoose.Schema
   created_date: (type: Date, default: Date.now)
-  message: String
+  comment: String
   x: Number
   y: Number
   width: Number

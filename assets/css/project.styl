@@ -12,9 +12,19 @@
       box-shadow 0 2px 4px #000
       border-radius 2px
       background rgba(238, 238, 238, 0.5)
+      border transparent solid 2px
+
+      &:hover, &.hover
+        border-color lightBlue
+
+      &.active
+        border-color red
+        background rgba(238, 238, 238, 0.8)
 
       .show-after
-        visibility hidden
+        width 0
+        height 0
+        overflow hidden
 
       .close
         display none
@@ -61,8 +71,6 @@
   .navbar-inner
     padding 4px 20px
     height 35px
-  a.btn
-    margin-right 5px
   
 #sidebar
   fixed right
@@ -76,8 +84,36 @@
   #crits
     li
       margin 3px 0
-
       a
         cursor pointer
+      a.title
+        white-space nowrap
+        width 90%
+        overflow hidden
+        text-overflow ellipsis
+        display block
+
+   .page-header
+     padding-bottom 0
+
+   h2
+     margin-bottom 0
+
+  #crit-comment
+     width 250px
+     height 100px
+
+  .thumbs
+    margin-bottom 10px
+
+    .thumbs-up, .thumbs-down
+      background-image url(/img/glyphicons_343_thumbs_up.png)
+      width 34px
+      height 31px
+      background-repeat no-repeat
+      background-position center
+
+    .thumbs-down
+      background-image url(/img/glyphicons_344_thumbs_down.png)
 
   

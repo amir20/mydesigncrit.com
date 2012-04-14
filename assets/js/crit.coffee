@@ -45,13 +45,31 @@ class Crit
     @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
     @gridline.show()
     @container.on mouseenter: (=> @gridline.hide()), mouseleave: (=> @gridline.show())
-    @container.find('.close').on click: @delete
-    @listItem.find('.close').on click: @delete
+    @container.find('.close').on click: => @project.remove(this)
+    @listItem.find('.close').on click: => @project.remove(this)
+    @listItem.find('a.title').on(
+      click: => @project.select(this)
+      mouseover: => @container.addClass('hover')
+      mouseout: => @container.removeClass('hover')
+    ).text(@comment)
+    @container.on click: => @project.select(this)
 
-  delete: =>
+  remove: =>
     @container.remove()
     @listItem.remove()
-    @project.remove(this)
+
+  edit: =>
+    ($ '#crit-comment').val(@comment)
+    @container.addClass('active')
+    $('html,body').animate(scrollTop: @container.offset().top - 100, 'fast')
+
+  cancel: ->
+    @container.removeClass('active')
+
+  save: ->
+    @comment = ($ '#crit-comment').val()
+    @listItem.find('a.title').text(@comment)
+    @project.persist()
 
   updateNum: (i) ->
     @container.find('.num').text(i)
@@ -59,14 +77,15 @@ class Crit
     @color = COLORS[@num % COLORS.length]
     @container.find('.num').css('background-color': @color).end().find('.arrow').css('border-left-color': @color).end()
     @listItem.css(color: @color).find('a.title').css(color: @color)
+    @listItem.find('a.title').on click: @edit
 
-  toArray: -> {x: @x, y: @y, width: @container.width(), height: @container.height(), message: @message}
+  toArray: -> { x: @x, y: @y, width: @container.width(), height: @container.height(), comment: @comment }
 
   fromArray: (array) ->
     @x = array.x
     @y = array.y
-    @message - array.message
-    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css left: array.x, top: array.y).appendTo(@canvas).width(array.width).height(array.height)
+    @comment = array.comment
+    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css left: @x, top: @y).appendTo(@canvas).width(array.width).height(array.height)
     @onAfterCreate()
     return this
 
