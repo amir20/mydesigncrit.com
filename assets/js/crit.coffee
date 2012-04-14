@@ -49,10 +49,16 @@ class Crit
     @listItem.find('.close').on click: => @project.remove(this)
     @listItem.find('a.title').on(
       click: => @project.select(this)
-      mouseover: => @container.addClass('hover')
-      mouseout: => @container.removeClass('hover')
+      mouseover: => @onListItemMouseover
+      mouseout: => @onListItemMouseout
     ).text(@comment)
     @container.on click: => @project.select(this)
+
+  onListItemMouseover: =>
+    @container.addClass('hover')
+
+  onListItemMouseout: =>
+    @container.removeClass('hover')
 
   remove: =>
     @container.remove()
@@ -61,7 +67,7 @@ class Crit
   edit: =>
     ($ '#crit-comment').val(@comment)
     @container.addClass('active')
-    $('html,body').animate(scrollTop: @container.offset().top - 100, 'fast')
+    $('html,body').animate(scrollTop: @container.offset().top - 100, 'fast') if !@container.is(':in-viewport')
 
   cancel: ->
     @container.removeClass('active')
@@ -69,6 +75,7 @@ class Crit
   save: ->
     @comment = ($ '#crit-comment').val()
     @listItem.find('a.title').text(@comment)
+    @container.removeClass('active')
     @project.persist()
 
   updateNum: (i) ->
