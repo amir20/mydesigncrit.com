@@ -37,6 +37,7 @@ class Project
     @activeCrit = crit
     @activeCrit.edit()
     @toggleOptions(true)
+    ($ '#crit-comment').focus()
 
   saveCurrentCrit: =>
     @activeCrit.save() if @activeCrit?
