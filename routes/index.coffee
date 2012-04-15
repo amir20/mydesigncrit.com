@@ -1,5 +1,5 @@
 module.exports = (app) ->
-  app.get '/', (req, res) -> res.render('index', title: 'Welcome to mydesigncrit.com')
+  app.get '/', (req, res) -> res.render('index', title: 'myDesignCrit.com [BETA]')
 
   require('./project')(app)
   

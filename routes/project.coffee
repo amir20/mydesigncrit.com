@@ -29,7 +29,7 @@ module.exports = (app) ->
       if req.params.format is 'json'
         res.send project
       else
-        res.render('project/edit', title: 'Preview', project: project)
+        res.render('project/edit', title: "myDesignCrit.com - #{project.url}", project: project)
 
   app.post '/edit/:id', (req, res) ->
     Project.findById req.params.id, (err, project) ->
