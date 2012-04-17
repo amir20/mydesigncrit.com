@@ -12,7 +12,8 @@
     "stylus": ">= 0.24.0",
     "nib": ">= 0.3.2",
     "bootstrap-stylus": ">= 0.2.0",
-    "gm": ">= 1.0.5"
+    "gm": ">= 1.0.5",
+    "everyauth": ">= 0.2.32"
   },
   "devDependencies": {},
   "engines": {
