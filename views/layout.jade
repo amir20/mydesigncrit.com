@@ -5,7 +5,8 @@ html
     link(href='http://fonts.googleapis.com/css?family=Quicksand:400,700', rel='stylesheet', type='text/css')
     != css('application')
     != js('application')
-    include scripts/analytics
+    - if (isProd)
+      include scripts/analytics
   body
     != body
     include scripts/feedback

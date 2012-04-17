@@ -17,6 +17,7 @@ app.configure ->
   app.use(app.router)
   app.use(express.static(__dirname + '/public'))
   app.use require('connect-assets')(minifyBuilds: false)
+  app.dynamicHelpers isProd: (req, res) -> process.env.NODE_ENV == 'production'
 
 app.configure 'development', ->
   app.use(express.errorHandler({ dumpExceptions: true, showStack: true }))
