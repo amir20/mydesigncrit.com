@@ -10,8 +10,9 @@ Crit = new mongoose.Schema
   height: Number
 
 ProjectSchema = new Schema
-    created_date: (type: Date, default: Date.now)
-    url: String
+    created_date: { type: Date, default: Date.now }
+    url: { type: String, index: true }
+    author: { type: String, index: true }
     screenshot: String
     screenshotWidth: Number
     screenshotHeight: Number

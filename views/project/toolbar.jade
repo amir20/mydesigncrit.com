@@ -1,6 +1,9 @@
 div#toolbar.navbar.navbar-fixed-top
   .navbar-inner
-    a.brand myDesignCrit.com
-    a#toggle-gridlines.btn.btn-small.pull-right
-      i.icon-ban-circle
-      |  Hide Grid Lines
+    .container-fluid
+      a.brand myDesignCrit.com
+      include ../auth/signin
+      a#toggle-gridlines.btn.btn-small.pull-right
+        i.icon-ban-circle
+        |  Hide Grid Lines
+

@@ -4,21 +4,10 @@ mongoose = require 'mongoose'
 bootstrap = require 'bootstrap-stylus'
 stylus = require 'stylus'
 everyauth = require 'everyauth'
+everyauthDynamicHelper = require('./config/everyauth').everyauthDynamicHelper
 
 mongoose.connect 'mongodb://localhost/mydesigncrit'
-
 app = module.exports = express.createServer()
-lastUser = null
-everyauth.google.appId('93758905889.apps.googleusercontent.com')
-.appSecret('8fRgaU5vILLosexrImVp69RB')
-.scope('https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds')
-.findOrCreateUser((session, accessToken, accessTokenExtra, googleUserMetadata) ->
-  promise = @Promise()
-  promise.fulfill(googleUserMetadata)
-  promise
-).redirectPath('/')
-
-
 
 app.configure ->
   app.set 'views', "#{__dirname}/views"
@@ -33,7 +22,7 @@ app.configure ->
   app.use express.static(__dirname + '/public')
   app.use require('connect-assets')(minifyBuilds: false)
   everyauth.helpExpress app
-  app.dynamicHelpers user: (req, res) -> req.session.auth
+  app.dynamicHelpers user: everyauthDynamicHelper
   app.dynamicHelpers isProd: (req, res) -> process.env.NODE_ENV == 'production'
 
 app.configure 'development', ->
