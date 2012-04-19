@@ -9,7 +9,7 @@ class Project
 
 
   onNewCrit: (e) =>
-    if e.target in @gridline.lines or e.target in @canvas.get()
+    if e.which == 1 && (e.target in @gridline.lines or e.target in @canvas.get())
       e.preventDefault()
       @gridline.hide()
       @sidebar.find('.placeholder').remove()
