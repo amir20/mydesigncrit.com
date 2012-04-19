@@ -40,7 +40,7 @@ class Crit
     @container.width(e.pageX - @x - @canvas.offset().left).height(e.pageY - @y - @canvas.offset().top)
 
   onAfterCreate: =>
-    @doc.off 'mousemove', @onResize
+    @doc.off mousemove: @onResize
     @container.find('.show-after').removeClass('show-after').end().find('h4').css(opacity: 1)
     @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
     @gridline.show()
@@ -52,7 +52,26 @@ class Crit
       mouseover: @onListItemMouseover
       mouseout: @onListItemMouseout
     ).text(@comment)
-    @container.on click: => @project.select(this)
+    @container.on
+      click: =>
+        @project.select(this) if @clickFlag?
+      mousedown: @onContainerMouseDown
+
+  onMove: (e) =>
+    e.preventDefault()
+    @x = @beforeMove.x +  e.pageX - @beforeMove.e.pageX
+    @y = @beforeMove.y + e.pageY - @beforeMove.e.pageY
+    @container.css left: @x, top: @y
+
+  onContainerMouseDown: (e) =>
+    e.preventDefault()
+    @doc.on mousemove: @onMove
+    @beforeMove = x: @x, y: @y, e: e
+    @clickFlag = true
+    setTimeout (=> @clickFlag = null), 300
+    @doc.one mouseup: =>
+      @doc.off mousemove: @onMove
+      @project.persist()
 
   onListItemMouseover: =>
     @container.addClass('hover')

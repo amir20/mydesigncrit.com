@@ -57,6 +57,7 @@ class Project
 
   remove: (critToRemove) ->
     critToRemove.remove()
+    @toggleOptions(false)
     @crits.splice(@crits.indexOf(critToRemove), 1)
     crit.updateNum i + 1 for crit, i in @crits
     @persist()
