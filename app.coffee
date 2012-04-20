@@ -4,7 +4,7 @@ mongoose = require 'mongoose'
 bootstrap = require 'bootstrap-stylus'
 stylus = require 'stylus'
 everyauth = require 'everyauth'
-everyauthDynamicHelper = require('./config/everyauth').everyauthDynamicHelper
+everyauthHelper = require './config/everyauth'
 
 mongoose.connect 'mongodb://localhost/mydesigncrit'
 app = module.exports = express.createServer()
@@ -22,8 +22,8 @@ app.configure ->
   app.use express.static(__dirname + '/public')
   app.use require('connect-assets')(minifyBuilds: false)
   everyauth.helpExpress app
-  app.dynamicHelpers user: everyauthDynamicHelper
   app.dynamicHelpers isProd: (req, res) -> process.env.NODE_ENV == 'production'
+  everyauthHelper.configure(app)
 
 app.configure 'development', ->
   app.use express.errorHandler({ dumpExceptions: true, showStack: true })

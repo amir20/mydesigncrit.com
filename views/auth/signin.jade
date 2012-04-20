@@ -7,7 +7,9 @@ ul.nav.pull-right
         b.caret
       ul.dropdown-menu
         li
-          a(href='/logout') logout
+          a(href='/logout')
+            i.icon-exclamation-sign
+            |  logout
     - else
       a#sign-in.dropdown-toggle(data-toggle='dropdown', href='#')
         i.icon-user
@@ -15,9 +17,9 @@ ul.nav.pull-right
         b.caret
       ul.dropdown-menu
         li
-          a(href='/auth/google')
+          a(href='/signin/google')
             i.social-google
             |  google
-          a(href='/auth/facebook')
+          a(href='/signin/facebook')
             i.social-facebook
             |  facebook

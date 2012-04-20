@@ -1,12 +1,14 @@
 everyauth = require 'everyauth'
 
+sendResponse = (res, data) => res.redirect data.session.redirectPath || '/'
+
 everyauth.google.appId('93758905889.apps.googleusercontent.com')
 .myHostname('http://local.mydesigncrit.com:3000')
 .appSecret('8fRgaU5vILLosexrImVp69RB')
 .scope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds')
 .findOrCreateUser((session, accessToken, accessTokenExtra, googleUserMetadata) ->
   return { email: googleUserMetadata.email, name: googleUserMetadata.name, picture: googleUserMetadata.picture }
-).redirectPath('/')
+).sendResponse sendResponse
 
 everyauth.facebook.appId('335823783146542')
 .myHostname('http://local.mydesigncrit.com:3000')
@@ -14,12 +16,16 @@ everyauth.facebook.appId('335823783146542')
 .scope('email')
 .findOrCreateUser((session, accessToken, accessTokenExtra, fbUserMetadata) ->
   return { email: fbUserMetadata.email, name: fbUserMetadata.name, picture: fbUserMetadata.picture }
-).redirectPath('/')
+).sendResponse sendResponse
 
+exports.configure = (app) ->
+  app.dynamicHelpers user: (req, res) ->
+    return null if !req.session.auth?
+    auth = req.session.auth
+    return auth.google.user if auth.google?
+    return auth.facebook.user if auth.facebook?
 
-exports.everyauthDynamicHelper = (req, res) ->
-  console.log req.session.auth
-  return null if !req.session.auth?
-  auth = req.session.auth
-  return auth.google.user if auth.google?
-  return auth.facebook.user if auth.facebook?
+  app.get '/signin/:network', (req, res, next) =>
+    req.session.redirectPath = req.header('Referer')
+    res.redirect "/auth/#{req.params.network}"
+
