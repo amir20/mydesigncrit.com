@@ -1,6 +1,7 @@
 BOX_TEMPLATE = jade.compile '''
 .crit
   a.close.show-after &times;
+  a.resize-anchor.show-after
   label
    .num(style='background-color: #{color}') #{num}
    .arrow(style='border-left-color: #{color}')
@@ -11,7 +12,7 @@ li(style='color: #{color}')
   a.close &times;
   a.title(style='color: #{color}') #{title}
 '''
-COLORS = ['#9d91e7','#fb4c2f','#42d692','#4986e7','#c2c2c2','#b1a07d','#2da2bb', '#ff7537']
+COLORS = ['#9d91e7', '#fb4c2f', '#42d692', '#4986e7', '#c2c2c2', '#b1a07d', '#2da2bb', '#ff7537']
 
 class Crit
   constructor: (@params) ->
@@ -36,30 +37,49 @@ class Crit
 
     @doc.on mousemove: @onResize
 
-  onResize: (e) =>
-    @container.width(e.pageX - @x - @canvas.offset().left).height(e.pageY - @y - @canvas.offset().top)
 
+
+  # Gets called after a crit has been created
   onAfterCreate: =>
     @doc.off mousemove: @onResize
-    @container.find('.show-after').removeClass('show-after').end().find('label').show()
-    @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
     @gridline.show()
-    @container.on mouseenter: (=> @gridline.hide()), mouseleave: (=> @gridline.show())
-    @container.find('.close').on click: => @project.remove(this)
+    @container.find('.show-after').removeClass('show-after').end().find('label').show()
+    @createListItem()
+    @attachEvents()
+
+  createListItem: =>
+    @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
     @listItem.find('.close').on click: => @project.remove(this)
     @listItem.find('a.title').on(
       click: => @project.select(this)
       mouseover: @onListItemMouseover
       mouseout: @onListItemMouseout
     ).text(@comment)
+
+  attachEvents: =>
+    @container.on mouseenter: (=> @gridline.hide()), mouseleave: (=> @gridline.show())
+    @container.find('.close').on click: => @project.remove(this)
     @container.on
-      click: =>
-        @project.select(this) if @clickFlag?
+      click: => @project.select(this) if @clickFlag?
       mousedown: @onContainerMouseDown
+    @container.find('a.resize-anchor').on
+      mousedown: (e) =>
+        e.stopPropagation()
+        e.preventDefault()
+        @gridline.hide()
+        @doc.on mousemove: @onResize
+      mouseup: =>
+        @doc.off mousemove: @onResize
+        @gridline.show()
+        @project.persist()
+
+  onResize: (e) =>
+    e.preventDefault()
+    @container.width(e.pageX - @x - @canvas.offset().left).height(e.pageY - @y - @canvas.offset().top)
 
   onMove: (e) =>
     e.preventDefault()
-    @x = @beforeMove.x +  e.pageX - @beforeMove.e.pageX
+    @x = @beforeMove.x + e.pageX - @beforeMove.e.pageX
     @y = @beforeMove.y + e.pageY - @beforeMove.e.pageY
     @container.css left: @x, top: @y
 
