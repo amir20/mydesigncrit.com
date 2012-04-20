@@ -37,8 +37,6 @@ class Crit
 
     @doc.on mousemove: @onResize
 
-
-
   # Gets called after a crit has been created
   onAfterCreate: =>
     @doc.off mousemove: @onResize
@@ -65,11 +63,11 @@ class Crit
       mousedown: (e) =>
         e.stopPropagation()
         e.preventDefault()
-        @gridline.disable()
+        @gridline.disable(false)
         @doc.on mousemove: @onResize
       mouseup: =>
         @doc.off mousemove: @onResize
-        @gridline.enable()
+        @gridline.enable(false)
         @project.persist()
 
   onResize: (e) =>
