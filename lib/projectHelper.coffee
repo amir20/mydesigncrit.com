@@ -20,3 +20,7 @@ exports.createProject = (req, callback) ->
         project.save (error) ->
           console.log error if error
           callback(project)
+
+exports.findProjectsByUser = (req, callback) ->
+  user = everyauthHelper.currentUser(req)
+  if user? then Project.findByAuthor(user.email, callback) else callback(null, [])

@@ -18,6 +18,6 @@ ProjectSchema = new Schema
     screenshotHeight: Number
     crits: [Crit]
 
-ProjectSchema.statics.findByAuthor = (author, cb) -> @find( author: author, cb)
+ProjectSchema.statics.findByAuthor = (author, cb) -> @find(author: author).desc('created_date').limit(10).run(cb)
   
 module.exports = mongoose.model 'Project', ProjectSchema

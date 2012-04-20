@@ -6,6 +6,9 @@ ul.nav.pull-right
         |  Hi, #{user.name}!
         b.caret
       ul.dropdown-menu
+        li.text Recent activity
+        li(data-lazy='/user/activity', data-lazy-trigger='#sign-in')
+        li.divider
         li
           a(href='/logout')
             i.icon-exclamation-sign
