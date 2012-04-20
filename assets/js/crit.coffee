@@ -1,7 +1,7 @@
 BOX_TEMPLATE = jade.compile '''
 .crit
   a.close.show-after &times;
-  h4
+  label
    .num(style='background-color: #{color}') #{num}
    .arrow(style='border-left-color: #{color}')
 '''
@@ -41,7 +41,7 @@ class Crit
 
   onAfterCreate: =>
     @doc.off mousemove: @onResize
-    @container.find('.show-after').removeClass('show-after').end().find('h4').css(opacity: 1)
+    @container.find('.show-after').removeClass('show-after').end().find('label').show()
     @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
     @gridline.show()
     @container.on mouseenter: (=> @gridline.hide()), mouseleave: (=> @gridline.show())
