@@ -1,5 +1,4 @@
 everyauth = require 'everyauth'
-
 sendResponse = (res, data) => res.redirect data.session.redirectPath || '/'
 
 everyauth.google.appId('93758905889.apps.googleusercontent.com')
@@ -19,13 +18,18 @@ everyauth.facebook.appId('335823783146542')
 ).sendResponse sendResponse
 
 exports.configure = (app) ->
-  app.dynamicHelpers user: (req, res) ->
-    return null if !req.session.auth?
-    auth = req.session.auth
-    return auth.google.user if auth.google?
-    return auth.facebook.user if auth.facebook?
-
+  everyauth.helpExpress app
+  app.dynamicHelpers user: @currentUser
   app.get '/signin/:network', (req, res, next) =>
     req.session.redirectPath = req.header('Referer')
     res.redirect "/auth/#{req.params.network}"
 
+exports.currentUser =  (req) ->
+  return null if !req.session.auth?
+  auth = req.session.auth
+  return auth.google.user if auth.google?
+  return auth.facebook.user if auth.facebook?
+
+exports.loggedIn = (req) ->
+  user = exports.currentUser(req)
+  return user?
