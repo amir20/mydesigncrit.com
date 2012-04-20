@@ -22,13 +22,13 @@ class GridLine
   toggle: =>
     if @enabled then @disable() else @enable()
 
-  disable: ->
+  disable:(updateButton = true) ->
     @hide()
-    ($ '#toggle-gridlines').html('<i class="icon-ok-circle"></i> Show Grid Lines')
+    ($ '#toggle-gridlines').html('<i class="icon-ok-circle"></i> Show Grid Lines') if updateButton
     @enabled = false
 
-  enable: ->
-    ($ '#toggle-gridlines').html('<i class="icon-ban-circle"></i> Hide Grid Lines')
+  enable: (updateButton = true) ->
+    ($ '#toggle-gridlines').html('<i class="icon-ban-circle"></i> Hide Grid Lines') if updateButton
     @enabled = true
     @show()
 

@@ -42,7 +42,6 @@ class Crit
   # Gets called after a crit has been created
   onAfterCreate: =>
     @doc.off mousemove: @onResize
-    @gridline.show()
     @container.find('.show-after').removeClass('show-after').end().find('label').show()
     @createListItem()
     @attachEvents()
@@ -66,11 +65,11 @@ class Crit
       mousedown: (e) =>
         e.stopPropagation()
         e.preventDefault()
-        @gridline.hide()
+        @gridline.disable()
         @doc.on mousemove: @onResize
       mouseup: =>
         @doc.off mousemove: @onResize
-        @gridline.show()
+        @gridline.enable()
         @project.persist()
 
   onResize: (e) =>

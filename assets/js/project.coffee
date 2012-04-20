@@ -11,7 +11,7 @@ class Project
   onNewCrit: (e) =>
     if e.which == 1 && (e.target in @gridline.lines or e.target in @canvas.get())
       e.preventDefault()
-      @gridline.hide()
+      @gridline.disable()
       @sidebar.find('.placeholder').remove()
       @crits.push new Crit(
         project: this
@@ -20,6 +20,7 @@ class Project
         gridline: @gridline
         event: e
         callback: (crit) =>
+          @gridline.enable()
           @persist()
           @select(crit)
       )
