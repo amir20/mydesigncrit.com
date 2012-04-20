@@ -20,4 +20,3 @@ exports.createProject = (req, callback) ->
         project.save (error) ->
           console.log error if error
           callback(project)
-

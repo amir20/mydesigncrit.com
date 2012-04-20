@@ -2,8 +2,10 @@ everyauth = require 'everyauth'
 sendResponse = (res, data) => res.redirect data.session.redirectPath || '/'
 
 exports.initialize = ->
+  config = require '../config/everyauth'
+  env = process.env.NODE_ENV || 'default'
   everyauth.google.appId('93758905889.apps.googleusercontent.com')
-  .myHostname('http://local.mydesigncrit.com:3000')
+  .myHostname(config[env].hostname)
   .appSecret('8fRgaU5vILLosexrImVp69RB')
   .scope('https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.google.com/m8/feeds')
   .findOrCreateUser((session, accessToken, accessTokenExtra, googleUserMetadata) ->
@@ -11,7 +13,7 @@ exports.initialize = ->
   ).sendResponse sendResponse
 
   everyauth.facebook.appId('335823783146542')
-  .myHostname('http://local.mydesigncrit.com:3000')
+  .myHostname(config[env].hostname)
   .appSecret('78c0fdaac09bce0b3defdf6e3f0d6cb5')
   .scope('email')
   .findOrCreateUser((session, accessToken, accessTokenExtra, fbUserMetadata) ->

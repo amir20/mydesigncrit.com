@@ -2,7 +2,7 @@ mongoose = require 'mongoose'
 Schema = mongoose.Schema
 
 Crit = new mongoose.Schema
-  created_date: (type: Date, default: Date.now)
+  created_date: { type: Date, default: Date.now }
   comment: String
   x: Number
   y: Number
@@ -17,5 +17,7 @@ ProjectSchema = new Schema
     screenshotWidth: Number
     screenshotHeight: Number
     crits: [Crit]
+
+ProjectSchema.statics.findByAuthor = (author, cb) -> @find( author: author, cb)
   
 module.exports = mongoose.model 'Project', ProjectSchema

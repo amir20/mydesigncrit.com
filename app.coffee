@@ -22,7 +22,7 @@ app.configure ->
   app.use app.router
   app.use express.static(__dirname + '/public')
   app.use require('connect-assets')(minifyBuilds: false)
-  app.dynamicHelpers isProd: (req, res) -> process.env.NODE_ENV == 'production'
+  app.dynamicHelpers isProd: (req, res) -> process.env.NODE_ENV is 'production'
   everyauthHelper.configure(app)
 
 app.configure 'development', ->
