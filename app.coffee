@@ -4,10 +4,11 @@ mongoose = require 'mongoose'
 bootstrap = require 'bootstrap-stylus'
 stylus = require 'stylus'
 everyauth = require 'everyauth'
-everyauthHelper = require './lib/everyauth'
+everyauthHelper = require './lib/everyauthHelper'
 
 mongoose.connect 'mongodb://localhost/mydesigncrit'
 app = module.exports = express.createServer()
+everyauthHelper.initialize()
 
 app.configure ->
   app.set 'views', "#{__dirname}/views"
