@@ -4,6 +4,7 @@ $ ->
     modelUrl = $contiainer.data('lazy')
     templateUrl = "/templates/#{modelUrl.replace(/\//g, "-").replace(/^\-/, '')}.jade"
     $($(this).data('lazy-trigger')).one click: ->
+      $contiainer.text("loading...")
       $.get templateUrl, (template) ->
         compiledTemplate = jade.compile template
         $.getJSON modelUrl, (model) ->
