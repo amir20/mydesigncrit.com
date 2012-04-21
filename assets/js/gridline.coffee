@@ -4,8 +4,9 @@ class GridLine
     @v = ($ '.gridline.v')
     @lines = ($ '.gridline')
     @enabled = true
+    @locked = false
 
-    ($ document).on 'mousemove', (e) =>
+    ($ document).on mousemove: (e) =>
       $doc = ($ document)
       [left, top] = [e.pageX - $doc.scrollLeft(), e.pageY - $doc.scrollTop()]
       @h.css top: top
@@ -13,11 +14,13 @@ class GridLine
 
     ($ '#toggle-gridlines').on click: @toggle
 
-  hide: ->
-    @lines.hide()
+  hide: (aquire = false) ->
+    @locked = true if aquire
+    @lines.hide() if !@locked
 
-  show: ->
-    @lines.show() if @enabled
+  show: (release = false) ->
+    @locked = false if release
+    @lines.show() if !@locked and @enabled
 
   toggle: =>
     if @enabled then @disable() else @enable()

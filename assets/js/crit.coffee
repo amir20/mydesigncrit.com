@@ -63,11 +63,11 @@ class Crit
       mousedown: (e) =>
         e.stopPropagation()
         e.preventDefault()
-        @gridline.disable(false)
+        @gridline.hide(true)
         @doc.on mousemove: @onResize
       mouseup: =>
         @doc.off mousemove: @onResize
-        @gridline.enable(false)
+        @gridline.show(true)
         @project.persist()
 
   onResize: (e) =>
