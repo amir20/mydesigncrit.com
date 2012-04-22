@@ -2,8 +2,14 @@ div#toolbar.navbar.navbar-fixed-top
   .navbar-inner
     .container-fluid
       a.brand(href='/') myDesignCrit.com
+      ul.nav.pull-right
+        li.dropdown
+          a.dropdown-toggle(data-toggle='dropdown', href='#')
+            i.icon-white.icon-cog
+          ul.dropdown-menu
+            li
+              a#toggle-gridlines(href='#')
+                i.icon-ban-circle
+                |  Hide Grid Lines
       include ../auth/signin
-      a#toggle-gridlines.btn.btn-small.pull-right
-        i.icon-ban-circle
-        |  Hide Grid Lines
 
