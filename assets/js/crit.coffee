@@ -30,8 +30,10 @@ class Crit
 
     # Add the container to canvas
     (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css left: @x, top: @y).appendTo @canvas
+    @container.addClass 'hover'
 
     @doc.one mouseup: (e) =>
+      @container.removeClass 'hover'
       @onAfterCreate()
       @callback(this) if @callback
 
