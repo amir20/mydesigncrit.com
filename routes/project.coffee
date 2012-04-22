@@ -17,15 +17,15 @@ module.exports = (app) ->
         res.send project
       else
         user = everyauthHelper.currentUser(req)
-        if project.author is req.sessionID || (user? && project.author is user.email)
+        if project.author is req.sessionID || (user? && project.author is user.email) || process.env.NODE_ENV isnt 'production'
           if project.author is req.sessionID && user?
             project.author = user.email
             project.save ->
-              res.render 'project/edit', title: "myDesignCrit.com - #{project.url}", project: project
+              res.render 'project/edit', title: "#{project.url}", project: project
           else
-            res.render 'project/edit', title: "myDesignCrit.com - #{project.url}", project: project
+            res.render 'project/edit', title: "#{project.url}", project: project
         else
-          res.render 'error/notAuthorized', title: "myDesignCrit.com - Not Authorized", status: 401
+          res.render 'error/notAuthorized', title: "Not Authorized", status: 401
 
 
   app.post '/edit/:id', (req, res) ->
