@@ -4,6 +4,8 @@ div#toolbar.navbar.navbar-fixed-top
       a.brand(href='/') myDesignCrit.com
       ul.nav.pull-right
         li.dropdown
+          include ../auth/signin
+        li.dropdown
           a.dropdown-toggle(data-toggle='dropdown', href='#')
             i.icon-white.icon-cog
           ul.dropdown-menu
@@ -11,5 +13,3 @@ div#toolbar.navbar.navbar-fixed-top
               a#toggle-gridlines(href='#')
                 i.icon-ban-circle
                 |  Hide Grid Lines
-      include ../auth/signin
-

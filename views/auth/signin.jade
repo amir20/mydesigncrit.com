@@ -1,28 +1,26 @@
-ul.nav.pull-right
-  li.dropdown
-    - if (everyauth.loggedIn)
-      a#sign-in.dropdown-toggle(data-toggle='dropdown', href='#')
-        i.icon-user
-        |  Hi, #{user.name}!
-        b.caret
-      ul.dropdown-menu
-        li.text Recent activity
-        li.text(data-lazy='/user/activity', data-lazy-trigger='#sign-in')
-        li.divider
-        li
-          a(href='/logout')
-            i.icon-exclamation-sign
-            |  Sign Out
-    - else
-      a#sign-in.dropdown-toggle(data-toggle='dropdown', href='#')
-        i.icon-user
-        |  Sign In
-        b.caret
-      ul.dropdown-menu
-        li
-          a(href='/signin/google')
-            i.social-google
-            |  Google
-          a(href='/signin/facebook')
-            i.social-facebook
-            |  Facebook
+- if (everyauth.loggedIn)
+  a#sign-in.dropdown-toggle(data-toggle='dropdown', href='#')
+    i.icon-user
+    |  Hi, #{user.name}!
+    b.caret
+  ul.dropdown-menu
+    li.text Recent activity
+    li.text(data-lazy='/user/activity', data-lazy-trigger='#sign-in')
+    li.divider
+    li
+      a(href='/logout')
+        i.icon-exclamation-sign
+        |  Sign Out
+- else
+  a#sign-in.dropdown-toggle(data-toggle='dropdown', href='#')
+    i.icon-user
+    |  Sign In
+    b.caret
+  ul.dropdown-menu
+    li
+      a(href='/signin/google')
+        i.social-google
+        |  Google
+      a(href='/signin/facebook')
+        i.social-facebook
+        |  Facebook
