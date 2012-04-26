@@ -27,6 +27,12 @@ module.exports = (app) ->
         else
           res.render 'error/notAuthorized', title: "Not Authorized", status: 401
 
+  app.get '/v/:id.:format?', (req, res) ->
+    Project.findByShortId req.params.id, (err, project) ->
+      if req.params.format is 'json'
+        res.send project
+      else
+        res.render 'project/view', title: project.url, project: project
 
   app.post '/edit/:id', (req, res) ->
     Project.findById req.params.id, (err, project) ->

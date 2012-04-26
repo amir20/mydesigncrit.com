@@ -1,6 +1,5 @@
 #canvas-background
   background-image url(/img/checker.png)
-  margin-right: 290px;
   padding-top 45px
 
   #canvas
@@ -84,7 +83,6 @@
           border-left 15px solid #ff7537
           absolute left
           left 40px
-
   
 #sidebar
   fixed right
@@ -130,5 +128,35 @@
 
     .thumbs-down
       background-image url(/img/glyphicons_344_thumbs_down.png)
+
+#edit, #view
+  .nav
+    > li
+      > a
+        color #ccc
+        &:hover
+          color #fff
+
+#edit
+  #canvas-background
+    margin-right 290px
+
+#view
+  #canvas-background
+    #canvas
+      .crit
+        transition min-width .4s ease .1s, min-height .4s ease .3s
+        &:hover, &.hover
+          background rgba(244, 244, 244, .95)
+          min-width 180px
+          min-height 140px
+          .comment
+            overflow-y auto
+            min-height 140px
+      .comment
+        transition min-width .4s ease .1s, min-height .4s ease .3s
+        padding 0 5px
+        height 100%
+        overflow hidden
 
   

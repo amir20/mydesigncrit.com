@@ -1,18 +1,22 @@
 class Project
-  constructor: (@id, @gridline = new GridLine(), @canvas = ($ '#canvas'), @sidebar = ($ '#sidebar')) ->
+  constructor: (@id, @readOnly = false, @onReady = -> ) ->
+    @gridline = new GridLine()
+    @canvas = ($ '#canvas')
+    @sidebar = ($ '#sidebar')
     @crits = []
-    ($ document).on mousedown: @onNewCrit
     @load() if @id?
-    ($ '#save-crit').on click: @saveCurrentCrit
-    ($ '#remove-crit').on click: @removeCurrentCrit
-    ($ '#cancel-crit').on click: @cancelCurrentCrit
+    if !@readOnly
+      ($ document).on mousedown: @onNewCrit
+      ($ '#save-crit').on click: @saveCurrentCrit
+      ($ '#remove-crit').on click: @removeCurrentCrit
+      ($ '#cancel-crit').on click: @cancelCurrentCrit
+      ($ '#remove-all').on click: @removeAll
 
 
   onNewCrit: (e) =>
     if e.which == 1 && (e.target in @gridline.lines or e.target in @canvas.get())
       e.preventDefault()
       @gridline.disable(false)
-      @sidebar.find('.placeholder').remove()
       @crits.push new Crit(
         project: this
         sidebar: @sidebar
@@ -20,6 +24,7 @@ class Project
         gridline: @gridline
         event: e
         callback: (crit) =>
+          @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
           @gridline.enable(false)
           @persist()
           @select(crit)
@@ -63,22 +68,25 @@ class Project
     crit.updateNum i + 1 for crit, i in @crits
     @persist()
 
-  removeAll: ->
+  removeAll: =>
     @crits = []
-    ($ '#crits > li, #canvas .crit').remove()
+    ($ '#crits > li, #canvas .crit').not('.placeholder').remove().end().filter('.placeholder').show()
+    ($ '#remove-all').hide()
     @persist()
 
   persist: ->
-    crits = []
-    for c in @crits
-      crits.push c.toArray()
-    $.post('', crits: crits)
+    if !@readOnly
+      crits = []
+      for c in @crits
+        crits.push c.toArray()
+      $.post('', crits: crits)
 
   load: ->
     $.get(document.location + '.json').success (project) =>
       if project.crits? && project.crits.length > 0
-        @sidebar.find('.placeholder').remove()
-        for array in project.crits
-          @crits.push new Crit(project: this, sidebar: @sidebar, canvas: @canvas, gridline: @gridline, array: array)
+        @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
+        for c in project.crits
+          @crits.push new Crit(project: this, sidebar: @sidebar, canvas: @canvas, gridline: @gridline, array: c, readOnly: @readOnly)
+      @onReady(this)
 
 window.Project = Project

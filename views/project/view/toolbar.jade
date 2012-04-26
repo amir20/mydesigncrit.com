@@ -1,0 +1,11 @@
+div#toolbar.navbar.navbar-fixed-top
+  .navbar-inner
+    .container-fluid
+      a.brand(href='/') myDesignCrit.com
+      ul.nav.pull-right
+        li
+          a(href="/edit/#{project.id}") Edit
+        li
+          a Share
+        li.dropdown
+          include ../../auth/signin

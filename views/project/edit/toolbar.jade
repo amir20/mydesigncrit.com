@@ -3,8 +3,12 @@ div#toolbar.navbar.navbar-fixed-top
     .container-fluid
       a.brand(href='/') myDesignCrit.com
       ul.nav.pull-right
+        li
+          a(href="/v/#{project.shortId}") Preview
+        li
+          a Share
         li.dropdown
-          include ../auth/signin
+          include ../../auth/signin
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown', href='#')
             i.icon-white.icon-cog

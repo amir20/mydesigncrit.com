@@ -5,6 +5,7 @@ BOX_TEMPLATE = jade.compile '''
   label
    .num(style='background-color: #{color}') #{num}
    .arrow(style='border-left-color: #{color}')
+  .comment
 '''
 
 LIST_TEMPLATE = jade.compile '''
@@ -16,10 +17,20 @@ COLORS = ['#9d91e7', '#fb4c2f', '#42d692', '#4986e7', '#c2c2c2', '#b1a07d', '#2d
 
 class Crit
   constructor: (@params) ->
-    { project: @project, sidebar: @sidebar, gridline: @gridline, canvas: @canvas, event: event, callback: @callback, array: array } = @params
+    {
+    project: @project,
+    sidebar: @sidebar,
+    gridline: @gridline,
+    canvas: @canvas,
+    event: event,
+    callback: @callback,
+    readOnly: @readOnly
+    array: array
+    } = @params
     @doc = ($ document)
     @num = @project.crits.length + 1
     @color = COLORS[@num % COLORS.length]
+    @readOnly ||= false
 
     # Array is present when loading from ajax
     return @fromArray(array) if array?
@@ -42,9 +53,11 @@ class Crit
   # Gets called after a crit has been created
   onAfterCreate: =>
     @doc.off mousemove: @onResize
-    @container.find('.show-after').removeClass('show-after').end().find('label').show()
-    @createListItem()
-    @attachEvents()
+    @container.find('label').show()
+    if !@readOnly
+      @container.find('.show-after').removeClass('show-after')
+      @createListItem()
+      @attachEvents()
 
   createListItem: =>
     @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
