@@ -16,21 +16,23 @@ module.exports = (app) ->
       if req.params.format is 'json'
         res.send project
       else
-        user = everyauthHelper.currentUser(req)
-        if project.author is req.sessionID || (user? && project.author is user.email) || process.env.NODE_ENV isnt 'production'
+        if projectHelper.isAuthorized(req, project)
+          user = everyauthHelper.currentUser(req)
           if project.author is req.sessionID && user?
             project.author = user.email
             project.save ->
-              res.render 'project/edit', title: "#{project.url}", project: project
+              res.render 'project/edit', title: project.url, project: project
           else
-            res.render 'project/edit', title: "#{project.url}", project: project
+            res.render 'project/edit', title: project.url, project: project
         else
           res.render 'error/notAuthorized', title: "Not Authorized", status: 401
 
 
   app.post '/edit/:id', (req, res) ->
     Project.findById req.params.id, (err, project) ->
-      project.crits = req.body.crits if req.body.crits?
-      project.save ->
-        res.send project
+      if projectHelper.isAuthorized(req, project)
+        project.crits = req.body.crits
+        project.save ->
+          res.send project
+
 

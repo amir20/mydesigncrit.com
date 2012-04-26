@@ -24,3 +24,9 @@ exports.createProject = (req, callback) ->
 exports.findProjectsByUser = (req, callback) ->
   user = everyauthHelper.currentUser(req)
   if user? then Project.findByAuthor(user.email, callback) else callback(null, [])
+
+exports.isAuthorized = (req, project) ->
+  user = everyauthHelper.currentUser(req)
+  project.author is req.sessionID || (user? && project.author is user.email) || process.env.NODE_ENV isnt 'production'
+
+

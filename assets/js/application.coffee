@@ -3,4 +3,4 @@
 #= require_self
 #= require_tree .
 
-window.notEmpty = (array) -> array? and array.length > 0
+jQuery.fn.exists = -> @length > 0
