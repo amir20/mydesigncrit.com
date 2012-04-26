@@ -66,9 +66,11 @@ class Crit
         e.stopPropagation()
         e.preventDefault()
         @gridline.hide(true)
+        @container.addClass 'hover'
         @doc.on mousemove: @onResize
       mouseup: =>
         @doc.off mousemove: @onResize
+        @container.removeClass 'hover'
         @gridline.show(true)
         @project.persist()
 
