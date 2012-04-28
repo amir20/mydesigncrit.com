@@ -19,6 +19,10 @@ app.configure ->
   app.use express.cookieParser()
   app.use express.session({secret: 'd3751038b3174d46971c7226d8959338'})
   app.use everyauth.middleware()
+  app.all '*', (req, res, next) ->
+    req.isLoggedIn = everyauthHelper.isLoggedIn(req)
+    req.user = everyauthHelper.currentUser(req)
+    next()
   app.use app.router
   app.use express.static(__dirname + '/public')
   app.use require('connect-assets')(minifyBuilds: false)

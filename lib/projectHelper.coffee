@@ -1,13 +1,10 @@
 Project = require '../models/project'
 gm = require 'gm'
 screenshotHelper = require './screenshotHelper'
-everyauthHelper = require './everyauthHelper'
-
 
 exports.createProject = (req, callback) ->
-  user = everyauthHelper.currentUser(req)
   project = new Project(url: req.body.url)
-  project.author = if user? then user.email else req.sessionID
+  project.author = if req.isLoggedIn then req.user else req.sessionID
   project.save (error) ->
     console.log error if error
     console.log("Created project with id [#{project.id}] for [#{project.url}].")
@@ -21,12 +18,10 @@ exports.createProject = (req, callback) ->
           console.log error if error
           callback(project)
 
-exports.findProjectsByUser = (req, callback) ->
-  user = everyauthHelper.currentUser(req)
+exports.findProjectsByUser = (user, callback) ->
   if user? then Project.findByAuthor(user.email, callback) else callback(null, [])
 
 exports.isAuthorized = (req, project) ->
-  user = everyauthHelper.currentUser(req)
-  project.author is req.sessionID || (user? && project.author is user.email) || process.env.NODE_ENV isnt 'production'
+  project.author is req.sessionID || (req.isLoggedIn && project.author is req.user.email) || process.env.NODE_ENV isnt 'production'
 
 

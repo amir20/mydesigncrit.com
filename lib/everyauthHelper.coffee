@@ -33,6 +33,6 @@ exports.currentUser =  (req) ->
   return auth.google.user if auth.google?
   return auth.facebook.user if auth.facebook?
 
-exports.loggedIn = (req) ->
+exports.isLoggedIn = (req) ->
   user = exports.currentUser(req)
   return user?

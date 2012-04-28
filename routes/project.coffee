@@ -1,6 +1,5 @@
 Project = require '../models/project'
 projectHelper = require '../lib/projectHelper'
-everyauthHelper = require '../lib/everyauthHelper'
 
 controller = 'project'
 
@@ -19,9 +18,8 @@ module.exports = (app) ->
         res.send project
       else
         if projectHelper.isAuthorized(req, project)
-          user = everyauthHelper.currentUser(req)
-          if project.author is req.sessionID && user?
-            project.author = user.email
+          if project.author is req.sessionID && req.isLoggedIn
+            project.author = req.user.email
             project.save ->
               res.render 'project/edit', title: project.url, project: project, controller: controller
           else
