@@ -1,6 +1,13 @@
 .container-fluid
- .page-header
-   h1 Email sent successfully
- p Your email has been successfully sent.
+- if(err)
+    .alert.alert-error
+      h1.alert-heading Unable to send email.
+      p There was a problem sending email to #{email}. Please try again later.
+      pre Details: #{err}
+- else
+   .alert.alert-success
+     h1.alert-heading Email sent.
+     p Your email to #{email} has been successfully sent. Thank you for using mydesigncrit.com!
+
  button.btn(data-close) Close
 

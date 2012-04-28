@@ -5,8 +5,11 @@
    label Recipient's email
      input.span3(type='email', placeholder='recipient@domain.com', name='email', required)
 
+    label Your name
+     input.span3(type='text', placeholder='John Smith', name='sender', required, value="#{user ? user.name : ''}")
+
    label Your email
-     input.span3(type='email', placeholder='you@domain.com', name='from')
+     input.span3(type='email', placeholder='you@domain.com', name='from', required, value="#{user ? user.email : ''}")
 
    label Message
      textarea.input-xxlarge(rows='3', name='message')

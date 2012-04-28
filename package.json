@@ -15,7 +15,7 @@
     "gm": ">= 1.0.5",
     "everyauth": ">= 0.2.32",
     "shortid": ">= 1.0.6",
-    "mailer": ">= 0.6.7"
+    "nodemailer": ">= 0.3.18"
   },
   "devDependencies": {},
   "engines": {
