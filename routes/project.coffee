@@ -2,6 +2,8 @@ Project = require '../models/project'
 projectHelper = require '../lib/projectHelper'
 everyauthHelper = require '../lib/everyauthHelper'
 
+controller = 'project'
+
 module.exports = (app) ->
   app.post '/(index.:format)?', (req, res) ->
     if req.body.url?.length
@@ -21,18 +23,18 @@ module.exports = (app) ->
           if project.author is req.sessionID && user?
             project.author = user.email
             project.save ->
-              res.render 'project/edit', title: project.url, project: project
+              res.render 'project/edit', title: project.url, project: project, controller: controller
           else
-            res.render 'project/edit', title: project.url, project: project
+            res.render 'project/edit', title: project.url, project: project, controller: controller
         else
-          res.render 'error/notAuthorized', title: "Not Authorized", status: 401
+          res.render 'error/notAuthorized', title: "Not Authorized", status: 401, controller: controller
 
   app.get '/v/:id.:format?', (req, res) ->
     Project.findByShortId req.params.id, (err, project) ->
       if req.params.format is 'json'
         res.send project
       else
-        res.render 'project/view', title: project.url, project: project
+        res.render 'project/view', title: project.url, project: project, controller: controller
 
   app.post '/edit/:id', (req, res) ->
     Project.findById req.params.id, (err, project) ->

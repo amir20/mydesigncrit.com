@@ -1,0 +1,16 @@
+.container-fluid
+ .page-header
+   h1 Share
+ form(action='/share')
+   label Recipient's email
+     input.span3(type='text', placeholder='name@domain.com', name='email')
+
+   label Your email
+     input.span3(type='text', placeholder='name@domain.com', name='from')
+
+   label Message
+     textarea.input-xlarge(rows='3', name='message')
+     span.help-block (Optional)
+
+   input(type='hidden', value="#{project.shortId}", name='shortId')
+   button.btn.btn-primary(type='submit') Send

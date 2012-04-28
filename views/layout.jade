@@ -7,6 +7,6 @@ html
     != js('application')
     - if (isProd)
       include scripts/analytics
-  body
+  body(class="#{controller}")
     != body
     include scripts/feedback

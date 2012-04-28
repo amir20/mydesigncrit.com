@@ -4,7 +4,7 @@ class Project
     @canvas = ($ '#canvas')
     @sidebar = ($ '#sidebar')
     @crits = []
-    @load() if @id?
+    @load()
     if !@readOnly
       ($ document).on mousedown: @onNewCrit
       ($ '#save-crit').on click: @saveCurrentCrit
@@ -82,7 +82,7 @@ class Project
       $.post('', crits: crits)
 
   load: ->
-    $.get(document.location + '.json').success (project) =>
+    $.get("/edit/#{@id}.json").success (project) =>
       if project.crits? && project.crits.length > 0
         @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
         for c in project.crits

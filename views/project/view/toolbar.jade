@@ -6,6 +6,6 @@ div#toolbar.navbar.navbar-fixed-top
         li
           a(href="/edit/#{project.id}") Edit
         li
-          a Share
+          a#share.dialog(href="/share/#{project.shortId}") Share
         li.dropdown
           include ../../auth/signin
