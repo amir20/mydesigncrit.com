@@ -17,8 +17,17 @@ class Dialog
   load: (url) =>
     @dialog.addClass('loading').find('.content').html('').load(url, @onLoad)
 
+  handleForm: (e) =>
+    e.preventDefault()
+    @dialog.addClass('loading').find('.content').html('').load(e.target.action, $(e.target).serialize(), @onLoad)
+
+
   onLoad: =>
     @dialog.removeClass('loading')
+    @dialog.find('[data-close]').one click: (e) =>
+      e.preventDefault()
+      @close()
+    @dialog.find('form').on submit: @handleForm
 
   close: ->
     activeDialog = null

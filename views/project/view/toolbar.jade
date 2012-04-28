@@ -3,8 +3,9 @@ div#toolbar.navbar.navbar-fixed-top
     .container-fluid
       a.brand(href='/') myDesignCrit.com
       ul.nav.pull-right
-        li
-          a(href="/edit/#{project.id}") Edit
+        - if (canEdit)
+          li
+            a(href="/edit/#{project.id}") Edit
         li
           a#share.dialog(href="/share/#{project.shortId}") Share
         li.dropdown

@@ -14,14 +14,15 @@
     "bootstrap-stylus": ">= 0.2.0",
     "gm": ">= 1.0.5",
     "everyauth": ">= 0.2.32",
-    "shortid": ">= 1.0.6"
+    "shortid": ">= 1.0.6",
+    "mailer": ">= 0.6.7"
   },
   "devDependencies": {},
   "engines": {
     "node": "*"
   },
   "author": "Amir Raminfar <findamir@gmail.com>",
-  "description": "A project that can make comments on screenshots",
+  "description": "A project that can make comments on websites",
   "repository": {
     "url": ""
   },

@@ -10,7 +10,7 @@ module.exports = (app) ->
       projectHelper.createProject req, (project) ->
         if req.params.format is 'json' then res.send project else res.redirect "/edit/#{project.id}"
     else
-      res.send('URL not defined')
+      res.send 'URL not defined'
 
   app.get '/edit/:id.:format?', (req, res) ->
     Project.findById req.params.id, (err, project) ->
@@ -32,7 +32,7 @@ module.exports = (app) ->
       if req.params.format is 'json'
         res.send project
       else
-        res.render 'project/view', title: project.url, project: project, controller: controller
+        res.render 'project/view', title: project.url, project: project, controller: controller, canEdit: projectHelper.isAuthorized(req, project)
 
   app.post '/edit/:id', (req, res) ->
     Project.findById req.params.id, (err, project) ->
