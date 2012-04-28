@@ -4,7 +4,7 @@ screenshotHelper = require './screenshotHelper'
 
 exports.createProject = (req, callback) ->
   project = new Project(url: req.body.url)
-  project.author = if req.isLoggedIn then req.user else req.sessionID
+  project.author = if req.isLoggedIn then req.user.email else req.sessionID
   project.save (error) ->
     console.log error if error
     console.log("Created project with id [#{project.id}] for [#{project.url}].")
@@ -22,6 +22,6 @@ exports.findProjectsByUser = (user, callback) ->
   if user? then Project.findByAuthor(user.email, callback) else callback(null, [])
 
 exports.isAuthorized = (req, project) ->
-  project.author is req.sessionID || (req.isLoggedIn && project.author is req.user.email) || process.env.NODE_ENV isnt 'production'
+  project.author is req.sessionID || (req.isLoggedIn && project.author is req.user.email)
 
 

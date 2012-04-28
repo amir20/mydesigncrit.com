@@ -9,12 +9,9 @@ module.exports = (app) ->
   app.post '/share/:id', (req, res) ->
     Project.findByShortId req.params.id, (err, project) ->
       mailer.send
-        host: "smtp.sendgrid.net"
-        port: "587"
-        domain: "smtp.sendgrid.net"
-        authentication: "login"
-        username: 'amirraminfar'
-        password: 'Snapple101'
+        host: "localhost"
+        port: "25"
+        domain: "localhost"
         from: req.body.from
         to: req.body.email
         subject: "node_mailer test email"
