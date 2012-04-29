@@ -41,6 +41,7 @@ transport = nodemailer.createTransport 'smtp',
           from: '"My Design Crit" info@mydesigncrit.com'
           replyTo: req.body.from
           to: req.body.email
+          cc: req.body.from
           subject: "mydesigncrit.com - #{project.url}!"
           html: emailTemplate(sender: req.body.sender, message: req.body.message, project: project)
 
