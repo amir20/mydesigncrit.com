@@ -23,7 +23,7 @@ app.configure ->
 
   app.configure 'production', ->
     RedisStore = require('connect-redis')(express)
-    app.use express.session(secret: 'd13dc6fb75538e8f40112c407c5fe03a012b392', store: new RedisStore)
+    app.use express.session(secret: 'd13dc6fb75538e8f40112c407c5fe03a012b392', store: new RedisStore, cookie: { maxAge: 1209600000 })
 
   app.use everyauth.middleware()
   app.all '*', (req, res, next) ->
