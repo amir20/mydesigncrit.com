@@ -17,7 +17,14 @@ app.configure ->
   app.use express.bodyParser()
   app.use express.methodOverride()
   app.use express.cookieParser()
-  app.use express.session({secret: 'd3751038b3174d46971c7226d8959338'})
+
+  app.configure 'development', ->
+    app.use express.session(secret: 'foo')
+
+  app.configure 'production', ->
+    RedisStore = require('connect-redis')(express)
+    app.use express.session(secret: 'd13dc6fb75538e8f40112c407c5fe03a012b392', store: new RedisStore)
+
   app.use everyauth.middleware()
   app.all '*', (req, res, next) ->
     req.isLoggedIn = everyauthHelper.isLoggedIn(req)
@@ -30,7 +37,7 @@ app.configure ->
   everyauthHelper.configure(app)
 
 app.configure 'development', ->
-  app.use express.errorHandler({ dumpExceptions: true, showStack: true })
+  app.use express.errorHandler(dumpExceptions: true, showStack: true)
 
 app.configure 'production', ->
   app.use express.errorHandler()
