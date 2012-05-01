@@ -24,8 +24,5 @@
   },
   "author": "Amir Raminfar <findamir@gmail.com>",
   "description": "A project that can make comments on websites",
-  "repository": {
-    "url": ""
-  },
   "main" : "app.coffee"
 }
