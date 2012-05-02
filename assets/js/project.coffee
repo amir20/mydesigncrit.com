@@ -1,5 +1,5 @@
 class Project
-  constructor: (@id, @readOnly = false, @onReady = ->) ->
+  constructor: (@readOnly = false, @onReady = ->) ->
     @gridline = new GridLine()
     @canvas = ($ '#canvas')
     @sidebar = ($ '#sidebar')
@@ -82,7 +82,7 @@ class Project
       $.post('', crits: crits)
 
   load: ->
-    $.get("/edit/#{@id}.json").success (project) =>
+    $.get("#{document.location.pathname}.json").success (project) =>
       if project.crits? && project.crits.length > 0
         @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
         for c in project.crits
