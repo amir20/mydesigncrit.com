@@ -16,7 +16,7 @@ class GridLine
 
   hide: (aquire = false) ->
     @locked = true if aquire
-    @lines.hide() if !@locked
+    @lines.hide() unless @locked
 
   show: (release = false) ->
     @locked = false if release
@@ -31,7 +31,7 @@ class GridLine
     @enabled = false
     @hide()
 
-  enable:  ->
+  enable: ->
     ($ '#toggle-gridlines').html('<i class="icon-ban-circle"></i> Hide Grid Lines')
     @enabled = true
     @show()

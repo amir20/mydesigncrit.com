@@ -1,11 +1,11 @@
 class Project
-  constructor: (@id, @readOnly = false, @onReady = -> ) ->
+  constructor: (@id, @readOnly = false, @onReady = ->) ->
     @gridline = new GridLine()
     @canvas = ($ '#canvas')
     @sidebar = ($ '#sidebar')
     @crits = []
     @load()
-    if !@readOnly
+    unless @readOnly
       ($ document).on mousedown: @onNewCrit
       ($ '#save-crit').on click: @saveCurrentCrit
       ($ '#remove-crit').on click: @removeCurrentCrit
@@ -75,7 +75,7 @@ class Project
     @persist()
 
   persist: ->
-    if !@readOnly
+    unless @readOnly
       crits = []
       for c in @crits
         crits.push c.toArray()

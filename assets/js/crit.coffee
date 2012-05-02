@@ -54,7 +54,7 @@ class Crit
   onAfterCreate: =>
     @doc.off mousemove: @onResize
     @container.find('label').show()
-    if !@readOnly
+    unless @readOnly
       @container.find('.show-after').removeClass('show-after')
       @createListItem()
       @attachEvents()
@@ -120,7 +120,7 @@ class Crit
   edit: =>
     ($ '#crit-comment').val(@comment)
     @container.addClass('active')
-    $('html,body').animate(scrollTop: @container.offset().top - 100, 'fast') if !@container.is(':in-viewport')
+    $('html,body').animate(scrollTop: @container.offset().top - 100, 'fast') unless @container.is(':in-viewport')
 
   cancel: ->
     @container.removeClass('active')
