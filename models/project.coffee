@@ -15,6 +15,7 @@ ProjectSchema = new Schema
     url: { type: String, index: true }
     shortId: { type: String, index: true, default: ShortId.generate }
     author: { type: String, index: true }
+    title: String
     screenshot: String
     screenshotWidth: Number
     screenshotHeight: Number

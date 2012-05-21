@@ -8,6 +8,7 @@ exports.capture = (url, id, callback) ->
       console.log("Opening [#{url}]")
       page.open url, (status) ->
         console.log("Rendering to file [#{path}]")
-        page.render path, ->
-          ph.exit()
-          callback path
+        page.evaluate (-> document.title), (title) ->
+          page.render path, ->
+            ph.exit()
+            callback title, path

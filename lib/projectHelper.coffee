@@ -8,8 +8,9 @@ exports.createProject = (req, callback) ->
   project.save (error) ->
     console.log error if error
     console.log("Created project with id [#{project.id}] for [#{project.url}].")
-    screenshotHelper.capture project.url, project.id, (path) ->
+    screenshotHelper.capture project.url, project.id, (title, path) ->
       project.screenshot = path.replace 'public', ''
+      project.title = title
       gm(path).size (err, size) ->
         console.log err if err
         project.screenshotWidth = size.width

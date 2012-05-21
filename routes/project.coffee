@@ -24,9 +24,9 @@ module.exports = (app) ->
           if project.author is req.sessionID && req.isLoggedIn
             project.author = req.user.email
             project.save ->
-              res.render 'project/edit', title: project.url, project: project, controller: controller
+              res.render 'project/edit', title: project.title, project: project, controller: controller
           else
-            res.render 'project/edit', title: project.url, project: project, controller: controller
+            res.render 'project/edit', title: project.title, project: project, controller: controller
         else
           res.render 'error/notAuthorized', title: 'Not Authorized', status: 401, controller: controller
 
