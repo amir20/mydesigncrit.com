@@ -5,6 +5,7 @@ bootstrap = require 'bootstrap-stylus'
 stylus = require 'stylus'
 everyauth = require 'everyauth'
 everyauthHelper = require './lib/everyauthHelper'
+require './lib/date'
 
 mongoose.connect 'mongodb://localhost/mydesigncrit'
 app = module.exports = express.createServer()

@@ -17,11 +17,12 @@ ProjectSchema = new Schema
     author: { type: String, index: true }
     title: String
     screenshot: String
+    thumbnail: String
     screenshotWidth: Number
     screenshotHeight: Number
     crits: [Crit]
 
-ProjectSchema.statics.findByAuthor = (author, cb) -> @find(author: author).desc('created_date').limit(40).run(cb)
+ProjectSchema.statics.findByAuthor = (author, cb, start = 0, limit = 10) -> @find(author: author).desc('created_date').skip(start).limit(limit).run(cb)
 ProjectSchema.statics.findByShortId = (id, cb) -> @findOne(shortId: id).run(cb)
   
 module.exports = mongoose.model 'Project', ProjectSchema

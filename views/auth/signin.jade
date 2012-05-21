@@ -5,7 +5,10 @@
     b.caret
   ul.dropdown-menu
     li.text Recent activity
-    li.text(data-lazy='/user/activity', data-lazy-trigger='#sign-in')
+    li.text(data-lazy='/user/activity/recent.json', data-lazy-trigger='#sign-in')
+    li.divider
+    li
+      a(href='/user/activity/all') Show All Projects
     li.divider
     li
       a(href='/logout')

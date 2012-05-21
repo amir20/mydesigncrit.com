@@ -1,0 +1,23 @@
+#user
+ div.navbar
+   .navbar-inner
+     .container-fluid
+       a.brand(href='/') myDesignCrit.com
+       ul.nav.pull-right
+         li.dropdown
+           include ../auth/signin
+ .container
+   .page-header
+     h1 Projects Created By You
+   ul.unstyled.activity
+     - each item in projects
+       li
+         a.thumbnail.pull-left(href="/edit/#{item._id}")
+           img(src=item.thumbnail, alt=item.title)
+         a.title(href="/edit/#{item._id}") #{item.title}
+         span.count  (#{item.crits.length} crits)
+         .url #{item.url}
+         time.localtime.create-on #{item.created_date.toISO()}
+
+  include ../common/footer
+
