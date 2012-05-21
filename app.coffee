@@ -29,11 +29,12 @@ app.configure ->
   app.all '*', (req, res, next) ->
     req.isLoggedIn = everyauthHelper.isLoggedIn(req)
     req.user = everyauthHelper.currentUser(req)
+    req.isProd = process.env.NODE_ENV is 'production'
     next()
   app.use app.router
   app.use express.static(__dirname + '/public')
   app.use require('connect-assets')(minifyBuilds: false)
-  app.dynamicHelpers isProd: (req, res) -> process.env.NODE_ENV is 'production'
+  app.dynamicHelpers isProd: (req, res) -> req.isProd
   everyauthHelper.configure(app)
 
 app.configure 'development', ->

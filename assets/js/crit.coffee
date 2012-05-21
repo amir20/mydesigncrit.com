@@ -53,6 +53,8 @@ class Crit
   # Gets called after a crit has been created
   onAfterCreate: =>
     @doc.off mousemove: @onResize
+    @x = @container.offset().left - @canvas.offset().left
+    @y = @container.offset().top - @canvas.offset().top
     @container.find('label').show()
     unless @readOnly
       @container.find('.show-after').removeClass('show-after')
@@ -81,15 +83,21 @@ class Crit
         @gridline.hide(true)
         @container.addClass 'hover'
         @doc.on mousemove: @onResize
-      mouseup: =>
-        @doc.off mousemove: @onResize
-        @container.removeClass 'hover'
-        @gridline.show(true)
-        @project.persist()
+
+        @doc.one mouseup: (e) =>
+          @doc.off mousemove: @onResize
+          @container.removeClass 'hover'
+          @x = @container.offset().left - @canvas.offset().left
+          @y = @container.offset().top - @canvas.offset().top
+          @gridline.show(true)
+          @project.persist()
 
   onResize: (e) =>
     e.preventDefault()
-    @container.width(e.pageX - @x - @canvas.offset().left).height(e.pageY - @y - @canvas.offset().top)
+    w = e.pageX - @x - @canvas.offset().left
+    h = e.pageY - @y - @canvas.offset().top
+    if w < 0 then @container.css(left: @x + w).width(Math.abs(w)) else @container.css(left: @x).width(w)
+    if h < 0 then @container.css(top: @y + h).height(Math.abs(h)) else @container.css(top: @y).height(h)
 
   onMove: (e) =>
     e.preventDefault()
@@ -105,7 +113,7 @@ class Crit
     setTimeout (=> @clickFlag = null), 300
     @doc.one mouseup: =>
       @doc.off mousemove: @onMove
-      @project.persist()
+      @project.persist() if !@clickFlag?
 
   onListItemMouseover: =>
     @container.addClass('hover')

@@ -23,6 +23,6 @@ exports.findProjectsByUser = (user, callback) ->
   if user? then Project.findByAuthor(user.email, callback) else callback(null, [])
 
 exports.isAuthorized = (req, project) ->
-  project.author is req.sessionID || (req.isLoggedIn && project.author is req.user.email)
+  project.author is req.sessionID || (req.isLoggedIn && project.author is req.user.email) || !req.isProd
 
 

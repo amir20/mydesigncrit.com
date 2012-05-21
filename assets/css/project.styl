@@ -13,7 +13,7 @@
       border-radius 3px
       background rgba(255, 237, 13, 0.5)
       border transparent solid 2px
-      transition background .5s ease
+      transition background .3s ease
 
       &:hover, &.hover
         border-color lightBlue
@@ -147,10 +147,12 @@
   #canvas-background
     #canvas
       .crit
-        background rgba(255, 237, 13, 0.8)
-        transition background .4s ease, min-width .4s ease .1s, min-height .4s ease .3s
+        background rgba(255, 237, 13, 0.35)
+        border-color #ccc
+        transition background .3s ease .3s, min-width .4s ease .1s, min-height .4s ease .3s
         &:hover, &.hover
           background rgba(244, 244, 244, .95)
+          border-color lightBlue
           min-width 180px
           min-height 140px
           z-index 100
