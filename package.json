@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "dnode-protocol": "0.2.2",
+    "dnode": "0.9.12",
     "express": "2.5.8",
     "jade": ">= 0.0.1",
     "phantom": ">= 0.3.3",
