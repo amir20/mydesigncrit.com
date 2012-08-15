@@ -20,8 +20,8 @@ class Dialog
       activeDialog = this
       $('<div />', id: 'overlay', click: @close).appendTo(document.body)
       @dialog = ($ '<div />', id: 'dialog')
-      .append(($ '<div />', class: 'top-bar').append($ '<a />', class: 'close', text: '×', click: @close))
-      .append(($ '<div />', class: 'content')).appendTo(document.body)
+        .append(($ '<div />', class: 'top-bar').append($ '<a />', class: 'close', text: '×', click: @close))
+        .append(($ '<div />', class: 'content')).appendTo(document.body)
       @dialog.on 'click', 'a', (e) =>
         e.preventDefault()
         @load(e.target.href)
