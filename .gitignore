@@ -2,3 +2,4 @@ node_modules
 public/phantom
 builtAssets
 .nide
+.idea
