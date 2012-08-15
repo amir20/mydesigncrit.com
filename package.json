@@ -1,30 +1,30 @@
 {
-  "name": "mydesigncritic.com",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "dnode-protocol": "0.2.2",
-    "dnode": "0.9.12",
-    "express": "2.5.8",
-    "jade": ">= 0.0.1",
-    "phantom": ">= 0.3.3",
-    "coffee-script": ">= 1.2.0",
-    "mongoose": ">=  2.5.9",
-    "connect-assets": ">= 2.1.8",
-    "stylus": ">= 0.24.0",
-    "nib": ">= 0.3.2",
-    "bootstrap-stylus": ">= 0.2.0",
-    "gm": ">= 1.0.5",
-    "everyauth": ">= 0.2.32",
-    "shortid": ">= 1.0.6",
-    "nodemailer": ">= 0.3.18",
-    "connect-redis": ">= 1.3.0"
-  },
-  "devDependencies": {},
-  "engines": {
-    "node": "*"
-  },
-  "author": "Amir Raminfar <findamir@gmail.com>",
-  "description": "A project that can make comments on websites",
-  "main" : "app.coffee"
+    "name":"mydesigncritic.com",
+    "version":"0.0.1",
+    "private":true,
+    "dependencies":{
+        "dnode-protocol":"0.2.2",
+        "dnode":"0.9.12",
+        "express":"2.5.8",
+        "jade":">= 0.0.1",
+        "phantom":">= 0.3.3",
+        "coffee-script":">= 1.2.0",
+        "mongoose":">=  2.5.9",
+        "connect-assets":">= 2.1.8",
+        "stylus":">= 0.24.0",
+        "nib":">= 0.3.2",
+        "bootstrap-stylus":">= 0.2.0",
+        "gm":">= 1.0.5",
+        "everyauth":"https://github.com/akinsella/everyauth/tarball/master",
+        "shortid":">= 1.0.6",
+        "nodemailer":">= 0.3.18",
+        "connect-redis":">= 1.3.0"
+    },
+    "devDependencies":{},
+    "engines":{
+        "node":"*"
+    },
+    "author":"Amir Raminfar <findamir@gmail.com>",
+    "description":"A project that can make comments on websites",
+    "main":"app.coffee"
 }
