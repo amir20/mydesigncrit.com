@@ -1,9 +1,10 @@
 doctype 5
 html
   head
-    title myDesignCrit.com - #{title}
-    link(href='http://fonts.googleapis.com/css?family=Quicksand:400,700', rel='stylesheet', type='text/css')
+    block title
+      title myDesignCrit.com - #{title}
     block styles
+      link(href='http://fonts.googleapis.com/css?family=Quicksand:400,700', rel='stylesheet', type='text/css')
       != css('application')
     block scripts
       != js('application')
@@ -11,6 +12,5 @@ html
       include scripts/analytics
   body(class="#{controller}")
     block content
-
     block footer
       include scripts/feedback
