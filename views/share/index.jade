@@ -11,7 +11,7 @@ block content
     input.span3(type='email', placeholder='recipient@domain.com', name='email', required)
 
     label Your name
-    input.span3(type='text', placeholder='John Smith', name='sender', required, value="#{user ? user.name : ''}")
+    input.span3(type='text', placeholder='Your name', name='sender', required, value="#{user ? user.name : ''}")
 
     label Your email
     input.span3(type='email', placeholder='you@domain.com', name='from', required, value="#{user ? user.email : ''}")
