@@ -3,10 +3,14 @@ html
   head
     title myDesignCrit.com - #{title}
     link(href='http://fonts.googleapis.com/css?family=Quicksand:400,700', rel='stylesheet', type='text/css')
-    != css('application')
-    != js('application')
+    block styles
+      != css('application')
+    block scripts
+      != js('application')
     - if (isProd)
       include scripts/analytics
   body(class="#{controller}")
     block content
+
+  block footer
     include scripts/feedback
