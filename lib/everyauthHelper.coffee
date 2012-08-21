@@ -21,8 +21,6 @@ exports.initialize = ->
     ).sendResponse sendResponse
 
 exports.configure = (app) ->
-  everyauth.helpExpress app
-  app.dynamicHelpers user: @currentUser
   app.get '/signin/:network', (req, res, next) =>
     req.session.redirectPath = req.header('Referer')
     res.redirect "/auth/#{req.params.network}"
@@ -33,6 +31,4 @@ exports.currentUser = (req) ->
   return auth.google.user if auth.google?
   return auth.facebook.user if auth.facebook?
 
-exports.isLoggedIn = (req) ->
-  user = exports.currentUser(req)
-  return user?
+exports.isLoggedIn = (req) -> exports.currentUser(req)?

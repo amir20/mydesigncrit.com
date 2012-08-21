@@ -4,14 +4,18 @@ div#toolbar.navbar.navbar-fixed-top.white-icons
       a.brand(href='/') myDesignCrit.com
       ul.nav.pull-right
         li
-          a(href="/v/#{project.shortId}") Preview
+          a(href="/v/#{project.shortId}")
+           i.icon-zoom-in
+           |  Preview
         li
-          a(href="/v/#{project.shortId}#share") Share
+          a(href="/v/#{project.shortId}#share")
+            i.icon-share
+            |  Share
         li.dropdown
           include ../../auth/signin
         li.dropdown
           a.dropdown-toggle(data-toggle='dropdown', href='#')
-            i.icon-white.icon-cog
+            i.icon-cog
             b.caret
           ul.dropdown-menu
             li

@@ -1,18 +1,21 @@
-.container-fluid
- .page-header
-   h1 Share <small>with your friends.</small>
- form(action='/share/#{project.shortId}', method='post')
-   label Recipient's email
-     input.span3(type='email', placeholder='recipient@domain.com', name='email', required)
+extends ../layout
 
-    label Your name
-     input.span3(type='text', placeholder='John Smith', name='sender', required, value="#{user ? user.name : ''}")
+block content
+ .container-fluid
+  .page-header
+    h1 Share <small>with your friends.</small>
+  form(action='/share/#{project.shortId}', method='post')
+    label Recipient's email
+      input.span3(type='email', placeholder='recipient@domain.com', name='email', required)
 
-   label Your email
-     input.span3(type='email', placeholder='you@domain.com', name='from', required, value="#{user ? user.email : ''}")
+     label Your name
+      input.span3(type='text', placeholder='John Smith', name='sender', required, value="#{user ? user.name : ''}")
 
-   label Message
-     textarea.input-xxlarge(rows='3', name='message')
+    label Your email
+      input.span3(type='email', placeholder='you@domain.com', name='from', required, value="#{user ? user.email : ''}")
 
-   button.btn(type='reset', data-close) Cancel
-   button.btn.btn-primary(type='submit') Send
+    label Message
+      textarea.input-xxlarge(rows='3', name='message')
+
+    button.btn(type='reset', data-close) Cancel
+    button.btn.btn-primary(type='submit') Send

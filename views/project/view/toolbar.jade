@@ -5,8 +5,12 @@ div#toolbar.navbar.navbar-fixed-top.white-icons
       ul.nav.pull-right
         - if (canEdit)
           li
-            a(href="/edit/#{project.id}") Edit
+            a(href="/edit/#{project.id}")
+             i.icon-edit
+             |  Edit
         li
-          a#share.dialog(href="/share/#{project.shortId}") Share
+          a#share.dialog(href="/share/#{project.shortId}")
+           i.icon-share
+           |  Share
         li.dropdown
           include ../../auth/signin

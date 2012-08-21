@@ -1,4 +1,4 @@
-!!! 5
+doctype 5
 html
   head
     title myDesignCrit.com - #{title}
@@ -8,5 +8,5 @@ html
     - if (isProd)
       include scripts/analytics
   body(class="#{controller}")
-    != body
+    block content
     include scripts/feedback

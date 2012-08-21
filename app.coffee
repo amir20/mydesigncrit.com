@@ -8,12 +8,11 @@ everyauthHelper = require './lib/everyauthHelper'
 require './lib/date'
 
 mongoose.connect 'mongodb://localhost/mydesigncrit'
-app = module.exports = express.createServer()
 everyauthHelper.initialize()
 
+app = express()
 app.configure ->
   app.set 'views', "#{__dirname}/views"
-  app.set 'view options', pretty: true
   app.set 'view engine', 'jade'
   app.use express.bodyParser()
   app.use express.methodOverride()
@@ -28,14 +27,16 @@ app.configure ->
 
   app.use everyauth.middleware()
   app.all '*', (req, res, next) ->
-    req.isLoggedIn = everyauthHelper.isLoggedIn(req)
     req.user = everyauthHelper.currentUser(req)
-    req.isProd = process.env.NODE_ENV is 'production'
+    req.isLoggedIn = everyauthHelper.isLoggedIn(req)
+    res.locals(isLoggedIn: req.isLoggedIn, user: req.user)
     next()
+
   app.use app.router
   app.use express.static(__dirname + '/public')
   app.use require('connect-assets')(minifyBuilds: false)
-  app.dynamicHelpers isProd: (req, res) -> req.isProd
+  app.locals(isProd : process.env.NODE_ENV is 'production', pretty : true)
+
   everyauthHelper.configure(app)
 
 app.configure 'development', ->
@@ -48,4 +49,4 @@ require('./routes')(app)
 
 app.listen 3000
 
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env)
+console.log("Express server listening on port %d in %s mode", 3000, app.settings.env)

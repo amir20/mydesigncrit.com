@@ -1,8 +1,11 @@
-div.gridline.h
-div.gridline.v
-div#edit
-  include toolbar
-  include sidebar
+extends ../../layout
 
-  div#canvas-background
-    #canvas(style = "background-image: url(#{project.screenshot}); width: #{project.screenshotWidth}px; height: #{project.screenshotHeight}px")
+block content
+ div.gridline.h
+ div.gridline.v
+ div#edit
+   include toolbar
+   include sidebar
+
+   div#canvas-background
+     #canvas(style = "background-image: url(#{project.screenshot}); width: #{project.screenshotWidth}px; height: #{project.screenshotHeight}px")

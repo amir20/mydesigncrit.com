@@ -1,4 +1,4 @@
-- if (everyauth.loggedIn)
+- if (isLoggedIn)
   a#sign-in.dropdown-toggle(data-toggle='dropdown', href='#')
     i.icon-user
     |  Hi, #{user.name}!
@@ -8,11 +8,13 @@
     li.text(data-lazy='/user/activity/recent.json', data-lazy-trigger='#sign-in')
     li.divider
     li
-      a(href='/user/activity/all') Show All Projects
+      a(href='/user/activity/all')
+        i.icon-briefcase
+        |  Show All Projects
     li.divider
     li
       a(href='/logout')
-        i.icon-exclamation-sign
+        i.icon-signout
         |  Sign Out
 - else
   a#sign-in.dropdown-toggle(data-toggle='dropdown', href='#')
