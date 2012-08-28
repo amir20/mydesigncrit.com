@@ -35,7 +35,7 @@ module.exports = (app) ->
       if req.params.format is 'json'
         res.send project
       else
-        res.render 'project/view', title: project.url, project: project, controller: controller, canEdit: projectHelper.isAuthorized(req, project)
+        res.render 'project/view', title: project.title, project: project, controller: controller, canEdit: projectHelper.isAuthorized(req, project)
 
   app.post '/edit/:id', (req, res) ->
     Project.findById req.params.id, (err, project) ->
