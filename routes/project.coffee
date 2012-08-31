@@ -12,23 +12,26 @@ module.exports = (app) ->
     else
       res.send 'URL not defined'
 
-  app.get '/edit/:id.:format?', (req, res) ->
-    Project.findById req.params.id, (err, project) ->
-      if req.params.format is 'json'
-        if projectHelper.isAuthorized(req, project)
-          res.send project
+  app.get '/edit/:projectId/:pageId?.:format?', (req, res) ->
+    Project.findById req.params.projectId, (err, project) ->
+      if project?
+        if req.params.format is 'json'
+          if projectHelper.isAuthorized(req, project)
+            res.send project
+          else
+            res.send 'Not Authorized', 401
         else
-          res.send 'Not Authorized', 401
-      else
-        if projectHelper.isAuthorized(req, project)
-          if project.author is req.sessionID && req.isLoggedIn
-            project.author = req.user.email
-            project.save ->
+          if projectHelper.isAuthorized(req, project)
+            if project.author is req.sessionID && req.isLoggedIn
+              project.author = req.user.email
+              project.save ->
+                res.render 'project/edit', title: project.title, project: project, controller: controller
+            else
               res.render 'project/edit', title: project.title, project: project, controller: controller
           else
-            res.render 'project/edit', title: project.title, project: project, controller: controller
-        else
-          res.render 'error/notAuthorized', title: 'Not Authorized', status: 401, controller: controller
+            res.redirect "/edit/#{project.id}"
+       else
+         res.send 'Project not found', 404
 
   app.get '/v/:id.:format?', (req, res) ->
     Project.findByShortId req.params.id, (err, project) ->

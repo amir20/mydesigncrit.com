@@ -1,92 +1,22 @@
 class Project
   constructor: (@readOnly = false, @onReady = ->) ->
-    @gridline = new GridLine()
-    @canvas = ($ '#canvas')
-    @sidebar = ($ '#sidebar')
-    @crits = []
+    @pages = []
     @load()
-    unless @readOnly
-      ($ document).on mousedown: @onNewCrit
-      ($ '#save-crit').on click: @saveCurrentCrit
-      ($ '#remove-crit').on click: @removeCurrentCrit
-      ($ '#cancel-crit').on click: @cancelCurrentCrit
-      ($ '#remove-all').on click: @removeAll
 
+  showPage: (id) ->
+    @history.load("/#{@base}/#{@projectId}/#{id}")
 
-  onNewCrit: (e) =>
-    if e.which == 1 && (e.target in @gridline.lines or e.target in @canvas.get())
-      e.preventDefault()
-      @gridline.disable(false)
-      @crits.push new Crit(
-        project: this
-        sidebar: @sidebar
-        canvas: @canvas
-        gridline: @gridline
-        event: e
-        callback: (crit) =>
-          @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
-          @gridline.enable(false)
-          @persist()
-          @select(crit)
-      )
-
-  toggleOptions: (options)->
-    if options
-      ($ '#crit-list').hide()
-      ($ '#crit-options').show()
-    else
-      ($ '#crit-list').show()
-      ($ '#crit-options').hide()
-
-  select: (crit) ->
-    @activeCrit.cancel() if @activeCrit?
-    @activeCrit = crit
-    @activeCrit.edit()
-    @toggleOptions(true)
-    ($ '#crit-comment').focus()
-
-  saveCurrentCrit: =>
-    @activeCrit.save() if @activeCrit?
-    @toggleOptions(false)
-    ($ '#crit-comment').val('')
-    @activeCrit = null
-
-  removeCurrentCrit: =>
-    @remove(@activeCrit) if @activeCrit?
-    @toggleOptions(false)
-    @activeCrit = null
-
-  cancelCurrentCrit: =>
-    @activeCrit.cancel() if @activeCrit?
-    @toggleOptions(false)
-    @activeCrit = null
-
-  remove: (critToRemove) ->
-    critToRemove.remove()
-    @toggleOptions(false)
-    @crits.splice(@crits.indexOf(critToRemove), 1)
-    crit.updateNum i + 1 for crit, i in @crits
-    @persist()
-
-  removeAll: =>
-    @crits = []
-    ($ '#crits > li, #canvas .crit').not('.placeholder').remove().end().filter('.placeholder').show()
-    ($ '#remove-all').hide()
-    @persist()
-
-  persist: ->
-    unless @readOnly
-      crits = []
-      for c in @crits
-        crits.push c.toArray()
-      $.post('', crits: crits)
+  firstPageId: ->
+    return id for id of @pages
 
   load: ->
-    $.get("#{document.location.pathname}.json").success (project) =>
-      if project.crits? && project.crits.length > 0
-        @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
-        for c in project.crits
-          @crits.push new Crit(project: this, sidebar: @sidebar, canvas: @canvas, gridline: @gridline, array: c, readOnly: @readOnly)
+    $.get("#{location.pathname}.json").success (project) =>
+      @projectId = project._id
+      @base = location.pathname.split('/')[1]
+      @pages[page._id] = new Page(this, page) for page in project.pages
+      @history = new History(/^\/.+?\/.+?\/(.+)$/, (pageId) => @pages[pageId].show())
+      pageId = @history.getHistoryPath()
+      @showPage(if !!pageId then pageId else @firstPageId())
       @onReady(this)
 
 window.Project = Project

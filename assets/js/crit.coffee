@@ -19,6 +19,7 @@ class Crit
   constructor: (@params) ->
     {
     project: @project,
+    page: @page,
     sidebar: @sidebar,
     gridline: @gridline,
     canvas: @canvas,
@@ -28,7 +29,7 @@ class Crit
     array: array
     } = @params
     @doc = ($ document)
-    @num = @project.crits.length + 1
+    @num = @page.crits.length + 1
     @color = COLORS[@num % COLORS.length]
     @readOnly ||= false
 
@@ -63,18 +64,18 @@ class Crit
 
   createListItem: =>
     @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
-    @listItem.find('.close').on click: => @project.remove(this)
+    @listItem.find('.close').on click: => @page.remove(this)
     @listItem.find('a.title').on(
-      click: => @project.select(this)
+      click: => @page.select(this)
       mouseover: @onListItemMouseover
       mouseout: @onListItemMouseout
     ).text(@comment)
 
   attachEvents: =>
     @container.on mouseenter: (=> @gridline.hide()), mouseleave: (=> @gridline.show())
-    @container.find('.close').on click: => @project.remove(this)
+    @container.find('.close').on click: => @page.remove(this)
     @container.on
-      click: => @project.select(this) if @clickFlag?
+      click: => @page.select(this) if @clickFlag?
       mousedown: @onContainerMouseDown
     @container.find('a.resize-anchor').on
       mousedown: (e) =>
@@ -90,7 +91,7 @@ class Crit
           @x = @container.offset().left - @canvas.offset().left
           @y = @container.offset().top - @canvas.offset().top
           @gridline.show(true)
-          @project.persist()
+          @page.persist()
 
   onResize: (e) =>
     e.preventDefault()
@@ -113,7 +114,7 @@ class Crit
     setTimeout (=> @clickFlag = null), 300
     @doc.one mouseup: =>
       @doc.off mousemove: @onMove
-      @project.persist() if !@clickFlag?
+      @page.persist() if !@clickFlag?
 
   onListItemMouseover: =>
     @container.addClass('hover')
@@ -137,7 +138,7 @@ class Crit
     @comment = ($ '#crit-comment').val()
     @listItem.find('a.title').text(@comment)
     @container.removeClass('active')
-    @project.persist()
+    @page.persist()
 
   updateNum: (i) ->
     @container.find('.num').text(i)
