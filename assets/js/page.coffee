@@ -3,6 +3,9 @@ class Page
     @gridline = new GridLine()
     @canvas = ($ '#canvas')
     @sidebar = ($ '#sidebar')
+    @title = @json.title
+    @id = @json._id
+    @crits = []
 
   onNewCrit: (e) =>
     if e.which == 1 && (e.target in @gridline.lines or e.target in @canvas.get())
@@ -22,40 +25,32 @@ class Page
           @select(crit)
       )
 
-  toggleOptions: (options)->
-    if options
-      ($ '#crit-list').hide()
-      ($ '#crit-options').show()
-    else
-      ($ '#crit-list').show()
-      ($ '#crit-options').hide()
-
   select: (crit) ->
     @activeCrit.cancel() if @activeCrit?
     @activeCrit = crit
     @activeCrit.edit()
-    @toggleOptions(true)
+    @project.toggleOptions(true)
     ($ '#crit-comment').focus()
 
   saveCurrentCrit: =>
     @activeCrit.save() if @activeCrit?
-    @toggleOptions(false)
+    @project.toggleOptions(false)
     ($ '#crit-comment').val('')
     @activeCrit = null
 
   removeCurrentCrit: =>
     @remove(@activeCrit) if @activeCrit?
-    @toggleOptions(false)
+    @project.toggleOptions(false)
     @activeCrit = null
 
   cancelCurrentCrit: =>
     @activeCrit.cancel() if @activeCrit?
-    @toggleOptions(false)
+    @project.toggleOptions(false)
     @activeCrit = null
 
   remove: (critToRemove) ->
     critToRemove.remove()
-    @toggleOptions(false)
+    @project.toggleOptions(false)
     @crits.splice(@crits.indexOf(critToRemove), 1)
     crit.updateNum i + 1 for crit, i in @crits
     @persist()

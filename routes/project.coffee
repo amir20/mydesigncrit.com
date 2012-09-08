@@ -25,26 +25,31 @@ module.exports = (app) ->
             if project.author is req.sessionID && req.isLoggedIn
               project.author = req.user.email
               project.save ->
-                res.render 'project/edit', title: project.title, project: project, controller: controller
+                res.render 'project/edit', title: '', project: project, controller: controller
             else
-              res.render 'project/edit', title: project.title, project: project, controller: controller
+              res.render 'project/edit', title: '', project: project, controller: controller
           else
-            res.redirect "/edit/#{project.id}"
+            res.redirect "/v/#{project.id}"
        else
          res.send 'Project not found', 404
 
-  app.get '/v/:id.:format?', (req, res) ->
-    Project.findByShortId req.params.id, (err, project) ->
+  app.post '/edit/:projectId/:pageId', (req, res) ->
+    Project.findById req.params.projectId, (err, project) ->
+      if project? && projectHelper.isAuthorized(req, project)
+        if req.body.newPageUrl?
+          projectHelper.addNewPage project, req.body.newPageUrl, -> res.send project
+        else        
+          project.pages.id(req.params.pageId).crits = req.body.crits          
+          project.save (error) -> res.send project
+            
+
+  app.get '/v/:projectId/:pageId?.:format?', (req, res) ->
+    Project.findByShortId req.params.projectId, (err, project) ->
       if req.params.format is 'json'
         res.send project
       else
         res.render 'project/view', title: project.title, project: project, controller: controller, canEdit: projectHelper.isAuthorized(req, project)
 
-  app.post '/edit/:id', (req, res) ->
-    Project.findById req.params.id, (err, project) ->
-      if projectHelper.isAuthorized(req, project)
-        project.crits = req.body.crits
-        project.save ->
-          res.send project
+
 
 

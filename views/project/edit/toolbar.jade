@@ -2,6 +2,22 @@ div#toolbar.navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     .container-fluid
       a.brand(href='/') myDesignCrit.com
+      span.form-inline.input-append.pages-toolbar
+        .btn-group
+          button#prev-page.btn.btn-inverse.icon-chevron-left.btn-small
+          a#active-page.btn.btn-inverse.btn-small.pages-dropdown(data-toggle="dropdown")
+            | Loading...             
+            b.caret.pull-right
+          ul.dropdown-menu
+            - each page in project.pages
+              li
+                a  
+                 i.icon-file 
+                 | #{page.title}                     
+          input#new-page-url.inline-url(type="url", placeholder="http://example.com")          
+          button#new-page.btn.btn-inverse.icon-plus.btn-small(title="Add a new page to this projects")          
+          button#cancel-new-page.btn.btn-inverse.btn-small.icon-remove-sign(title="Cancel adding a new page")
+          button#next-page.btn.btn-inverse.icon-chevron-right.btn-small
       ul.nav.pull-right
         li
           a(href="/v/#{project.shortId}")

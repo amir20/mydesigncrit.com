@@ -3,24 +3,28 @@ gm = require 'gm'
 screenshotHelper = require './screenshotHelper'
 
 exports.createProject = (req, callback) ->
-  page = url: req.body.url
   project = new Project
-    author: (if req.isLoggedIn then req.user.email else req.sessionID)
-    pages: [ page ]
-
-  project.save (error) ->
+    author: (if req.isLoggedIn then req.user.email else req.sessionID)     
+    
+  project.save (error) =>
+    console.log "Created a new project with id [#{project.id}]."
     console.log error if error
-    console.log("Created a new project with id [#{project.id}] for [#{page.url}].")
-    page = project.pages[0]
-    screenshotHelper.capture page.url, page.id, (title, path, thumbnail, size) ->
-      page.screenshot = path
-      page.title = title
-      page.thumbnail = thumbnail
-      page.screenshotWidth = size.width
-      page.screenshotHeight = size.height
-      project.save (error) ->
-        console.log error if error
-        callback(project)
+    this.addNewPage project, req.body.url, callback
+        
+exports.addNewPage = (project, url, callback) ->
+  console.log "Created a new page for project [#{project.id}] with url [#{url}]."    
+  screenshotHelper.capture url, "#{project.id}-#{project.pages.length}", (title, path, thumbnail, size) ->
+    page = 
+      url: url
+      screenshot: path
+      title: title
+      thumbnail: thumbnail
+      screenshotWidth: size.width
+      screenshotHeight: size.height      
+    project.pages.push page  
+    project.save (error) ->
+      console.log error if error
+      callback(project)
 
 exports.findProjectsByUser = (user, start, limit, callback) ->
   if user? then Project.findByAuthor(user.email, callback, start, limit) else callback(null, [])

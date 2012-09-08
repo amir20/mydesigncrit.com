@@ -1,22 +1,80 @@
 class Project
   constructor: (@readOnly = false, @onReady = ->) ->
     @pages = []
+    @history = new History(/^\/.+?\/.+?\/(.+)$/, @onShowPage)
     @load()
 
-  showPage: (id) ->
-    @history.load("/#{@base}/#{@projectId}/#{id}")
+    ($ document).on mousedown: @onNewCrit
+    ($ '#save-crit').on click: @saveCurrentCrit
+    ($ '#remove-crit').on click: @removeCurrentCrit
+    ($ '#cancel-crit').on click: @cancelCurrentCrit
+    ($ '#remove-all').on click: @removeAll
+    ($ '#new-page').on click: @onNewPage
+    ($ '#cancel-new-page').on click: @onCancelNewPage
+
+  showPage: (pageId) ->
+    @activePage = @pages[pageId]
+    @history.load("/#{@base}/#{@id}/#{pageId}")
 
   firstPageId: ->
     return id for id of @pages
 
+  onNewCrit: (e) =>
+    @activePage.onNewCrit(e)
+
+  saveCurrentCrit: (e) =>
+    @activePage.saveCurrentCrit(e)
+
+  removeCurrentCrit: (e) =>
+    @activePage.removeCurrentCrit(e)
+
+  cancelCurrentCrit: (e) =>
+    @activePage.cancelCurrentCrit(e)
+
+  removeAll: (e) =>
+    @activePage.removeAll(e)
+
+  onNewPage: (e) =>
+    if ($ '#new-page').is('.btn-success')
+      @addingNewPage = true
+      showLoader()
+      $.post('', newPageUrl: ($ '#new-page-url').val(), @onLoad)
+    else
+      ($ '#new-page').addClass('btn-success').removeClass('btn-inverse')
+      ($ '#new-page-url').addClass('show')
+      ($ '#cancel-new-page').show()
+
+  onCancelNewPage: (e) =>
+    ($ '#new-page').removeClass('btn-success').addClass('btn-inverse')
+    ($ '#new-page-url').removeClass('show')
+    ($ '#cancel-new-page').hide()
+
+  toggleOptions: (options) ->
+    if options
+      ($ '#crit-list').hide()
+      ($ '#crit-options').show()
+    else
+      ($ '#crit-list').show()
+      ($ '#crit-options').hide()
+
   load: ->
-    $.get("#{location.pathname}.json").success (project) =>
-      @projectId = project._id
-      @base = location.pathname.split('/')[1]
-      @pages[page._id] = new Page(this, page) for page in project.pages
-      @history = new History(/^\/.+?\/.+?\/(.+)$/, (pageId) => @pages[pageId].show())
-      pageId = @history.getHistoryPath()
-      @showPage(if !!pageId then pageId else @firstPageId())
-      @onReady(this)
+    showLoader()
+    $.get("#{location.pathname}.json").success @onLoad
+
+  onShowPage: (pageId) =>
+    @pages[pageId].show()
+    document.title = "myDesignCrit.com - #{@activePage.title}"
+    ($ '#active-page').text(@activePage.title).append('<b class="caret pull-right" />')
+
+  onLoad: (project) =>        
+    @pages[page._id] = new Page(this, page) for page in project.pages
+    path = location.pathname.split('/')
+    @base = path[1]
+    @id = path[2]
+    pageId = path[3] || @firstPageId()    
+    pageId = project.pages[project.pages.length - 1]._id if @addingNewPage                
+    @showPage(pageId)
+    removeLoader()
+    @onReady(this)
 
 window.Project = Project
