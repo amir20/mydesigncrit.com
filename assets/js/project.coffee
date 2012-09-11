@@ -1,3 +1,11 @@
+PAGES_DROPDOWN = jade.compile '''
+- each page in project.pages
+  li
+    a(title=page.title, data-page-id=page._id, href='#')
+     i.icon-file 
+     | #{page.title}    
+'''
+
 class Project
   constructor: (@readOnly = false, @onReady = ->) ->
     @pages = []
@@ -9,8 +17,10 @@ class Project
     ($ '#remove-crit').on click: @removeCurrentCrit
     ($ '#cancel-crit').on click: @cancelCurrentCrit
     ($ '#remove-all').on click: @removeAll
-    ($ '#new-page').on click: @onNewPage
-    ($ '#cancel-new-page').on click: @onCancelNewPage
+    ($ '#new-page').on submit: @onNewPage
+    ($ '#active-page + ul.dropdown-menu').on 'click', 'li > a', (e) =>
+      e.preventDefault()      
+      @showPage(($ e.target).data('page-id')) 
 
   showPage: (pageId) ->
     @activePage = @pages[pageId]
@@ -35,19 +45,11 @@ class Project
     @activePage.removeAll(e)
 
   onNewPage: (e) =>
-    if ($ '#new-page').is('.btn-success')
-      @addingNewPage = true
-      showLoader()
-      $.post('', newPageUrl: ($ '#new-page-url').val(), @onLoad)
-    else
-      ($ '#new-page').addClass('btn-success').removeClass('btn-inverse')
-      ($ '#new-page-url').addClass('show')
-      ($ '#cancel-new-page').show()
-
-  onCancelNewPage: (e) =>
-    ($ '#new-page').removeClass('btn-success').addClass('btn-inverse')
-    ($ '#new-page-url').removeClass('show')
-    ($ '#cancel-new-page').hide()
+    e.preventDefault()
+    @addingNewPage = true
+    showLoader()
+    ($ 'form#new-page .popbox-close').click()
+    $.post('', newPageUrl: ($ 'form#new-page input[type=url]').val(), @onLoad)
 
   toggleOptions: (options) ->
     if options
@@ -64,7 +66,7 @@ class Project
   onShowPage: (pageId) =>
     @pages[pageId].show()
     document.title = "myDesignCrit.com - #{@activePage.title}"
-    ($ '#active-page').text(@activePage.title).append('<b class="caret pull-right" />')
+    ($ '#active-page i').text(@activePage.title)
 
   onLoad: (project) =>        
     @pages[page._id] = new Page(this, page) for page in project.pages
@@ -72,7 +74,8 @@ class Project
     @base = path[1]
     @id = path[2]
     pageId = path[3] || @firstPageId()    
-    pageId = project.pages[project.pages.length - 1]._id if @addingNewPage                
+    pageId = project.pages[project.pages.length - 1]._id if @addingNewPage     
+    ($ '#active-page + ul.dropdown-menu').html(PAGES_DROPDOWN(project: project))
     @showPage(pageId)
     removeLoader()
     @onReady(this)

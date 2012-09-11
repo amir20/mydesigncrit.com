@@ -1,6 +1,9 @@
 form#new-project-form.form-horizontal.text(method='post', action='/')
   h1 Create A New Crit
-  div.input-prepend.input-append <span class="add-on">Web page URL</span><input class="span4" name="url" type="url" placeholder="http://example.com" required/><button class="btn btn-success" type="submit">Go</button>
+  div.input-prepend.input-append 
+    span.add-on Web page URL
+    input.span4(name='url', type='url', placeholder='http://example.com', required=true)
+    button.btn.btn-success(type='submit') Go
   .loader
     h2 Please wait...
     .progress.progress-striped.active

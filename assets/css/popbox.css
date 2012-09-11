@@ -1,0 +1,38 @@
+.popbox {       
+    position: relative;       
+}
+
+.box {
+    display: none;
+    background: #fff;
+    border: solid 1px #bbb;
+    border-radius: 5px;
+    box-shadow: 0 0 15px #999;    
+    padding: 10px;
+    position: absolute;
+    float: left;
+    width: 300px;
+}
+
+.popbox-arrow {
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #fff;
+    position: absolute;
+    left: 1px;
+    top: -10px;
+    z-index: 1001;
+}
+
+.arrow-border {
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #bbb;
+    position: absolute;
+    top: -12px;
+    z-index: 1000;
+}

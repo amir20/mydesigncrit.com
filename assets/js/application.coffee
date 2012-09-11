@@ -18,3 +18,8 @@ $.fn.serializeObject = ->
       o[@name] = @value or ""
 
   return o
+
+$ -> $('.popbox').popbox
+  open: '.open'
+  arrow: '.popbox-arrow'
+  close: '.popbox-close'

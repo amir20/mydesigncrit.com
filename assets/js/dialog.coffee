@@ -1,28 +1,27 @@
 activeDialog = null
 
 spinnnerOpts =
-  lines: 11 # The number of lines to draw
-  length: 0 # The length of each line
-  width: 4 # The line thickness
-  radius: 10 # The radius of the inner circle
-  corners: 1 # Corner roundness (0..1)
-  rotate: 0 # The rotation offset
-  color: "#000" # #rgb or #rrggbb
-  speed: 1.6 # Rounds per second
-  trail: 71 # Afterglow percentage
-  shadow: false # Whether to render a shadow
-  hwaccel: false # Whether to use hardware acceleration
-  className: "spinner" # The CSS class to assign to the spinner
-  zIndex: 2e9 # The z-index (defaults to 2000000000)
-  top: "auto" # Top position relative to parent in px
-  left: "auto" # Left position relative to parent in px
+  lines: 11
+  length: 0
+  width: 4 
+  radius: 10
+  corners: 1
+  rotate: 0 
+  color: "#000" 
+  speed: 1.6
+  trail: 71
+  shadow: true 
+  hwaccel: true
+  className: "spinner"
+  zIndex: 2e9
+  top: "auto"
+  left: "auto"
 
 class Dialog
   constructor: (url) ->
     if activeDialog?
       activeDialog.load(url)
-    else
-      activeDialog = this
+    else       
       $('<div />', id: 'overlay', click: @close).appendTo(document.body)
       @dialog = ($ '<div />', id: 'dialog')
         .append(($ '<div />', class: 'top-bar').append($ '<a />', class: 'close', text: '×', click: @close))
@@ -38,7 +37,6 @@ class Dialog
   handleForm: (e) =>
     e.preventDefault()
     @dialog.spin(spinnnerOpts).find('.content').html('').load(e.target.action, $(e.target).serializeObject(), @onLoad)
-
 
   onLoad: =>
     @dialog.spin(false)
@@ -58,4 +56,4 @@ jwerty.key 'esc', (e) ->
 $ ->
   ($ document.body).on 'click', 'a.dialog', (e) ->
     e.preventDefault()
-    new Dialog(@href)
+    activeDialog = new Dialog(@href)
