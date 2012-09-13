@@ -9,6 +9,8 @@ PAGES_DROPDOWN = jade.compile '''
 class Project
   constructor: (@readOnly = false, @onReady = ->) ->
     @pages = []
+    @canvas = ($ '#canvas')
+    @sidebar = ($ '#sidebar')
     @history = new History(/^\/.+?\/.+?\/(.+)$/, @onShowPage)
     @load()
 
@@ -22,9 +24,17 @@ class Project
       e.preventDefault()      
       @showPage(($ e.target).data('page-id')) 
 
-  showPage: (pageId) ->
+  showPage: (pageId) ->   
     @activePage = @pages[pageId]
     @history.load("/#{@base}/#{@id}/#{pageId}")
+
+  onShowPage: (pageId) =>
+    @clearCrits
+    @clearSidebar()
+    @showPlaceHolder()
+    @pages[pageId].show()
+    document.title = "myDesignCrit.com - #{@activePage.title}"
+    ($ '#active-page i').text(@activePage.title)    
 
   firstPageId: ->
     return id for id of @pages
@@ -34,15 +44,34 @@ class Project
 
   saveCurrentCrit: (e) =>
     @activePage.saveCurrentCrit(e)
+    toggleOptions(false)
+    ($ '#crit-comment').val('')
 
   removeCurrentCrit: (e) =>
     @activePage.removeCurrentCrit(e)
+    toggleOptions(false)
 
   cancelCurrentCrit: (e) =>
     @activePage.cancelCurrentCrit(e)
+    toggleOptions(false)
 
   removeAll: (e) =>
     @activePage.removeAll(e)
+    @clearCrits 
+    @clearSidebar()
+    @showPlaceHolder()
+    
+  clearSidebar: ->
+    ($ '#crits > li', @sidebar).not('.placeholder').remove()
+  
+  clearCrits: -> 
+    ($ '.crit', @canvas).remove()
+    
+  hidePlaceHolder: ->
+    @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
+
+  showPlaceHolder: ->
+    @sidebar.find('.placeholder').show().end().find('#remove-all').hide()  
 
   onNewPage: (e) =>
     e.preventDefault()
@@ -50,6 +79,7 @@ class Project
     showLoader()
     ($ 'form#new-page .popbox-close').click()
     $.post('', newPageUrl: ($ 'form#new-page input[type=url]').val(), @onLoad)
+    ($ 'form#new-page input[type=url]').val('')
 
   toggleOptions: (options) ->
     if options
@@ -61,12 +91,7 @@ class Project
 
   load: ->
     showLoader()
-    $.get("#{location.pathname}.json").success @onLoad
-
-  onShowPage: (pageId) =>
-    @pages[pageId].show()
-    document.title = "myDesignCrit.com - #{@activePage.title}"
-    ($ '#active-page i').text(@activePage.title)
+    $.get("#{location.pathname}.json").success @onLoad  
 
   onLoad: (project) =>        
     @pages[page._id] = new Page(this, page) for page in project.pages

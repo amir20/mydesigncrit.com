@@ -41,7 +41,7 @@ class Crit
     @y = event.pageY - @canvas.offset().top
 
     # Add the container to canvas
-    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css left: @x, top: @y).appendTo @canvas
+    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css(left: @x, top: @y)).appendTo(@canvas)
     @container.addClass 'hover'
 
     @doc.one mouseup: (e) =>
@@ -149,13 +149,16 @@ class Crit
     @listItem.find('a.title').on click: @edit
 
   toArray: -> { x: @x, y: @y, width: @container.width(), height: @container.height(), comment: @comment }
+  
+  show: ->
+    @container.appendTo(@canvas)    
+    @onAfterCreate()
 
   fromArray: (array) ->
     @x = array.x
     @y = array.y
     @comment = array.comment
-    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css left: @x, top: @y).appendTo(@canvas).width(array.width).height(array.height)
-    @onAfterCreate()
+    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css(left: @x, top: @y)).appendTo(@canvas).width(array.width).height(array.height)    
     return this
 
 window.Crit = Crit

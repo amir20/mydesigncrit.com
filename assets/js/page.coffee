@@ -6,6 +6,15 @@ class Page
     @title = @json.title
     @id = @json._id
     @crits = []
+    for c in @json.crits
+      @crits.push new Crit
+        page: this
+        project: @project
+        sidebar: @sidebar
+        canvas: @canvas
+        gridline: @gridline
+        array: c
+        readOnly: @project.readOnly
 
   onNewCrit: (e) =>
     if e.which == 1 && (e.target in @gridline.lines or e.target in @canvas.get())
@@ -19,7 +28,7 @@ class Page
         gridline: @gridline
         event: e
         callback: (crit) =>
-          @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
+          @project.hidePlaceHolder()
           @gridline.enable(false)
           @persist()
           @select(crit)
@@ -33,54 +42,39 @@ class Page
     ($ '#crit-comment').focus()
 
   saveCurrentCrit: =>
-    @activeCrit.save() if @activeCrit?
-    @project.toggleOptions(false)
-    ($ '#crit-comment').val('')
+    @activeCrit.save() if @activeCrit?    
     @activeCrit = null
 
   removeCurrentCrit: =>
-    @remove(@activeCrit) if @activeCrit?
-    @project.toggleOptions(false)
+    @remove(@activeCrit) if @activeCrit?    
     @activeCrit = null
 
   cancelCurrentCrit: =>
-    @activeCrit.cancel() if @activeCrit?
-    @project.toggleOptions(false)
+    @activeCrit.cancel() if @activeCrit?    
     @activeCrit = null
 
   remove: (critToRemove) ->
     critToRemove.remove()
     @project.toggleOptions(false)
     @crits.splice(@crits.indexOf(critToRemove), 1)
-    crit.updateNum i + 1 for crit, i in @crits
+    crit.updateNum(i + 1) for crit, i in @crits
     @persist()
 
   removeAll: =>
-    @crits = []
-    ($ '#crits > li, #canvas .crit').not('.placeholder').remove().end().filter('.placeholder').show()
-    ($ '#remove-all').hide()
+    @crits = []        
     @persist()
 
   persist: ->
     unless @readOnly
-      crits = []
-      for c in @crits
-        crits.push c.toArray()
+      crits = []      
+      crits.push c.toArray() for c in @crits
       $.post('', crits: crits)
 
-  show: ->
-    @canvas.empty()
-    @canvas.css('background-image': "url(#{@json.screenshot})", width: @json.screenshotWidth, height: @json.screenshotHeight)
+  show: ->    
+    @canvas.empty().css('background-image': "url(#{@json.screenshot})", width: @json.screenshotWidth, height: @json.screenshotHeight)
     if @json.crits? && @json.crits.length > 0
-      @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
-      for c in @json.crits
-        @crits.push new Crit
-          page: this
-          project: @project
-          sidebar: @sidebar
-          canvas: @canvas
-          gridline: @gridline
-          array: c
-          readOnly: @project.readOnly
+      @project.hidePlaceHolder()
+      crit.show() for crit in @crits
+      if @activeCrit then @select(@activeCrit) else @cancelCurrentCrit()     
 
 window.Page = Page
