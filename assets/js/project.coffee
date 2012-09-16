@@ -97,7 +97,7 @@ class Project
     @addingNewPage = true
     showLoader()
     ($ 'form#new-page .popbox-close').click()
-    $.post('', newPageUrl: ($ 'form#new-page input[type=url]').val(), @onLoad)
+    $.post("/edit/#{@id}", newPageUrl: ($ 'form#new-page input[type=url]').val(), @onLoad)
     ($ 'form#new-page input[type=url]').val('')
 
   toggleOptions: (options) ->
@@ -117,11 +117,16 @@ class Project
     @pagesById = []    
     @pages.push new Page(this, page) for page in project.pages
     @pagesById[page.id] = page for page in @pages
-    [t, @base, @id, pageId] = location.pathname.split('/')    
-    pageId = project.pages[project.pages.length - 1]._id if @addingNewPage
+    [t, @base, @id, pageId] = location.pathname.split('/')        
     ($ '#active-page + ul.dropdown-menu').html(PAGES_DROPDOWN(project: project))
-    @onShowPage(pageId)
+    
+    if @addingNewPage 
+      @showPage(project.pages[project.pages.length - 1]._id)
+    else
+      @onShowPage(pageId)
+      @onReady(this)
+      
     removeLoader()    
-    @onReady(this) if !@addingNewPage
+    
 
 window.Project = Project

@@ -68,7 +68,7 @@ class Page
     unless @readOnly
       crits = []      
       crits.push c.toArray() for c in @crits
-      $.post('', crits: crits)
+      $.post("/edit/#{@project.id}/#{@id}", crits: crits)
 
   show: ->    
     @canvas.empty().css('background-image': "url(#{@json.screenshot})", width: @json.screenshotWidth, height: @json.screenshotHeight)

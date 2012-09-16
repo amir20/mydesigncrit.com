@@ -33,7 +33,7 @@ module.exports = (app) ->
        else
          res.send 'Project not found', 404
 
-  app.post '/edit/:projectId/:pageId', (req, res) ->
+  app.post '/edit/:projectId/:pageId?', (req, res) ->
     Project.findById req.params.projectId, (err, project) ->
       if project? && projectHelper.isAuthorized(req, project)
         if req.body.newPageUrl?

@@ -1,5 +1,6 @@
 - each item in activity
-  li
-    a(href="/edit/#{item._id}", title="#{item.pages[0].title} from #{item.pages[0].url}")
-      i.icon-folder-open
-      |  #{item.pages[0].title}
+  - if(item.pages.length > 0)
+    li
+      a(href="/edit/#{item._id}", title="#{item.pages[0].title} from #{item.pages[0].url}")
+        i.icon-folder-open
+        |  #{item.pages[0].title}

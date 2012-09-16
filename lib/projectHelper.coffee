@@ -9,11 +9,11 @@ exports.createProject = (req, callback) ->
   project.save (error) =>
     console.log "Created a new project with id [#{project.id}]."
     console.log error if error
-    this.addNewPage project, req.body.url, callback
+    @addNewPage project, req.body.url, callback
         
 exports.addNewPage = (project, url, callback) ->
   console.log "Created a new page for project [#{project.id}] with url [#{url}]."    
-  screenshotHelper.capture url, "#{project.id}-#{project.pages.length}", (title, path, thumbnail, size) ->
+  screenshotHelper.capture url, "#{project.id}-#{Date.now()}", (title, path, thumbnail, size) ->
     page = 
       url: url
       screenshot: path
