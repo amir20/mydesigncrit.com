@@ -63,7 +63,7 @@
         text-align center
         display none
         font-family "Helvetica Neue",Helvetica,Arial,sans-serif
-        text-shadow 0px 1px 0 #fff
+        text-shadow 0 -1px 1px #fff
         font-weight normal
 
         .num
@@ -160,18 +160,37 @@
         height 100%
         overflow hidden
 
-
-.pages-dropdown    
-  i 
-    font-style normal
-    width 300px
-    overflow hidden
-    display inline-block
-    margin-right 10px
-    text-overflow ellipsis
-    white-space nowrap 
-    
-  & + .dropdown-menu
-    width 340px
+.absolute-center
+  absolute left
+  width 100%
+  text-align center
+  margin 0
+  top 0
+  pointer-events none
+  
+  > *
+   margin 0 10px
    
+  * 
+    pointer-events auto
+  
+  .pages-dropdown      
+    i 
+      text-align center
+      font-style normal
+      width 250px
+      overflow hidden
+      display inline-block
+      margin-right 10px
+      text-overflow ellipsis
+      white-space nowrap 
+      
+    & + .dropdown-menu
+      width 350px
+      text-align left
+
+.project
+  .navbar .brand
+    color #fff
+     
   

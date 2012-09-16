@@ -6,6 +6,9 @@ block content
   div.navbar
     .navbar-inner
       .container-fluid
+        a.brand(href='/')
+          |  myDesignCrit.com   
+          img.retina(src='/img/bubble.png', alt='Logo', width=25, height=22)
         ul.nav.pull-right
           li.dropdown
             include auth/signin

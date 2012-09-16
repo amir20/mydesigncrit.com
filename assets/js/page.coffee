@@ -17,7 +17,7 @@ class Page
         readOnly: @project.readOnly
 
   onNewCrit: (e) =>
-    if e.which == 1 && (e.target in @gridline.lines or e.target in @canvas.get())
+    if e.which == 1 and e.target in @canvas.get()
       e.preventDefault()
       @gridline.disable(false)
       @crits.push new Crit(
@@ -72,7 +72,7 @@ class Page
 
   show: ->    
     @canvas.empty().css('background-image': "url(#{@json.screenshot})", width: @json.screenshotWidth, height: @json.screenshotHeight)
-    if @json.crits? && @json.crits.length > 0
+    if (@json.crits? && @json.crits.length > 0) or (@crits.length > 0)
       @project.hidePlaceHolder()
       crit.show() for crit in @crits
       if @activeCrit then @select(@activeCrit) else @cancelCurrentCrit()     

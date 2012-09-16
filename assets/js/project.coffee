@@ -9,69 +9,88 @@ PAGES_DROPDOWN = jade.compile '''
 class Project
   constructor: (@readOnly = false, @onReady = ->) ->
     @pages = []
+    @pagesById = []    
     @canvas = ($ '#canvas')
     @sidebar = ($ '#sidebar')
+    @prev = ($ '#prev-page')
+    @next = ($ '#next-page')
     @history = new History(/^\/.+?\/.+?\/(.+)$/, @onShowPage)
     @load()
 
-    ($ document).on mousedown: @onNewCrit
-    ($ '#save-crit').on click: @saveCurrentCrit
-    ($ '#remove-crit').on click: @removeCurrentCrit
-    ($ '#cancel-crit').on click: @cancelCurrentCrit
-    ($ '#remove-all').on click: @removeAll
-    ($ '#new-page').on submit: @onNewPage
+    @next.on click: @nextPage
+    @prev.on click: @prevPage
     ($ '#active-page + ul.dropdown-menu').on 'click', 'li > a', (e) =>
-      e.preventDefault()      
-      @showPage(($ e.target).data('page-id')) 
+      e.preventDefault()
+      @showPage(($ e.target).data('page-id'))
+      
+    unless @readOnly
+      ($ document).on mousedown: @onNewCrit
+      ($ '#save-crit').on click: @saveCurrentCrit
+      ($ '#remove-crit').on click: @removeCurrentCrit
+      ($ '#cancel-crit').on click: @cancelCurrentCrit
+      ($ '#remove-all').on click: @removeAll
+      ($ '#new-page').on submit: @onNewPage          
 
-  showPage: (pageId) ->   
-    @activePage = @pages[pageId]
+  showPage: (pageId) ->
+    @activePage = @pagesById[pageId]
     @history.load("/#{@base}/#{@id}/#{pageId}")
 
+  nextPage: =>
+    activeIndex = @pages.indexOf @activePage
+    @showPage(@pages[activeIndex + 1].id) if @pages[activeIndex + 1]?
+
+  prevPage: =>
+    activeIndex = @pages.indexOf @activePage
+    @showPage(@pages[activeIndex - 1].id) if activeIndex > 0
+    
   onShowPage: (pageId) =>
-    @clearCrits
+    pageId = pageId or @firstPageId()
+    @clearCrits()
     @clearSidebar()
     @showPlaceHolder()
-    @pages[pageId].show()
+    (@activePage = @pagesById[pageId]).show()
     document.title = "myDesignCrit.com - #{@activePage.title}"
     ($ '#active-page i').text(@activePage.title)    
+    activeIndex = @pages.indexOf @activePage
+    if @pages[activeIndex + 1]? then @next.removeClass 'disabled' else @next.addClass 'disabled'
+    if activeIndex > 0 then @prev.removeClass 'disabled' else @prev.addClass 'disabled'
 
   firstPageId: ->
-    return id for id of @pages
+    @pages[0].id
 
   onNewCrit: (e) =>
     @activePage.onNewCrit(e)
 
   saveCurrentCrit: (e) =>
     @activePage.saveCurrentCrit(e)
-    toggleOptions(false)
+    @toggleOptions(false)
     ($ '#crit-comment').val('')
 
   removeCurrentCrit: (e) =>
     @activePage.removeCurrentCrit(e)
-    toggleOptions(false)
+    @toggleOptions(false)
 
   cancelCurrentCrit: (e) =>
     @activePage.cancelCurrentCrit(e)
-    toggleOptions(false)
+    @toggleOptions(false)
 
   removeAll: (e) =>
     @activePage.removeAll(e)
-    @clearCrits 
+    @clearCrits()
     @clearSidebar()
     @showPlaceHolder()
-    
+
   clearSidebar: ->
     ($ '#crits > li', @sidebar).not('.placeholder').remove()
-  
-  clearCrits: -> 
+
+  clearCrits: ->    
     ($ '.crit', @canvas).remove()
-    
+
   hidePlaceHolder: ->
     @sidebar.find('.placeholder').hide().end().find('#remove-all').show()
 
   showPlaceHolder: ->
-    @sidebar.find('.placeholder').show().end().find('#remove-all').hide()  
+    @sidebar.find('.placeholder').show().end().find('#remove-all').hide()
 
   onNewPage: (e) =>
     e.preventDefault()
@@ -91,18 +110,18 @@ class Project
 
   load: ->
     showLoader()
-    $.get("#{location.pathname}.json").success @onLoad  
+    $.get("#{location.pathname}.json").success @onLoad
 
-  onLoad: (project) =>        
-    @pages[page._id] = new Page(this, page) for page in project.pages
-    path = location.pathname.split('/')
-    @base = path[1]
-    @id = path[2]
-    pageId = path[3] || @firstPageId()    
-    pageId = project.pages[project.pages.length - 1]._id if @addingNewPage     
+  onLoad: (project) =>
+    @pages = []
+    @pagesById = []    
+    @pages.push new Page(this, page) for page in project.pages
+    @pagesById[page.id] = page for page in @pages
+    [t, @base, @id, pageId] = location.pathname.split('/')    
+    pageId = project.pages[project.pages.length - 1]._id if @addingNewPage
     ($ '#active-page + ul.dropdown-menu').html(PAGES_DROPDOWN(project: project))
-    @showPage(pageId)
-    removeLoader()
-    @onReady(this)
+    @onShowPage(pageId)
+    removeLoader()    
+    @onReady(this) if !@addingNewPage
 
 window.Project = Project

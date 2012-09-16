@@ -19,7 +19,9 @@ $.fn.serializeObject = ->
 
   return o
 
-$ -> $('.popbox').popbox
-  open: '.open'
-  arrow: '.popbox-arrow'
-  close: '.popbox-close'
+$ -> 
+  $('.popbox').popbox
+   open: '.open'
+   arrow: '.popbox-arrow'
+   close: '.popbox-close'
+  ($ 'img.retina').retina()
