@@ -7,7 +7,7 @@ PAGES_DROPDOWN = jade.compile '''
 '''
 
 class Project
-  constructor: (@readOnly = false, @onReady = ->) ->
+  constructor: (@readOnly = false, @onPageChange = ->) ->
     @pages = []
     @pagesById = []    
     @canvas = ($ '#canvas')
@@ -54,6 +54,7 @@ class Project
     activeIndex = @pages.indexOf @activePage
     if @pages[activeIndex + 1]? then @next.removeClass 'disabled' else @next.addClass 'disabled'
     if activeIndex > 0 then @prev.removeClass 'disabled' else @prev.addClass 'disabled'
+    @onPageChange(this)
 
   firstPageId: ->
     @pages[0].id
@@ -124,7 +125,6 @@ class Project
       @showPage(project.pages[project.pages.length - 1]._id)
     else
       @onShowPage(pageId)
-      @onReady(this)
       
     removeLoader()    
     
