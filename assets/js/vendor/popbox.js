@@ -23,7 +23,7 @@
         if(box.css('display') == 'block'){
           methods.close();
         } else {
-          box.css({'display': 'block', 'top': 30, 'left': ((pop.parent().width()/2) -box.width()/2 )});
+          box.css({'display': 'block', 'top': 42, 'left': ((pop.parent().width()/2) -box.width()/2 )});
         }
       },
 

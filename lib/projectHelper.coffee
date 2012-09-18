@@ -9,7 +9,10 @@ exports.createProject = (req, callback) ->
   project.save (error) =>
     console.log "Created a new project with id [#{project.id}]."
     console.log error if error
-    @addNewPage project, req.body.url, callback
+    @addNewPage project, req.body.url, ->
+      project.title = project.pages[0].title
+      project.thumbnail = project.pages[0].thumbnail
+      project.save -> callback(project)
         
 exports.addNewPage = (project, url, callback) ->
   console.log "Created a new page for project [#{project.id}] with url [#{url}]."    

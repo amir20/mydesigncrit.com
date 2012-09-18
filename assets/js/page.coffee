@@ -14,7 +14,6 @@ class Page
         canvas: @canvas
         gridline: @gridline
         array: c
-        readOnly: @project.readOnly
 
   onNewCrit: (e) =>
     if e.which == 1 and e.target in @canvas.get()

@@ -1,7 +1,10 @@
 div#toolbar.navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     .container-fluid
-      a.brand(href='/') myDesignCrit.com
+      mixin branding
+      .absolute-center
+        mixin pages
+
       ul.nav.pull-right
         - if (canEdit)
           li

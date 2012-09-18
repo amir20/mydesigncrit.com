@@ -25,13 +25,11 @@ class Crit
     canvas: @canvas,
     event: event,
     callback: @callback,
-    readOnly: @readOnly
     array: array
     } = @params
     @doc = ($ document)
     @num = @page.crits.length + 1
     @color = COLORS[@num % COLORS.length]
-    @readOnly ||= false
 
     # Array is present when loading from ajax
     return @fromArray(array) if array?
@@ -57,7 +55,7 @@ class Crit
     @x = @container.offset().left - @canvas.offset().left
     @y = @container.offset().top - @canvas.offset().top
     @container.find('label').show()
-    unless @readOnly
+    unless @project.readOnly
       @container.find('.show-after').removeClass('show-after')
       @createListItem()
       @attachEvents()

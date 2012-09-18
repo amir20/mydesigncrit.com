@@ -25,6 +25,8 @@ ProjectSchema = new Schema
   created_date: { type: Date, default: Date.now }
   shortId: { type: String, index: true, default: ShortId.generate }
   author: { type: String, index: true }
+  title: String
+  thumbnail: String
   pages: [Page]
 
 ProjectSchema.statics.findByAuthor = (author, cb, start = 0, limit = 10) -> @find(author: author).sort(created_date: 'desc').skip(start).limit(limit).exec(cb)

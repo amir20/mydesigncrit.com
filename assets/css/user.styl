@@ -11,20 +11,24 @@
   overflow hidden
   max-width 450px
 
-.user
-  .activity
+.user .activity
+  li
+    color #666
+    float left
+    padding 10px 0
+    width 200px
+    margin 12px
+    text-align center
+    .thumbnail
+      display inline-block
     .title
-      font-size 20px
-    .localtime
-      color #777
-      font-size 12px
-    .count
-      font-size 12px
-      color #777
-
-    li
-      float left
-      padding 10px 0
+      font-size 14px
       width 100%
-      .thumbnail
-        margin-right 10px
+      text-overflow ellipsis
+      white-space nowrap
+      overflow hidden
+      display block
+      margin-top 5px
+    .localtime, .count
+      font-size 12px
+      display block
