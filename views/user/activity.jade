@@ -5,7 +5,9 @@ block content
   div.navbar.white-icons
     .navbar-inner
       .container-fluid
-        a.brand(href='/') myDesignCrit.com
+        a.brand(href='/')
+          |  myDesignCrit.com   
+          img.retina(src='/img/bubble.png', alt='Logo', width=25, height=22)
         ul.nav.pull-right
           li.dropdown
             include ../auth/signin
@@ -13,14 +15,13 @@ block content
     .page-header
       h1 Projects Created By You
     ul.unstyled.activity
-      - each item in projects
+      - each project in projects       
         li
-          a.thumbnail.pull-left(href="/edit/#{item._id}")
-            img(src=item.thumbnail, alt=item.title)
-          a.title(href="/edit/#{item._id}") #{item.title}
-          span.count  (#{item.crits.length} crits)
-          .url #{item.url}
-          time.localtime.create-on #{item.created_date.toISO()}
-
-   include ../common/footer
-
+          a.thumbnail(href="/edit/#{project.id}")
+            img.retina(src=project.thumbnail, alt=project.title, width=160, height=120)
+          a.title(href="/edit/#{project.id}") #{project.title}
+          .count (#{project.pages.length} pages)
+          time.localtime.create-on #{project.created_date.toISO()}
+                           
+prepend footer
+  mixin footer

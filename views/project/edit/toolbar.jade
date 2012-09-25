@@ -1,7 +1,10 @@
-div#toolbar.navbar.navbar-fixed-top.white-icons
+div#toolbar.navbar.navbar-fixed-top.navbar-inverse
   .navbar-inner
     .container-fluid
-      a.brand(href='/') myDesignCrit.com
+      mixin branding                             
+      .absolute-center      
+        mixin pages
+                      
       ul.nav.pull-right
         li
           a(href="/v/#{project.shortId}")
@@ -22,3 +25,17 @@ div#toolbar.navbar.navbar-fixed-top.white-icons
               a#toggle-gridlines(href='#')
                 i.icon-ban-circle
                 |  Hide Grid Lines
+                
+      span.popbox.pull-left
+        button.open.btn.btn-success.btn-small(title="Add a new page to this projects")
+          i.icon-plus
+          |  New Page
+        .box
+          .arrow
+          .arrow-border
+          form#new-page
+            label New Page URL
+            .input-append
+              input(type='url', placeholder='http://example.com', required=true)
+              button.btn.btn-success(type="submit") Add
+            a.pull-right.popbox-close(href='#') &times; cancel

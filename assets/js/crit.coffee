@@ -19,18 +19,17 @@ class Crit
   constructor: (@params) ->
     {
     project: @project,
+    page: @page,
     sidebar: @sidebar,
     gridline: @gridline,
     canvas: @canvas,
     event: event,
     callback: @callback,
-    readOnly: @readOnly
     array: array
     } = @params
     @doc = ($ document)
-    @num = @project.crits.length + 1
+    @num = @page.crits.length + 1
     @color = COLORS[@num % COLORS.length]
-    @readOnly ||= false
 
     # Array is present when loading from ajax
     return @fromArray(array) if array?
@@ -40,7 +39,7 @@ class Crit
     @y = event.pageY - @canvas.offset().top
 
     # Add the container to canvas
-    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css left: @x, top: @y).appendTo @canvas
+    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css(left: @x, top: @y)).appendTo(@canvas)
     @container.addClass 'hover'
 
     @doc.one mouseup: (e) =>
@@ -56,25 +55,25 @@ class Crit
     @x = @container.offset().left - @canvas.offset().left
     @y = @container.offset().top - @canvas.offset().top
     @container.find('label').show()
-    unless @readOnly
+    unless @project.readOnly
       @container.find('.show-after').removeClass('show-after')
       @createListItem()
       @attachEvents()
 
   createListItem: =>
     @listItem = ($ LIST_TEMPLATE(num: @num, title: 'Untitled', color: @color)).appendTo(@sidebar.find('#crits'))
-    @listItem.find('.close').on click: => @project.remove(this)
+    @listItem.find('.close').on click: => @page.remove(this)
     @listItem.find('a.title').on(
-      click: => @project.select(this)
+      click: => @page.select(this)
       mouseover: @onListItemMouseover
       mouseout: @onListItemMouseout
     ).text(@comment)
 
   attachEvents: =>
     @container.on mouseenter: (=> @gridline.hide()), mouseleave: (=> @gridline.show())
-    @container.find('.close').on click: => @project.remove(this)
+    @container.find('.close').on click: => @page.remove(this)
     @container.on
-      click: => @project.select(this) if @clickFlag?
+      click: => @page.select(this) if @clickFlag?
       mousedown: @onContainerMouseDown
     @container.find('a.resize-anchor').on
       mousedown: (e) =>
@@ -90,7 +89,7 @@ class Crit
           @x = @container.offset().left - @canvas.offset().left
           @y = @container.offset().top - @canvas.offset().top
           @gridline.show(true)
-          @project.persist()
+          @page.persist()
 
   onResize: (e) =>
     e.preventDefault()
@@ -113,7 +112,7 @@ class Crit
     setTimeout (=> @clickFlag = null), 300
     @doc.one mouseup: =>
       @doc.off mousemove: @onMove
-      @project.persist() if !@clickFlag?
+      @page.persist() if !@clickFlag?
 
   onListItemMouseover: =>
     @container.addClass('hover')
@@ -137,7 +136,7 @@ class Crit
     @comment = ($ '#crit-comment').val()
     @listItem.find('a.title').text(@comment)
     @container.removeClass('active')
-    @project.persist()
+    @page.persist()
 
   updateNum: (i) ->
     @container.find('.num').text(i)
@@ -148,13 +147,16 @@ class Crit
     @listItem.find('a.title').on click: @edit
 
   toArray: -> { x: @x, y: @y, width: @container.width(), height: @container.height(), comment: @comment }
+  
+  show: ->
+    @container.appendTo(@canvas)    
+    @onAfterCreate()
 
   fromArray: (array) ->
     @x = array.x
     @y = array.y
     @comment = array.comment
-    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css left: @x, top: @y).appendTo(@canvas).width(array.width).height(array.height)
-    @onAfterCreate()
+    (@container = ($ BOX_TEMPLATE(num: @num, color: @color)).css(left: @x, top: @y)).appendTo(@canvas).width(array.width).height(array.height)    
     return this
 
 window.Crit = Crit

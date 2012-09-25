@@ -1,23 +1,27 @@
 activeDialog = null
 
-$.fn.serializeObject = ->
-  o = {}
-  a = @serializeArray()
-  $.each a, ->
-    if o[@name] isnt `undefined`
-      o[@name] = [ o[@name] ]  unless o[@name].push
-      o[@name].push @value or ""
-    else
-      o[@name] = @value or ""
-
-  return o
+spinnnerOpts =
+  lines: 11
+  length: 0
+  width: 4 
+  radius: 10
+  corners: 1
+  rotate: 0 
+  color: "#000" 
+  speed: 1.6
+  trail: 71
+  shadow: true 
+  hwaccel: true
+  className: "spinner"
+  zIndex: 2e9
+  top: "auto"
+  left: "auto"
 
 class Dialog
   constructor: (url) ->
     if activeDialog?
       activeDialog.load(url)
-    else
-      activeDialog = this
+    else       
       $('<div />', id: 'overlay', click: @close).appendTo(document.body)
       @dialog = ($ '<div />', id: 'dialog')
         .append(($ '<div />', class: 'top-bar').append($ '<a />', class: 'close', text: '×', click: @close))
@@ -28,15 +32,14 @@ class Dialog
       @load(url)
 
   load: (url) =>
-    @dialog.addClass('loading').find('.content').html('').load(url, @onLoad)
+    @dialog.spin(spinnnerOpts).find('.content').html('').load(url, @onLoad)
 
   handleForm: (e) =>
     e.preventDefault()
-    @dialog.addClass('loading').find('.content').html('').load(e.target.action, $(e.target).serializeObject(), @onLoad)
-
+    @dialog.spin(spinnnerOpts).find('.content').html('').load(e.target.action, $(e.target).serializeObject(), @onLoad)
 
   onLoad: =>
-    @dialog.removeClass('loading')
+    @dialog.spin(false)
     @dialog.find('[data-close]').one click: (e) =>
       e.preventDefault()
       @close()
@@ -53,4 +56,4 @@ jwerty.key 'esc', (e) ->
 $ ->
   ($ document.body).on 'click', 'a.dialog', (e) ->
     e.preventDefault()
-    new Dialog(@href)
+    activeDialog = new Dialog(@href)

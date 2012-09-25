@@ -3,9 +3,9 @@ nodemailer = require 'nodemailer'
 jade = require 'jade'
 
 emailTemplate = jade.compile '''
-div(style='background: #F9F9FA; padding: 10px; border-radius: 4px;')
-  h1 Hi there!
-  p #{sender} has shared a project with you at mydesigncrit.com (<a href='http://mydesigncrit.com/v/#{project.shortId}'>#{project.title}</a>)
+div
+  h1 Hey there!
+  p #{sender} has shared a project with you at mydesigncrit.com
   p
     a(style='padding: 4px 10px; border-radius: 4px; color: #fff; border-color: #eee; background: #08c; display: inline-block;', href='http://mydesigncrit.com/v/#{project.shortId}') View This Project
 
@@ -32,7 +32,7 @@ transport = nodemailer.createTransport 'smtp',
           replyTo: req.body.from
           to: req.body.email
           cc: req.body.from
-          subject: "mydesigncrit.com - #{project.url}"
+          subject: "mydesigncrit.com - #{project.title}"
           html: emailTemplate(sender: req.body.sender, message: req.body.message, project: project)
 
         transport.sendMail options, (error, response) ->

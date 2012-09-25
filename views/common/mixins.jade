@@ -1,0 +1,16 @@
+mixin branding
+  a.brand(href='/')
+    |  myDesignCrit.com   
+    img.retina(src='/img/bubble.png', alt='Logo', width=25, height=22)
+
+mixin footer
+  footer copyright &copy; 2012 mydesigncrit.com
+
+mixin pages
+  span.btn-group
+    button#prev-page.btn.btn-inverse.icon-chevron-left.btn-small
+    a#active-page.btn.btn-inverse.btn-small.pages-dropdown(data-toggle="dropdown")
+      b.caret.pull-right
+      i Loading...
+    ul.dropdown-menu
+    button#next-page.btn.btn-inverse.icon-chevron-right.btn-small

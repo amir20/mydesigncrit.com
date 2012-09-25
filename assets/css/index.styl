@@ -1,4 +1,17 @@
 #index
+  span.beta
+    &:before
+      content "Beta!"
+    color #fff
+    border-bottom 80px solid transparent
+    border-left 110px solid #1665B5
+    absolute top left
+    width 0
+    height 0
+    font-size 20px
+    text-indent -100px
+    line-height 45px
+
   .hero-unit
     padding-bottom 100px
     border-radius 0
@@ -11,6 +24,7 @@
       background #EEEEEE
       border-radius 0
       box-shadow none
+      border none
 
       a.dropdown-toggle
         $color = #777

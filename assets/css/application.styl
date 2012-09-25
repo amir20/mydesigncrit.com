@@ -1,5 +1,6 @@
 @import "bootstrap.min.css"
 @import "font-awesome.css"
+@import popbox
 @import nib
 @import forms
 @import index
@@ -10,24 +11,35 @@
 
 body
   min-width 940px
-
+  font-family 'Questrial', sans-serif
+  font-size 14px
   &.welcome
     background #323232 no-repeat
+    .brand 
+      margin-left 50px          
     footer
       color #eee
-
+    .hero-unit p
+      font-size 16px
   &.user
-    background #efefef
+    background #343434
     .container
       background #fff
       min-height 400px
       padding 25px 10px
     .navbar
-      margin-bottom 0
+      margin-bottom 0      
+
+
+input, button, select, textarea 
+  font-family 'Questrial', sans-serif
 
 label, h1, h2, h3, h4, .brand
   font-family 'Quicksand', sans-serif
   font-weight normal
+
+.page-header
+  padding-bottom 0        
 
 h1, h2, h3, h4
   margin-bottom 12px
@@ -45,8 +57,13 @@ footer
   top 0
 
 .navbar
+  .btn-group .btn
+    margin-top 6px                      
   .brand
-    font-weight bold
+    color #000    
+    img.retina
+      margin-top -8px
+      margin-left -4px
 
 .navbar-inner
   border-radius 0
