@@ -13,26 +13,3 @@ div#toolbar.navbar.navbar-fixed-top.navbar-inverse
             |  Share
         li.dropdown
           include ../../auth/signin
-        li.dropdown
-          a.dropdown-toggle(data-toggle='dropdown', href='#')
-            i.icon-cog
-            b.caret
-          ul.dropdown-menu
-            li
-              a#toggle-gridlines(href='#')
-                i.icon-ban-circle
-                |  Hide Grid Lines
-                
-      span.popbox.pull-left
-        button.open.btn.btn-success.btn-small(title="Add a new page to this projects")
-          i.icon-plus
-          |  New Page
-        .box
-          .arrow
-          .arrow-border
-          form#new-page
-            label New Page URL
-            .input-append
-              input(type='url', placeholder='http://example.com', required=true)
-              button.btn.btn-success(type="submit") Add
-            a.pull-right.popbox-close(href='#') &times; cancel

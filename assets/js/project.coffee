@@ -2,7 +2,7 @@ PAGES_DROPDOWN = jade.compile '''
 - each page in project.pages
   li(class=page._id == currentPageId ? 'selected' : '')
     a(title=page.title, data-page-id=page._id, href='#')
-     i.icon-file 
+     i.icon-file
      | #{page.title}    
 '''
 
@@ -21,7 +21,6 @@ class Project
     @prev.on click: @prevPage
     ($ 'ul#pages').on 'click', 'li > a', (e) =>
       e.preventDefault()
-      ($ e.target).parent('li').addClass('selected').siblings('li').removeClass('selected')
       @showPage(($ e.target).data('page-id'))
 
     unless @readOnly
@@ -55,6 +54,7 @@ class Project
     activeIndex = @pages.indexOf @activePage
     if @pages[activeIndex + 1]? then @next.removeClass 'disabled' else @next.addClass 'disabled'
     if activeIndex > 0 then @prev.removeClass 'disabled' else @prev.addClass 'disabled'
+    ($ "ul#pages a[data-page-id=#{@activePage.id}]").parent('li').addClass('selected').siblings('li').removeClass('selected')
     @onPageChange(this)
 
   firstPageId: ->
@@ -121,6 +121,7 @@ class Project
     @pagesById[page.id] = page for page in @pages
     [t, @base, @id, pageId] = location.pathname.split('/')
     pageId = project.pages[project.pages.length - 1]._id if @addingNewPage
+    pageId = pageId or @firstPageId()
     ($ 'ul#pages').html PAGES_DROPDOWN(project: project, currentPageId: pageId)
     if @addingNewPage then @showPage(pageId) else @onShowPage(pageId)
     removeLoader()
