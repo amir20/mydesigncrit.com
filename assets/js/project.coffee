@@ -1,6 +1,6 @@
 PAGES_DROPDOWN = jade.compile '''
 - each page in project.pages
-  li
+  li(class=page._id == currentPageId ? 'selected' : '')
     a(title=page.title, data-page-id=page._id, href='#')
      i.icon-file 
      | #{page.title}    
@@ -9,7 +9,7 @@ PAGES_DROPDOWN = jade.compile '''
 class Project
   constructor: (@readOnly = false, @onPageChange = ->) ->
     @pages = []
-    @pagesById = []    
+    @pagesById = []
     @canvas = ($ '#canvas')
     @sidebar = ($ '#sidebar')
     @prev = ($ '#prev-page')
@@ -19,17 +19,18 @@ class Project
 
     @next.on click: @nextPage
     @prev.on click: @prevPage
-    ($ '#active-page + ul.dropdown-menu').on 'click', 'li > a', (e) =>
+    ($ 'ul#pages').on 'click', 'li > a', (e) =>
       e.preventDefault()
+      ($ e.target).parent('li').addClass('selected').siblings('li').removeClass('selected')
       @showPage(($ e.target).data('page-id'))
-      
+
     unless @readOnly
       ($ document).on mousedown: @onNewCrit
       ($ '#save-crit').on click: @saveCurrentCrit
       ($ '#remove-crit').on click: @removeCurrentCrit
       ($ '#cancel-crit').on click: @cancelCurrentCrit
       ($ '#remove-all').on click: @removeAll
-      ($ '#new-page').on submit: @onNewPage          
+      ($ '#new-page').on submit: @onNewPage
 
   showPage: (pageId) ->
     @activePage = @pagesById[pageId]
@@ -42,7 +43,7 @@ class Project
   prevPage: =>
     activeIndex = @pages.indexOf @activePage
     @showPage(@pages[activeIndex - 1].id) if activeIndex > 0
-    
+
   onShowPage: (pageId) =>
     pageId = pageId or @firstPageId()
     @clearCrits()
@@ -50,7 +51,7 @@ class Project
     @showPlaceHolder()
     (@activePage = @pagesById[pageId]).show()
     document.title = "myDesignCrit.com - #{@activePage.title}"
-    ($ '#active-page i').text(@activePage.title)    
+    ($ '#active-page i').text(@activePage.title)
     activeIndex = @pages.indexOf @activePage
     if @pages[activeIndex + 1]? then @next.removeClass 'disabled' else @next.addClass 'disabled'
     if activeIndex > 0 then @prev.removeClass 'disabled' else @prev.addClass 'disabled'
@@ -84,7 +85,7 @@ class Project
   clearSidebar: ->
     ($ '#crits > li', @sidebar).not('.placeholder').remove()
 
-  clearCrits: ->    
+  clearCrits: ->
     ($ '.crit', @canvas).remove()
 
   hidePlaceHolder: ->
@@ -115,18 +116,14 @@ class Project
 
   onLoad: (project) =>
     @pages = []
-    @pagesById = []    
+    @pagesById = []
     @pages.push new Page(this, page) for page in project.pages
     @pagesById[page.id] = page for page in @pages
-    [t, @base, @id, pageId] = location.pathname.split('/')        
-    ($ '#active-page + ul.dropdown-menu').html(PAGES_DROPDOWN(project: project))
-    
-    if @addingNewPage 
-      @showPage(project.pages[project.pages.length - 1]._id)
-    else
-      @onShowPage(pageId)
-      
-    removeLoader()    
-    
+    [t, @base, @id, pageId] = location.pathname.split('/')
+    pageId = project.pages[project.pages.length - 1]._id if @addingNewPage
+    ($ 'ul#pages').html PAGES_DROPDOWN(project: project, currentPageId: pageId)
+    if @addingNewPage then @showPage(pageId) else @onShowPage(pageId)
+    removeLoader()
+
 
 window.Project = Project

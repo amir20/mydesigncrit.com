@@ -1,13 +1,17 @@
-li.tabrow
-  text-align center
-  list-style none
-  margin 200px 0 20px
-  padding 0
+#tab-container
+  top 40px
+  background #666
+  z-index 1
+
+ul.tabrow
   line-height 24px
   height 26px
   overflow hidden
   position relative
-  
+  padding-top 10px
+  padding-left 50px
+  margin 0
+
   li
     border 1px solid #aaa
     background linear-gradient(top, #ececec 50%, #d1d1d1 100%)
@@ -19,11 +23,21 @@ li.tabrow
     box-shadow 0 3px 3px rgba(0,0,0,0.40), inset 0 1px 0 #fff
     text-shadow 0 1px #fff
     margin 0 -5px
-    padding 0 20px
+    padding 0 10px
+    line-height 24px
+    min-width 50px
+    max-width 200px
+    text-align center
   
   a
     color #555
     text-decoration none
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+    width 100%
+    display inline-block
+
   
   li.selected
     background #fff
@@ -39,9 +53,8 @@ li.tabrow
     left 0
     border-bottom 1px solid #aaa
     z-index 1
-  
-  li:before,
-  li:after
+
+  li:before,li:after
     border 1px solid #aaa
     position absolute
     bottom -1px

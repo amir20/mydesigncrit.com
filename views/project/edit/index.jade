@@ -1,11 +1,11 @@
 extends ../../layout
 
 block content
- div.gridline.h
- div.gridline.v
  div#edit
    include toolbar
    include sidebar
-
-   div#canvas-background
-     #canvas
+   #tab-container.navbar.navbar-fixed-top
+    ul#pages.tabrow
+   #scroll-pane
+     div#canvas-background
+       #canvas
