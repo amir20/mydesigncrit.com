@@ -2,7 +2,7 @@ PAGES_DROPDOWN = jade.compile '''
 - each page in project.pages
   li(class=page._id == currentPageId ? 'selected' : '')
     a(title=page.title, data-page-id=page._id, href='#')
-     i.icon-file
+     i.icon-article
      | #{page.title}    
 '''
 
