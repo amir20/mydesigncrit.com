@@ -1,11 +1,14 @@
 PAGES_DROPDOWN = jade.compile '''
 - each page in project.pages
-  li(class=page._id == currentPageId ? 'selected' : '')
+  li.tab(class=page._id == currentPageId ? 'selected' : '')
     a(title=page.title, data-page-id=page._id, href='#')
      i.icon-article
-     | #{page.title}    
+     | #{page.title}
+li.new-page
+  a(href='#')
+    i.icon-plus
+    | New
 '''
-
 class Project
   constructor: (@readOnly = false, @onPageChange = ->) ->
     @pages = []
@@ -19,9 +22,9 @@ class Project
 
     @next.on click: @nextPage
     @prev.on click: @prevPage
-    ($ 'ul#pages').on 'click', 'li > a', (e) =>
+    ($ 'ul#pages').on 'click', 'li.tab > a', (e) =>
       e.preventDefault()
-      @showPage(($ e.target).data('page-id'))
+      @showPage ($ e.target).data('page-id')
 
     unless @readOnly
       ($ document).on mousedown: @onNewCrit

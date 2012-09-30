@@ -14,7 +14,7 @@ ul.tabrow
     background linear-gradient(top, #ececec 50%, #d1d1d1 100%)
     display inline-block
     position relative
-    z-index 0
+    z-index 1
     border-top-left-radius 6px
     border-top-right-radius 6px
     box-shadow 0 3px 3px rgba(0,0,0,0.40), inset 0 1px 0 #fff
@@ -39,11 +39,34 @@ ul.tabrow
         font-size 80%
         margin-right 4px
 
+    &.new-page
+      color #ffffff
+      border 1px solid #555
+      text-shadow 0 -1px 0 rgba(0, 0, 0, 0.25)
+      background linear-gradient(top, #62c462, #51a351)
+      box-shadow none
+      left -10px
+      transition left .2s ease
+      z-index 0
+      border-bottom-color #aaa
+
+      &:hover
+        left 0
+
+      &:before, &:after
+          border-color #555
+      &:before
+          box-shadow 2px 2px 0 #51a351
+      &:after
+        box-shadow -2px 2px 0 #51a351
+      a
+        color #fff
+
   
   li.selected
     background #fff
     color #333
-    z-index 2
+    z-index 3
     border-bottom-color #fff
   
   &:before
