@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %title designcrit.io - Critiquing websites easily
+    %meta{content: 'width=device-width, initial-scale=1.0', name: 'viewport'}/
+    = stylesheet_link_tag    'application', media: 'all'
+    = csrf_meta_tags
+  %body
+    = yield
+    = javascript_include_tag 'application'
