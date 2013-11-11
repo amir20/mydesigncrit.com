@@ -11,7 +11,61 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131110214924) do
+ActiveRecord::Schema.define(version: 20131111052642) do
+
+  create_table "crits", force: true do |t|
+    t.integer  "page_id"
+    t.text     "comment"
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "width"
+    t.integer  "height"
+    t.integer  "order"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "crits", ["page_id"], name: "index_crits_on_page_id"
+
+  create_table "delayed_jobs", force: true do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "pages", force: true do |t|
+    t.integer  "project_id"
+    t.string   "url"
+    t.string   "title"
+    t.string   "screenshot"
+    t.string   "thumbnail"
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "pages", ["project_id"], name: "index_pages_on_project_id"
+
+  create_table "projects", force: true do |t|
+    t.integer  "user_id"
+    t.string   "title"
+    t.string   "thumbnail"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "projects", ["user_id"], name: "index_projects_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",              default: "", null: false

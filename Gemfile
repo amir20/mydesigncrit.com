@@ -41,6 +41,9 @@ group :development, :test do
 end
 
 gem 'phantomjs.rb'
+gem 'delayed_job_active_record'
+gem 'delayed_job_web'
+
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'

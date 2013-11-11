@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   devise :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
+  has_many :projects
 
   def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
     user = User.where(email: auth.info.email).first
