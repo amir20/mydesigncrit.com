@@ -1,10 +1,10 @@
 DesigncritIo::Application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
 
-  resource :welcome
+  resource :welcome, only: :index
 
-  resource :projects do
-    resource :pages
+  resources :projects do
+    resources :pages
   end
 
   root 'welcome#index'

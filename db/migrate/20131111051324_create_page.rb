@@ -8,6 +8,7 @@ class CreatePage < ActiveRecord::Migration
       t.string :thumbnail
       t.integer :width
       t.integer :height
+      t.boolean :processed, default: false
 
 
       t.timestamps

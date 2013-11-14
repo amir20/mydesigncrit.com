@@ -4,13 +4,11 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.create(name: 'Untitled')
-    page = Page.create(url: params[:url])
-    @project.pages << page
-    @project.save
-    page.process
+    @project = Project.create(title: 'Untitled')
+    @page = @project.pages.create(url: params[:url])
+    @page.process
 
-
+    render :show
   end
 
   def update
@@ -18,5 +16,9 @@ class ProjectsController < ApplicationController
 
   def destroy
 
+  end
+
+  def show
+    @project = Project.find(params[:id])
   end
 end

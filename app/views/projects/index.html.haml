@@ -1,0 +1,22 @@
+%nav.navbar.navbar-default{role: 'navigation'}
+  .container
+    .navbar-header
+      %a.navbar-brand{href: '/'} DesignCrit
+    %ul.nav.navbar-nav.navbar-right
+      %li.dropdown
+        %a.dropdown-toggle{'data-toggle' => 'dropdown', href: "#"}
+          %i.glyphicon.glyphicon-user
+          Sign In
+          %b.caret
+        %ul.dropdown-menu
+          %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook)
+          %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
+
+.container
+  %form{action: '/', method: 'post'}
+    %h1 Create A New Crit
+    .input-group.input-group-lg
+      %span.input-group-addon Web page URL
+      %input.form-control{name: 'url', placeholder: 'http://example.com', required: true, type: 'url'}/
+      .input-group-btn
+        %button.btn.btn-success{type: 'submit'} Go

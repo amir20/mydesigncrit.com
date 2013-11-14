@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20131111052642) do
     t.string   "thumbnail"
     t.integer  "width"
     t.integer  "height"
+    t.boolean  "processed",  default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

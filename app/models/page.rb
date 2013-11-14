@@ -14,6 +14,7 @@ class Page < ActiveRecord::Base
     self.height = img.rows
     self.screenshot = "/jobs/#{id}/screenshot.png"
     self.thumbnail = "/jobs/#{id}/thumbnail.png"
+    self.processed = true
 
     save!
   end
