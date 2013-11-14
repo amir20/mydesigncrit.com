@@ -9,7 +9,6 @@ class CreateCrit < ActiveRecord::Migration
       t.integer :height
       t.integer :order
 
-
       t.timestamps
     end
 

@@ -2,7 +2,7 @@ var page = require('webpage').create(),
     system = require('system'),
     address, output;
 
-if (system.args.length < 3 || system.args.length > 5) {
+if (system.args.length != 3) {
     console.log('Usage: rasterize.js URL filename');
     phantom.exit(1);
 } else {
@@ -16,6 +16,10 @@ if (system.args.length < 3 || system.args.length > 5) {
         } else {
             window.setTimeout(function () {
                 page.render(output);
+                var title = page.evaluate(function () {
+                    return document.title;
+                });
+                console.log(JSON.stringify({title: title}));
                 phantom.exit();
             }, 200);
         }
