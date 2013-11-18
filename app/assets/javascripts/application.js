@@ -11,6 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require spin
 //= require angular
+//= require angular-resource
+//= require angular-route
 //= require twitter/bootstrap
 //= require_tree .

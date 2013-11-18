@@ -1,1 +1,23 @@
+%nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
+  .navbar-header
+    %a.navbar-brand{href: '/'} DesignCrit
+  %ul.nav.navbar-nav.navbar-right
+    %li.dropdown
+      %a.dropdown-toggle{'data-toggle' => 'dropdown', href: "#"}
+        %i.glyphicon.glyphicon-user
+        Sign In
+        %b.caret
+      %ul.dropdown-menu
+        %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook)
+        %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
+
+#project
+  #canvas
+    %ng-view
+
+%script{id: 'page.html', type: 'text/ng-template'}
+  %h1 {{ currentPage.title }}
+  #page{style: 'width:{{currentPage.width}}px; height:{{currentPage.height}}px; background-image: url({{currentPage.screenshot}})'}
+
+
 

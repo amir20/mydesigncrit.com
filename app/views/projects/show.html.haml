@@ -1,1 +1,20 @@
+%nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
+  .container
+    .navbar-header
+      %a.navbar-brand{href: '/'} DesignCrit
+    %ul.nav.navbar-nav.navbar-right
+      %li.dropdown
+        %a.dropdown-toggle{'data-toggle' => 'dropdown', href: "#"}
+          %i.glyphicon.glyphicon-user
+          Sign In
+          %b.caret
+        %ul.dropdown-menu
+          %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook)
+          %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
+
+#project
+  %ng-view
+
+%script{id: 'page.html', type: 'text/ng-template'}
+  hello there
 

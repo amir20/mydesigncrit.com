@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
     @page = @project.pages.create(url: params[:url])
     @page.process
 
-    render :show
+    redirect_to [@project, @page]
   end
 
   def update
