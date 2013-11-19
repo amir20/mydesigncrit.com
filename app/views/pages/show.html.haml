@@ -1,9 +1,10 @@
-%nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation'}
+%nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
   .navbar-header
     %a.navbar-brand{href: '/'} DesignCrit
+
   %ul.nav.navbar-nav.navbar-right
     %li.dropdown
-      %a.dropdown-toggle{'data-toggle' => 'dropdown', href: "#"}
+      %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
         %i.glyphicon.glyphicon-user
         Sign In
         %b.caret
@@ -11,13 +12,22 @@
         %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook)
         %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
 
-#project
+#project{'ng-controller' => 'ProjectCtrl'}
+  #sidebar
+
+
+  %ul.nav.nav-tabs
+    %li{'ng-repeat' => 'page in data.project.pages', 'ng-class' => '{active: page == data.selectedPage}'}
+      %a{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'} {{ page.title }}
+
   #canvas
     %ng-view
 
+
+
+
 %script{id: 'page.html', type: 'text/ng-template'}
-  %h1 {{ currentPage.title }}
-  #page{style: 'width:{{currentPage.width}}px; height:{{currentPage.height}}px; background-image: url({{currentPage.screenshot}})'}
+  = render 'page'
 
 
 

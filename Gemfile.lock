@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/anjlab/bootstrap-rails.git
-  revision: 3707d98b1f27bec87b1dd6de7129e3f52a72e413
+  revision: 271f73becbb2aea9c1b771e09419b9bc0287fe55
   specs:
     anjlab-bootstrap-rails (3.0.2.0)
       railties (>= 3.0)
@@ -33,7 +33,7 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    angularjs-rails (1.2.0)
+    angularjs-rails (1.2.1)
     arel (4.0.1)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
@@ -90,6 +90,8 @@ GEM
     jbuilder (1.5.2)
       activesupport (>= 3.0.0)
       multi_json (>= 1.2.0)
+    jquery-cdn (2.0.3)
+      sprockets (>= 2)
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -112,7 +114,7 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.5.0)
+    omniauth-facebook (1.5.1)
       omniauth-oauth2 (~> 1.1.0)
     omniauth-google-oauth2 (0.2.1)
       omniauth (~> 1.0)
@@ -161,6 +163,8 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
+    select2-rails (3.5.1)
+      thor (~> 0.14)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -186,7 +190,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.3.0)
+    turbolinks (1.3.1)
       coffee-rails
     tzinfo (0.3.38)
     uglifier (2.3.1)
@@ -208,6 +212,7 @@ DEPENDENCIES
   devise
   haml-rails
   jbuilder (~> 1.2)
+  jquery-cdn
   jquery-rails
   omniauth
   omniauth-facebook
@@ -217,6 +222,7 @@ DEPENDENCIES
   rmagick
   rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0)
+  select2-rails
   sqlite3
   thin
   turbolinks

@@ -15,14 +15,15 @@ gem 'anjlab-bootstrap-rails', require: 'bootstrap-rails', github: 'anjlab/bootst
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
+gem 'jquery-cdn'
 gem 'angularjs-rails'
+gem 'select2-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
-
 gem 'thin'
 
 # Use ActiveModel has_secure_password
@@ -40,12 +41,16 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
 end
 
+# For background jobs
 gem 'phantomjs.rb'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 
+# For authenticating
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+
+# Resizing images
 gem 'rmagick'

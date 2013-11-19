@@ -1,6 +1,49 @@
 #project
   margin-top: 50px
 
-#canvas
-  background-image: image_url('checker.png')
-  min-height: 300px
+  ul.nav-tabs
+    box-shadow: inset 0px -2px 2px -1px rgba(0, 0, 0, .1)
+    font-size: 12px
+    padding-top: 30px
+
+    li.active
+      a
+        box-shadow: -2px 0px 2px -1px rgba(0, 0, 0, .1), 2px 0px 2px -1px rgba(0, 0, 0, .1)
+    a
+      max-width: 300px
+      text-overflow: ellipsis
+      white-space: nowrap
+      overflow: hidden
+
+  #canvas
+    background-image: image_url('checker.png')
+    min-height: 600px
+    margin-right: 350px
+    padding: 20px 0
+
+    #page
+      position: relative
+      margin: 0 auto
+      background: #fff
+      min-height: 700px
+
+      .crit
+        position: absolute
+        box-shadow: 0 2px 4px #000
+        border-radius: 3px
+        background: rgba(255,237,13,0.5)
+        border: transparent solid 2px
+        transition: background .3s ease
+        list-style: none
+
+
+
+  #sidebar
+    background: #fff
+    box-shadow: 0 0 4px #000
+    display: block
+    height: 100%
+    width: 350px
+    padding: 45px 20px 0
+    position: fixed
+    right: 0

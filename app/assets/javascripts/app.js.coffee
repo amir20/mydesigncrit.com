@@ -1,6 +1,7 @@
-app = angular.module('designcrit', ['designcritController', 'designcritRestService', 'ngRoute'])
+app = angular.module('designcrit',
+  ['designcritProjectService', 'designcritController', 'designcritRestService', 'designcritDirectives', 'ngRoute'])
 
 app.config ['$locationProvider', '$routeProvider', ($locationProvider, $routeProvider) ->
   $locationProvider.html5Mode(true)
-  $routeProvider.when('/projects/:projectId/pages/:pageId',  templateUrl: 'page.html', controller: 'PageCtrl')
+  $routeProvider.when('/projects/:projectId/pages/:pageId', templateUrl: 'page.html', controller: 'PageCtrl')
 ]
