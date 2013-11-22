@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+
   def index
 
   end
@@ -12,10 +13,10 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    @project = Project.find(params[:id])
   end
 
   def destroy
-
   end
 
   def show

@@ -1,0 +1,1 @@
+json.array! @project.pages, partial: 'page', as: :page

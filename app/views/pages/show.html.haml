@@ -14,10 +14,12 @@
 
 #project{'ng-controller' => 'ProjectCtrl'}
   #sidebar
-
+    %h1 Crits
+    %ul{ 'ng-repeat' => 'crit in data.selectedPage.crits'}
+      %li {{crit.comment }}
 
   %ul.nav.nav-tabs
-    %li{'ng-repeat' => 'page in data.project.pages', 'ng-class' => '{active: page == data.selectedPage}'}
+    %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page.id == data.selectedPage.id}'}
       %a{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'} {{ page.title }}
 
   #canvas

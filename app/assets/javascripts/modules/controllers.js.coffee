@@ -1,18 +1,17 @@
 class PageCtrl
-  constructor: (@$scope, @$routeParams, @$document, @JsonService, @ProjectService) ->
-    @$scope.data = ProjectService
-    @$scope.createCrit = this.createCrit
+  constructor: ($scope, $routeParams, $document, JsonRestClient, @ProjectService) ->
+    $scope.data = ProjectService
+    $scope.createCrit = @createCrit
     @page = $('#page')
+    pageId = parseInt($routeParams.pageId)
+    unless ProjectService.project?
+      ProjectService.project = JsonRestClient.project().get(id: $routeParams.projectId) unless ProjectService.project?
+      ProjectService.pages = JsonRestClient.page($routeParams.projectId).query ->
+        ProjectService.selectedPage = (page for page in ProjectService.pages when page.id is pageId)[0]
 
-    if ProjectService.project?
-      @findPage(ProjectService.project)
-    else
-      ProjectService.project = JsonService.project.get(id: $routeParams.projectId, (project) => @findPage(project))
+    ProjectService.selectedPage = (page for page in ProjectService.pages when page.id is pageId)[0]
 
-
-  findPage: (project) ->
-    pageId = parseInt(@$routeParams.pageId)
-    @ProjectService.selectedPage = (page for page in project.pages when page.id is pageId)[0]
+    $scope.$on 'save', (event, params) -> ProjectService.selectedPage.$update()
 
   createCrit: (e) =>
     crit = {create: true}
@@ -22,7 +21,7 @@ class PageCtrl
 
 
 class ProjectCtrl
-  constructor: ($scope, ProjectService) ->
+  constructor: ($scope, JsonRestClient, ProjectService) ->
     $scope.data = ProjectService
 
 
@@ -33,5 +32,5 @@ class HeaderCtrl
 
 app = angular.module('designcritController', [])
 app.controller('PageCtrl', ['$scope', '$routeParams', '$document', 'JsonRestClient', 'ProjectService', PageCtrl])
+app.controller('ProjectCtrl', ['$scope', 'JsonRestClient', 'ProjectService', ProjectCtrl])
 app.controller('HeaderCtrl', ['$scope', 'ProjectService', HeaderCtrl])
-app.controller('ProjectCtrl', ['$scope', 'ProjectService', ProjectCtrl])

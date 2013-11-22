@@ -5,14 +5,13 @@ crit = ($document) ->
   scope:
     crit: '='
   link: (scope, element, attrs) ->
-    crit = scope.crit
     page = element.parent()
 
     resize = (e) ->
       e.preventDefault()
       e.stopPropagation()
-      crit.width = (e.pageX - page.offset().left) - crit.x
-      crit.height = (e.pageY - page.offset().top) - crit.y
+      scope.crit.width = (e.pageX - page.offset().left) - scope.crit.x
+      scope.crit.height = (e.pageY - page.offset().top) - scope.crit.y
       scope.$apply()
 
     mouseup = (e) ->
@@ -20,26 +19,28 @@ crit = ($document) ->
       e.stopPropagation()
       $document.unbind('mouseup')
       $document.unbind('mousemove')
+      scope.$emit('save')
 
     move = (e) =>
       e.preventDefault()
       e.stopPropagation()
-      crit.x = e.pageX - page.offset().left - @startX
-      crit.y = e.pageY - page.offset().top - @startY
+      scope.crit.x = e.pageX - page.offset().left - @startX
+      scope.crit.y = e.pageY - page.offset().top - @startY
       scope.$apply()
 
     element.on 'mousedown', (e) =>
       e.preventDefault()
       e.stopPropagation()
-      @startX = e.pageX - page.offset().left - crit.x
-      @startY = e.pageY - page.offset().top - crit.y
+      console.log scope.crit
+      @startX = e.pageX - page.offset().left - scope.crit.x
+      @startY = e.pageY - page.offset().top - scope.crit.y
       $document.bind 'mousemove', move
       $document.bind 'mouseup', mouseup
 
-    if crit.create
-      crit.width = 0
-      crit.height = 0
-      delete crit.create
+    if scope.crit.create
+      scope.crit.width = 0
+      scope.crit.height = 0
+      delete scope.crit.create
       $document.bind 'mousemove', resize
       $document.bind 'mouseup', mouseup
 

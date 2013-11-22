@@ -1,3 +1,5 @@
 angular.module('designcritProjectService', []).factory 'ProjectService', [->
-  project: null, selectedPage: null
+  project: null
+  pages: null
+  selectedPage: null
 ]
