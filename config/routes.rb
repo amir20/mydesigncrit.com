@@ -4,7 +4,9 @@ DesigncritIo::Application.routes.draw do
   resource :welcome, only: :index
 
   resources :projects do
-    resources :pages
+    resources :pages do
+      resources :crits
+    end
   end
 
   root 'welcome#index'

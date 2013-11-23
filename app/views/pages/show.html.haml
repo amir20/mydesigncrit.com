@@ -12,7 +12,7 @@
         %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook)
         %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
 
-#project{'ng-controller' => 'ProjectCtrl'}
+#project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
   #sidebar
     %h1 Crits
     %ul{ 'ng-repeat' => 'crit in data.selectedPage.crits'}

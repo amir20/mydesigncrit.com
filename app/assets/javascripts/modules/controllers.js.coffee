@@ -3,26 +3,28 @@ class PageCtrl
     $scope.data = ProjectService
     $scope.createCrit = @createCrit
     @page = $('#page')
-    pageId = parseInt($routeParams.pageId)
-    unless ProjectService.project?
-      ProjectService.project = JsonRestClient.project().get(id: $routeParams.projectId) unless ProjectService.project?
-      ProjectService.pages = JsonRestClient.page($routeParams.projectId).query ->
-        ProjectService.selectedPage = (page for page in ProjectService.pages when page.id is pageId)[0]
+    @pageId = parseInt($routeParams.pageId)
 
-    ProjectService.selectedPage = (page for page in ProjectService.pages when page.id is pageId)[0]
+    ProjectService.pages.$promise.then =>
 
-    $scope.$on 'save', (event, params) -> ProjectService.selectedPage.$update()
+      ProjectService.selectedPage = (page for page in ProjectService.pages when page.id is @pageId)[0]
+      ProjectService.selectedPage.crits = ProjectService.client.crit(@pageId).query()
 
   createCrit: (e) =>
-    crit = {create: true}
-    crit.x = e.pageX - @page.offset().left
-    crit.y = e.pageY - @page.offset().top
+    Crit = @ProjectService.client.crit(@pageId)
+    crit = new Crit(x: e.pageX - @page.offset().left, y: e.pageY - @page.offset().top)
+    crit.$save()
+    crit.create = true
     @ProjectService.selectedPage.crits.push(crit)
 
 
 class ProjectCtrl
   constructor: ($scope, JsonRestClient, ProjectService) ->
     $scope.data = ProjectService
+    $scope.$watch 'projectId', ->
+      ProjectService.client = JsonRestClient.client($scope.projectId)
+      ProjectService.project = ProjectService.client.project()
+      ProjectService.pages = ProjectService.client.pages()
 
 
 class HeaderCtrl

@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/anjlab/bootstrap-rails.git
-  revision: 271f73becbb2aea9c1b771e09419b9bc0287fe55
+  revision: 1e43948db7188e670b637ca4fd2076f3a0fa058f
   specs:
     anjlab-bootstrap-rails (3.0.2.0)
       railties (>= 3.0)
@@ -52,7 +52,7 @@ GEM
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.2.3)
     debugger-linecache (1.2.0)
-    debugger-ruby_core_source (1.2.3)
+    debugger-ruby_core_source (1.2.4)
     delayed_job (4.0.0)
       activesupport (>= 3.0, < 4.1)
     delayed_job_active_record (4.0.0)
@@ -163,13 +163,13 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
-    select2-rails (3.5.1)
+    select2-rails (3.5.2)
       thor (~> 0.14)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (~> 1.3, >= 1.3.4)
-    sprockets (2.10.0)
+    sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)

@@ -19,7 +19,7 @@ crit = ($document) ->
       e.stopPropagation()
       $document.unbind('mouseup')
       $document.unbind('mousemove')
-      scope.$emit('save')
+      scope.crit.$update()
 
     move = (e) =>
       e.preventDefault()
@@ -31,7 +31,6 @@ crit = ($document) ->
     element.on 'mousedown', (e) =>
       e.preventDefault()
       e.stopPropagation()
-      console.log scope.crit
       @startX = e.pageX - page.offset().left - scope.crit.x
       @startY = e.pageY - page.offset().top - scope.crit.y
       $document.bind 'mousemove', move
