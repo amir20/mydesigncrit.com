@@ -1,5 +1,5 @@
 #page.ng-cloak{ style: 'width:{{data.selectedPage.width}}px; height:{{data.selectedPage.height}}px; background-image: url({{data.selectedPage.screenshot}})',
 'ng-mousedown' => 'createCrit($event)' }
-  %crit{ 'ng-repeat' => 'crit in data.selectedPage.crits', 'crit' => 'crit' }
+  %crit{ 'ng-repeat' => 'crit in data.selectedPage.crits', crit: 'crit', 'selected-crit' => 'data.selectedCrit'}
 
 

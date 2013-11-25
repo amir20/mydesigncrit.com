@@ -1,9 +1,10 @@
 crit = ($document) ->
-  restrict: "E"
-  template: "<div class='crit' style='left: {{crit.x}}px; top:{{crit.y}}px; width: {{crit.width}}px; height: {{crit.height}}px'></div>"
+  restrict: 'E'
+  templateUrl: 'crit.html'
   replace: true
   scope:
     crit: '='
+    selectedCrit: '='
   link: (scope, element, attrs) ->
     page = element.parent()
 
@@ -19,6 +20,7 @@ crit = ($document) ->
       e.stopPropagation()
       $document.unbind('mouseup')
       $document.unbind('mousemove')
+      element.removeClass('hover')
       scope.crit.$update()
 
     move = (e) =>
@@ -28,20 +30,36 @@ crit = ($document) ->
       scope.crit.y = e.pageY - page.offset().top - @startY
       scope.$apply()
 
-    element.on 'mousedown', (e) =>
-      e.preventDefault()
-      e.stopPropagation()
-      @startX = e.pageX - page.offset().left - scope.crit.x
-      @startY = e.pageY - page.offset().top - scope.crit.y
-      $document.bind 'mousemove', move
-      $document.bind 'mouseup', mouseup
-
     if scope.crit.create
+      delete scope.crit.create
       scope.crit.width = 0
       scope.crit.height = 0
-      delete scope.crit.create
+      element.addClass('hover')
       $document.bind 'mousemove', resize
       $document.bind 'mouseup', mouseup
 
+    scope.move = (e) =>
+      if e.which is 1
+        @startX = e.pageX - page.offset().left - scope.crit.x
+        @startY = e.pageY - page.offset().top - scope.crit.y
+        $document.bind 'mousemove', move
+        $document.bind 'mouseup', mouseup
+        e.stopPropagation()
+        e.preventDefault()
 
-app = angular.module('designcritDirectives', []).directive('crit', ['$document', crit])
+    scope.resize = (e) ->
+      element.addClass('hover')
+      $document.bind 'mousemove', resize
+      $document.bind 'mouseup', mouseup
+      scope.selectedCrit = scope.crit
+      e.stopPropagation()
+      e.preventDefault()
+
+
+    scope.delete = ->
+      scope.crit.$delete()
+      scope.$emit('crit.delete', scope.crit)
+
+
+app = angular.module('designcritDirectives', [])
+app.directive('crit', ['$document', crit])

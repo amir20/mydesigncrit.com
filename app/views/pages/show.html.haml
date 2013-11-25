@@ -1,6 +1,6 @@
 %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
   .navbar-header
-    %a.navbar-brand{href: '/'} DesignCrit
+    %a.navbar-brand{href: '/', target: '_self'} DesignCrit.io
 
   %ul.nav.navbar-nav.navbar-right
     %li.dropdown
@@ -13,10 +13,26 @@
         %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
-  #sidebar
-    %h1 Crits
-    %ul{ 'ng-repeat' => 'crit in data.selectedPage.crits'}
-      %li {{crit.comment }}
+  #sidebar{'ng-switch' => true,  'on' => 'data.selectedCrit == null'}
+    %div{'ng-switch-when' => 'true'}
+      %h1 All Crits for This Page
+      %ul{ 'ng-repeat' => 'crit in data.selectedPage.crits'}
+        %li {{ crit.comment }}
+
+    %div{'ng-switch-when' => 'false'}
+      %h1 Edit This Crit
+      %form{role: 'form'}
+        .form-group
+          %label{for: 'comment'} Comment
+          %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4}
+
+        .row
+          .col-md-6
+            %button.btn.btn-warning Cancel
+          .col-md-6.text-right
+            %button.btn.btn-success
+              %span.glyphicon.glyphicon-ok
+              Save
 
   %ul.nav.nav-tabs
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page.id == data.selectedPage.id}'}
@@ -25,11 +41,10 @@
   #canvas
     %ng-view
 
-
-
-
 %script{id: 'page.html', type: 'text/ng-template'}
   = render 'page'
 
 
+%script{id: 'crit.html', type: 'text/ng-template'}
+  = render 'crits/crit'
 

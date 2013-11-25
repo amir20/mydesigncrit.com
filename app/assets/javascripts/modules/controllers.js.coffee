@@ -5,17 +5,20 @@ class PageCtrl
     @page = $('#page')
     @pageId = parseInt($routeParams.pageId)
 
-    ProjectService.pages.$promise.then =>
+    $scope.$on 'crit.delete', (e, crit) -> ProjectService.selectedPage.crits.splice(ProjectService.selectedPage.crits.indexOf(crit), 1)
 
+    ProjectService.pages.$promise.then =>
       ProjectService.selectedPage = (page for page in ProjectService.pages when page.id is @pageId)[0]
       ProjectService.selectedPage.crits = ProjectService.client.crit(@pageId).query()
 
   createCrit: (e) =>
-    Crit = @ProjectService.client.crit(@pageId)
-    crit = new Crit(x: e.pageX - @page.offset().left, y: e.pageY - @page.offset().top)
-    crit.$save()
-    crit.create = true
-    @ProjectService.selectedPage.crits.push(crit)
+    if e.which is 1
+      Crit = @ProjectService.client.crit(@pageId)
+      crit = new Crit(x: e.pageX - @page.offset().left, y: e.pageY - @page.offset().top)
+      crit.$save()
+      crit.create = true
+      @ProjectService.selectedCrit = crit
+      @ProjectService.selectedPage.crits.push(crit)
 
 
 class ProjectCtrl

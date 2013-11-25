@@ -15,6 +15,10 @@ class CritsController < ApplicationController
   end
 
   def destroy
+    @crit = @page.crits.find(params[:id])
+    @crit.destroy
+
+    head :no_content
   end
 
 

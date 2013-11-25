@@ -1,0 +1,3 @@
+.crit{style: 'left: {{crit.x}}px; top:{{crit.y}}px; width: {{crit.width}}px; height: {{crit.height}}px', 'ng-mousedown' => 'move($event)'}
+  %a.close{'ng-click' => 'delete()'} &times;
+  %a.resize{'ng-mousedown' => 'resize($event)'}

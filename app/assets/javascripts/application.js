@@ -10,11 +10,10 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require select2
 //= require angular
 //= require angular-resource
 //= require angular-route
 //= require twitter/bootstrap
-//= require spin
+//= require app
 //= require_tree .
 
