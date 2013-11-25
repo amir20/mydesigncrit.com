@@ -1,3 +1,4 @@
-.crit{style: 'left: {{crit.x}}px; top:{{crit.y}}px; width: {{crit.width}}px; height: {{crit.height}}px', 'ng-mousedown' => 'move($event)'}
+.crit{style: 'left: {{crit.x}}px; top:{{crit.y}}px; width: {{crit.width}}px; height: {{crit.height}}px',
+'ng-mousedown' => 'move($event)', 'ng-click' => 'select($event)', 'ng-class' => '{selected: crit == selectedCrit}'}
   %a.close{'ng-click' => 'delete()'} &times;
   %a.resize{'ng-mousedown' => 'resize($event)'}

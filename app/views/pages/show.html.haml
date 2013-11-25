@@ -13,10 +13,10 @@
         %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
-  #sidebar{'ng-switch' => true,  'on' => 'data.selectedCrit == null'}
+  #sidebar{'ng-switch' => true,  on: 'data.selectedCrit == null'}
     %div{'ng-switch-when' => 'true'}
-      %h1 All Crits for This Page
-      %ul{ 'ng-repeat' => 'crit in data.selectedPage.crits'}
+      %h1 Crits on This Page
+      %ul{ 'ng-repeat' => 'crit in data.selectedPage.crits' }
         %li {{ crit.comment }}
 
     %div{'ng-switch-when' => 'false'}
@@ -24,15 +24,7 @@
       %form{role: 'form'}
         .form-group
           %label{for: 'comment'} Comment
-          %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4}
-
-        .row
-          .col-md-6
-            %button.btn.btn-warning Cancel
-          .col-md-6.text-right
-            %button.btn.btn-success
-              %span.glyphicon.glyphicon-ok
-              Save
+          %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-change' => 'saveSelectedCrit()', 'ng-model' => 'data.selectedCrit.comment'}
 
   %ul.nav.nav-tabs
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page.id == data.selectedPage.id}'}

@@ -12,6 +12,7 @@
 //
 //= require angular
 //= require angular-resource
+//= require angular-animate
 //= require angular-route
 //= require twitter/bootstrap
 //= require app

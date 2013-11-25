@@ -20,7 +20,6 @@ crit = ($document) ->
       e.stopPropagation()
       $document.unbind('mouseup')
       $document.unbind('mousemove')
-      element.removeClass('hover')
       scope.crit.$update()
 
     move = (e) =>
@@ -34,7 +33,6 @@ crit = ($document) ->
       delete scope.crit.create
       scope.crit.width = 0
       scope.crit.height = 0
-      element.addClass('hover')
       $document.bind 'mousemove', resize
       $document.bind 'mouseup', mouseup
 
@@ -44,17 +42,21 @@ crit = ($document) ->
         @startY = e.pageY - page.offset().top - scope.crit.y
         $document.bind 'mousemove', move
         $document.bind 'mouseup', mouseup
+        scope.selectedCrit = scope.crit
         e.stopPropagation()
         e.preventDefault()
 
     scope.resize = (e) ->
-      element.addClass('hover')
       $document.bind 'mousemove', resize
       $document.bind 'mouseup', mouseup
       scope.selectedCrit = scope.crit
       e.stopPropagation()
       e.preventDefault()
 
+    scope.select = (e) ->
+      scope.selectedCrit = scope.crit
+      e.stopPropagation()
+      e.preventDefault()
 
     scope.delete = ->
       scope.crit.$delete()
