@@ -1,17 +1,8 @@
-%nav.navbar.navbar-default{role: 'navigation'}
-  .container
-    .navbar-header
-      %a.navbar-brand{href: '/'} DesignCrit
-    %ul.nav.navbar-nav.navbar-right
-      %li.dropdown
-        %a.dropdown-toggle{'data-toggle' => 'dropdown', href: "#"}
-          %i.glyphicon.glyphicon-user
-          Sign In
-          %b.caret
-        %ul.dropdown-menu
-          %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook)
-          %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
-
+%nav.navbar{role: 'navigation'}
+  .navbar-header
+    %a.navbar-brand{href: '/', target: '_self'} DesignCrit.io
+  = render 'layouts/login'
+  
 .container
   %form{action: '/projects', method: 'post'}
     %h1 Create A New Crit

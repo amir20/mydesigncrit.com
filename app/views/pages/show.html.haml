@@ -1,23 +1,14 @@
 %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
   .navbar-header
     %a.navbar-brand{href: '/', target: '_self'} DesignCrit.io
-
-  %ul.nav.navbar-nav.navbar-right
-    %li.dropdown
-      %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-        %i.glyphicon.glyphicon-user
-        Sign In
-        %b.caret
-      %ul.dropdown-menu
-        %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook)
-        %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2)
+  = render 'layouts/login'
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
   #sidebar{'ng-switch' => true,  on: 'data.selectedCrit == null'}
     %div{'ng-switch-when' => 'true'}
       %h1 Crits on This Page
-      %ul{ 'ng-repeat' => 'crit in data.selectedPage.crits' }
-        %li {{ crit.comment }}
+      %ol.crits
+        %li{ 'ng-repeat' => 'crit in data.selectedPage.crits' } {{ crit.comment }}
 
     %div{'ng-switch-when' => 'false'}
       %h1 Edit This Crit
