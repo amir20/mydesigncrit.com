@@ -6,7 +6,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = Project.create(title: 'Untitled')
-    @page = @project.pages.create(url: params[:url])
+    @page = @project.pages.create(url: params[:url], title: 'Loading...')
     @page.process
 
     redirect_to [@project, @page]

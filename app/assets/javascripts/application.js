@@ -15,6 +15,7 @@
 //= require angular-animate
 //= require angular-route
 //= require twitter/bootstrap
+//= require spin
 //= require app
 //= require_tree .
 

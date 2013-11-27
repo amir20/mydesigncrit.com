@@ -1,13 +1,27 @@
 class PageCtrl
-  constructor: ($scope, $routeParams, JsonRestClient, ProjectService) ->
+  constructor: ($scope, $routeParams, $timeout, JsonRestClient, ProjectService) ->
     $scope.data = ProjectService
     pageId = parseInt($routeParams.pageId)
-    $scope.$on 'crit.delete', (e, crit) -> ProjectService.selectedPage.crits.splice(ProjectService.selectedPage.crits.indexOf(crit), 1)
+    $scope.$on 'crit.delete', (e, crit) ->
+      ProjectService.selectedPage.crits.splice(ProjectService.selectedPage.crits.indexOf(crit), 1)
 
-    ProjectService.pages.$promise.then =>
-      ProjectService.selectedPage = (page for page in ProjectService.pages when page.id is pageId)[0]
-      ProjectService.selectedPage.crits = ProjectService.client.crit(pageId).query()
-      ProjectService.selectedCrit = null
+    ProjectService.selectedCrit = null
+
+    $scope.loading = true
+
+    loaded = (pages) ->
+      selectedPage = (page for page in pages when page.id is pageId)[0]
+      if selectedPage.processed is true
+        ProjectService.selectedPage = selectedPage
+        ProjectService.pages = pages
+        ProjectService.selectedPage.crits = ProjectService.client.crit(pageId).query()
+        $scope.loading = false
+      else
+        $timeout (->
+          ProjectService.client.pages().$promise.then loaded
+        ), 2500
+
+    ProjectService.pages.$promise.then loaded
 
     $scope.createCrit = (e) ->
       if e.which is 1
@@ -32,7 +46,8 @@ class ProjectCtrl
     timeout = null
     $scope.saveSelectedCrit = (e) ->
       $timeout.cancel(timeout)
-      timeout = $timeout (-> ProjectService.selectedCrit.$update()), 300
+      timeout = $timeout (->
+        ProjectService.selectedCrit.$update()), 300
 
 
 class HeaderCtrl
@@ -41,6 +56,6 @@ class HeaderCtrl
 
 
 app = angular.module('designcritController', [])
-app.controller('PageCtrl', ['$scope', '$routeParams', 'JsonRestClient', 'ProjectService', PageCtrl])
+app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClient', 'ProjectService', PageCtrl])
 app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', ProjectCtrl])
 app.controller('HeaderCtrl', ['$scope', 'ProjectService', HeaderCtrl])

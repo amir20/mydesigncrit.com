@@ -3,6 +3,7 @@
     %a.navbar-brand{href: '/', target: '_self'} DesignCrit.io
   = render 'layouts/login'
 
+
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
   #sidebar{'ng-switch' => true,  on: 'data.selectedCrit == null'}
     %div{'ng-switch-when' => 'true'}
