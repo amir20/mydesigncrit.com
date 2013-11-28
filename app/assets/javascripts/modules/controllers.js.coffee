@@ -47,7 +47,10 @@ class ProjectCtrl
     $scope.saveSelectedCrit = (e) ->
       $timeout.cancel(timeout)
       timeout = $timeout (->
-        ProjectService.selectedCrit.$update()), 300
+        ProjectService.selectedCrit.$update()), 200
+
+    $scope.done = ->
+      ProjectService.selectedCrit = null
 
 
 class HeaderCtrl

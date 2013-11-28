@@ -5,6 +5,7 @@ crit = ($document) ->
   scope:
     crit: '='
     selectedCrit: '='
+    index: '='
   link: (scope, element, attrs) ->
     page = element.parent()
 

@@ -17,6 +17,8 @@
         .form-group
           %label{for: 'comment'} Comment
           %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-change' => 'saveSelectedCrit()', 'ng-model' => 'data.selectedCrit.comment'}
+        .form-group
+          %button.btn.btn-primary.btn-block{type: 'submit', 'ng-click' => 'done()'} Done
 
   %ul.nav.nav-tabs
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page.id == data.selectedPage.id}'}
