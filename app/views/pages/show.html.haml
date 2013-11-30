@@ -5,22 +5,9 @@
 
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
-  #sidebar{'ng-switch' => true,  on: 'data.selectedCrit == null'}
-    %div{'ng-switch-when' => 'true'}
-      %h1 Crits on This Page
-      %ol.crits
-        %li{ 'ng-repeat' => 'crit in data.selectedPage.crits' } {{ crit.comment }}
+  %sidebar{'selected-crit' => 'data.selectedCrit', 'hovered-crit' => 'data.hoveredCrit', 'crits' => 'data.selectedPage.crits'}
 
-    %div{'ng-switch-when' => 'false'}
-      %h1 Edit This Crit
-      %form{role: 'form'}
-        .form-group
-          %label{for: 'comment'} Comment
-          %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-change' => 'saveSelectedCrit()', 'ng-model' => 'data.selectedCrit.comment'}
-        .form-group
-          %button.btn.btn-primary.btn-block{type: 'submit', 'ng-click' => 'done()'} Done
-
-  %ul.nav.nav-tabs
+  %ul.nav.nav-tabs.ng-cloak
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page.id == data.selectedPage.id}'}
       %a{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'} {{ page.title }}
 
@@ -30,7 +17,9 @@
 %script{id: 'page.html', type: 'text/ng-template'}
   = render 'page'
 
-
 %script{id: 'crit.html', type: 'text/ng-template'}
   = render 'crits/crit'
+
+%script{id: 'sidebar.html', type: 'text/ng-template'}
+  = render 'sidebar.html'
 

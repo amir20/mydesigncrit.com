@@ -4,4 +4,5 @@ angular.module('designcritProjectService', []).factory 'ProjectService', [->
   pages: null
   selectedPage: null
   selectedCrit: null
+  hoveredCrit: null
 ]

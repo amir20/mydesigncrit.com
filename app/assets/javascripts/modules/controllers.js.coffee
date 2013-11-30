@@ -43,16 +43,6 @@ class ProjectCtrl
       ProjectService.pages = ProjectService.client.pages()
 
 
-    timeout = null
-    $scope.saveSelectedCrit = (e) ->
-      $timeout.cancel(timeout)
-      timeout = $timeout (->
-        ProjectService.selectedCrit.$update()), 200
-
-    $scope.done = ->
-      ProjectService.selectedCrit = null
-
-
 class HeaderCtrl
   constructor: ($scope, ProjectService) ->
     $scope.data = ProjectService

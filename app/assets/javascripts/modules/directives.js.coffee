@@ -5,6 +5,7 @@ crit = ($document) ->
   scope:
     crit: '='
     selectedCrit: '='
+    hoveredCrit: '='
     index: '='
   link: (scope, element, attrs) ->
     page = element.parent()
@@ -63,6 +64,9 @@ crit = ($document) ->
       scope.crit.$delete()
       scope.$emit('crit.delete', scope.crit)
 
+    scope.highlight = (b) ->
+      if b then element.addClass('selected') else element.removeClass('selected')
+
 
 loader = ->
   restrict: 'E'
@@ -91,6 +95,44 @@ loader = ->
 
     spinner = new Spinner(opts).spin(element.find('#spinner')[0])
 
+
+sidebar = ($timeout) ->
+  restrict: 'E'
+  templateUrl: 'sidebar.html'
+  replace: true
+  scope:
+    crits: '='
+    selectedCrit: '='
+    hoveredCrit: '='
+
+  link: (scope, element, attrs) ->
+    timeout = null
+    scope.saveSelectedCrit = (e) ->
+      $timeout.cancel(timeout)
+      scope.saved = false
+      crit = scope.selectedCrit
+      timeout = $timeout (->
+        crit.$update()
+        scope.saved = true
+      ), 500
+
+    scope.done = ->
+      scope.selectedCrit = null
+      scope.hoveredCrit = null
+
+    scope.select = (crit) ->
+      scope.selectedCrit = crit
+
+    scope.showCrit = (crit) ->
+      scope.hoveredCrit = crit
+
+    scope.hideCrit = (crit) ->
+      scope.hoveredCrit = null
+
+    scope.showCritList = ->
+      scope.selectedCrit == null
+
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', crit])
+app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
