@@ -4,8 +4,10 @@ div.crit
   border-radius: 3px
   background: rgba(255, 237, 13, 0.5)
   border: transparent solid 2px
-  transition: background .3s ease
+  transition: background .3s ease, border-radius .3s ease
   list-style: none
+  min-height: 10px
+  min-width: 10px
 
   .close
     display: none
@@ -46,6 +48,17 @@ div.crit
     text-align: center
     color: rgba(255, 237, 13, 0.7)
     position: absolute
-    top: 0
-    left: 15px
+    top: -15px
+    left: 5px
+    transition: top .3s ease, left .3s ease, background .3s ease
+
+  &.small
+    border-radius: 30px
+    min-width: 30px
+    min-height: 30px
+    .index
+      top: -55px
+      left: -20px
+      color: rgba(255, 237, 13, 0.95)
+
 

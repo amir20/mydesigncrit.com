@@ -27,7 +27,7 @@ class PageCtrl
       if e.which is 1
         page = $('#page')
         Crit = ProjectService.client.crit(pageId)
-        crit = new Crit(x: e.pageX - page.offset().left, y: e.pageY - page.offset().top)
+        crit = new Crit(x: e.pageX - page.offset().left - 15, y: e.pageY - page.offset().top - 15)
         crit.$save()
         crit.create = true
         ProjectService.selectedCrit = crit
