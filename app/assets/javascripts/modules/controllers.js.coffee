@@ -44,11 +44,36 @@ class ProjectCtrl
 
 
 class HeaderCtrl
-  constructor: ($scope, ProjectService) ->
+  constructor: ($scope, $modal,  $location, ProjectService) ->
     $scope.data = ProjectService
+
+    $scope.showModal = ->
+      modalInstance = $modal.open
+        templateUrl: 'newPageModal.html'
+        controller: NewPageModalCtrl
+
+      modalInstance.result.then (url) ->
+
+        Page = ProjectService.client.page
+        page = new Page(url: url)
+        page.$save ->
+          ProjectService.pages = ProjectService.client.pages()
+          $location.path("/projects/#{ProjectService.project.id}/pages/#{page.id}")
+
+
+class NewPageModalCtrl
+  constructor: ($scope, $modalInstance) ->
+    $scope.selected = { url: '' }
+
+    $scope.cancel = ->
+      $modalInstance.dismiss('cancel')
+
+    $scope.add = ->
+      $modalInstance.close($scope.selected.url)
 
 
 app = angular.module('designcritController', [])
 app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClient', 'ProjectService', PageCtrl])
 app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', ProjectCtrl])
-app.controller('HeaderCtrl', ['$scope', 'ProjectService', HeaderCtrl])
+app.controller('HeaderCtrl', ['$scope', '$modal', '$location', 'ProjectService', HeaderCtrl])
+app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', NewPageModalCtrl])

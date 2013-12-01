@@ -1,4 +1,6 @@
 class Page < ActiveRecord::Base
+  validates :url, presence: true
+
   has_many :crits
 
   def process

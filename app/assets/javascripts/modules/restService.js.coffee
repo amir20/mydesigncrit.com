@@ -4,6 +4,7 @@ angular.module('designcritRestService', ['ngResource']).factory 'JsonRestClient'
     page = $resource('/projects/:projectId/pages/:id.json', { projectId: projectId, id: '@id'}, { update: { method: 'PATCH' } } )
 
     project: -> project.get()
+    page: page
     pages: -> page.query()
     crit: (pageId) ->
       $resource('/projects/:projectId/pages/:pageId/crits/:id.json', {projectId: projectId, pageId: pageId, id: '@id'}, { update: { method: 'PATCH' } })

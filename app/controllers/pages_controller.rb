@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = @project.pages.create(url: params[:url])
+    @page = @project.pages.create!(url: params[:url])
     @page.process
   end
 

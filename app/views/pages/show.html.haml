@@ -1,6 +1,11 @@
 %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
   .navbar-header
     %a.navbar-brand{href: '/', target: '_self'} DesignCrit.io
+
+  %form.navbar-form.navbar-left
+    .form-group
+      %button.btn.btn-primary{type: 'submit', 'ng-click' => 'showModal()'} New Page
+
   = render 'layouts/login'
 
 
@@ -22,4 +27,19 @@
 
 %script{id: 'sidebar.html', type: 'text/ng-template'}
   = render 'sidebar.html'
+
+%script{id: 'newPageModal.html', type: 'text/ng-template'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %h3 Add a new page
+
+      .modal-body
+        .input-group
+          %span.input-group-addon Web page URL
+          %input.form-control{name: 'url', placeholder: 'http://example.com', required: true, type: 'url', 'ng-model' => 'selected.url'}
+
+      .modal-footer
+        %button.btn.btn-warning{'ng-click' => 'cancel()'} Cancel
+        %button.btn.btn-success{'ng-click' => 'add()', type: 'submit'} Add
 
