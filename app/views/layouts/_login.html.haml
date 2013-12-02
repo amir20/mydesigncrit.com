@@ -9,7 +9,7 @@
       - current_user.recent_projects.each do |p|
         %li
           = link_to p, target: '_self' do
-            %i.icon-file
+            %i.icon-briefcase2
             = p.title
       - if anonymous_user?
         %li.divider
@@ -22,3 +22,9 @@
           = link_to user_omniauth_authorize_path(:google_oauth2), target: '_self' do
             %i.icon-gmail
             Google
+      - else
+        %li
+          = link_to destroy_user_session_path, target: '_self' do
+            %i.glyphicon.glyphicon-log-out
+            Logout
+

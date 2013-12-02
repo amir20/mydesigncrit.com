@@ -1,5 +1,5 @@
 .crit{style: 'left: {{crit.x}}px; top:{{crit.y}}px; width: {{crit.width}}px; height: {{crit.height}}px',
 'ng-mousedown' => 'move($event)', 'ng-click' => 'select($event)', 'ng-class' => '{selected: crit == selectedCrit || crit == hoveredCrit, small: crit.width < 50 && crit.height < 50}'}
-  %a.close{'ng-click' => 'delete()'} &times;
+  %a.close{'delete-crit' => 'crit'} &times;
   %a.resize{'ng-mousedown' => 'resize($event)'}
   .index {{ index }}

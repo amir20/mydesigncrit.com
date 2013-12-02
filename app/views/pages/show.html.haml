@@ -17,8 +17,10 @@
   %sidebar{'selected-crit' => 'data.selectedCrit', 'hovered-crit' => 'data.hoveredCrit', 'crits' => 'data.selectedPage.crits'}
 
   %ul.nav.nav-tabs.ng-cloak
-    %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page.id == data.selectedPage.id}'}
-      %a{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'} {{ page.title }}
+    %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page == data.selectedPage}'}
+      %a.tab{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'}
+        %i.close &times;
+        {{ page.title }}
 
   #canvas
     %ng-view

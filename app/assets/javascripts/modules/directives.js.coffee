@@ -60,10 +60,6 @@ crit = ($document) ->
       e.stopPropagation()
       e.preventDefault()
 
-    scope.delete = ->
-      scope.crit.$delete()
-      scope.$emit('crit.delete', scope.crit)
-
     scope.highlight = (b) ->
       if b then element.addClass('selected') else element.removeClass('selected')
 
@@ -132,7 +128,19 @@ sidebar = ($timeout) ->
     scope.showCritList = ->
       scope.selectedCrit == null
 
+deleteCrit = ($rootScope) ->
+  restrict: 'A'
+  scope:
+    crit: '=deleteCrit'
+  link: (scope, element, attrs) ->
+    element.bind 'click', (e) ->
+      e.stopPropagation()
+      e.preventDefault()
+      scope.crit.$delete()
+      $rootScope.$broadcast('crit.delete', scope.crit)
+
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', crit])
 app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
+app.directive('deleteCrit', ['$rootScope', deleteCrit])

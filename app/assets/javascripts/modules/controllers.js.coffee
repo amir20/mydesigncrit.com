@@ -3,6 +3,7 @@ class PageCtrl
     $scope.data = ProjectService
     pageId = parseInt($routeParams.pageId)
     $scope.$on 'crit.delete', (e, crit) ->
+      ProjectService.selectedCrit = null if ProjectService.selectedCrit == crit
       ProjectService.selectedPage.crits.splice(ProjectService.selectedPage.crits.indexOf(crit), 1)
 
     ProjectService.selectedCrit = null
