@@ -6,7 +6,7 @@
         %a{href: '#', 'ng-mouseenter' => 'showCrit(crit)', 'ng-mouseleave' => 'hideCrit(crit)', 'ng-click' => 'select(crit)'} {{ crit.comment || 'No comment yet' }}
 
   %div{'ng-switch-when' => 'false'}
-    %h1 Edit This Crit
+    %h2 Edit This Crit
     %form{role: 'form'}
       .form-group
         %label{for: 'comment'} Comment

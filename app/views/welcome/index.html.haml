@@ -1,14 +1,31 @@
-%nav.navbar{role: 'navigation'}
-  .navbar-header
-    %a.navbar-brand{href: '/', target: '_self'} DesignCrit.io
-  = render 'layouts/login'
-  
-.container
-  %form{action: '/projects', method: 'post'}
-    = token_tag
-    %h1 Create A New Crit
-    .input-group.input-group-lg
-      %span.input-group-addon Web page URL
-      %input.form-control{name: 'url', placeholder: 'http://example.com', required: true, type: 'url'}/
-      .input-group-btn
-        %button.btn.btn-success{type: 'submit'} Go
+#top
+  %nav.navbar{role: 'navigation'}
+    .navbar-header
+      %a.navbar-brand{href: '/', target: '_self'}
+        %i.icon-pagesetup
+        DesignCrit.io
+    = render 'layouts/login'
+
+  .jumbotron
+    .page-header
+      %h1
+        Critiquing Designs
+        %small has never been easier.
+
+    .container
+      %p.lead
+        When creating a new website communication is key.
+        Designers and developers still use emails and attachments to exchange feedback.
+        With designcrit.io you can create screen shots and annotate them with just a few clicks.
+        There is no need to upload a design. A screen shot is taken automatically from any accessible website.
+        Try yourself below by providing a URL.
+
+
+%form#create-project{action: '/projects', method: 'post'}
+  = token_tag
+  %h1 Create A New Crit
+  .input-group.input-group-lg
+    %span.input-group-addon Web page URL
+    %input.form-control{name: 'url', placeholder: 'http://example.com', required: true, type: 'url'}/
+    .input-group-btn
+      %button.btn.btn-success{type: 'submit'} Go

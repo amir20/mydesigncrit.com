@@ -8,5 +8,5 @@
     = include_jquery defer: true
     = javascript_include_tag 'application', defer: true
     = csrf_meta_tags
-  %body
+  %body{id: controller_name}
     = yield

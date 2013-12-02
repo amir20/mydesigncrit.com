@@ -10,6 +10,7 @@
  *
  *= require_self
  += require bootstrap
+ += require icons
  *= require select2
  *= require_tree .
  */

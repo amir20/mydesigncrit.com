@@ -7,9 +7,18 @@
     %ul.dropdown-menu
       %li.dropdown-header Recent projects
       - current_user.recent_projects.each do |p|
-        %li= link_to p.title, p, target: '_self'
+        %li
+          = link_to p, target: '_self' do
+            %i.icon-file
+            = p.title
       - if anonymous_user?
         %li.divider
         %li.dropdown-header Login
-        %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook), target: '_self'
-        %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2), target: '_self'
+        %li
+          = link_to user_omniauth_authorize_path(:facebook), target: '_self' do
+            %i.icon-facebook
+            Facebook
+        %li
+          = link_to user_omniauth_authorize_path(:google_oauth2), target: '_self' do
+            %i.icon-gmail
+            Google
