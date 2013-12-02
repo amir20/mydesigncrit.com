@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.create(title: 'Untitled')
+    @project = current_user.projects.create(title: 'Untitled')
     @page = @project.pages.create(url: params[:url], title: 'Loading...')
     @page.process
 
@@ -13,15 +13,20 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
   end
 
   def destroy
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
     @project.destroy
   end
 
   def show
-    @project = Project.find(params[:id])
+    @project = current_user.projects.find(params[:id])
+
+    respond_to do |format|
+      format.html { redirect_to [@project, @project.pages.first] unless request.xhr? }
+      format.json
+    end
   end
 end

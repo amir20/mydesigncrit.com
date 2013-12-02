@@ -1,19 +1,15 @@
 %ul.nav.navbar-nav.navbar-right
-  - if user_signed_in?
-    %li.dropdown
-      %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-        %i.glyphicon.glyphicon-user
-        == Hi, #{current_user.name}
-        %b.caret
-      %ul.dropdown-menu
-        %li= link_to 'Logout', destroy_user_session_path, target: '_self'
-
-  - else
-    %li.dropdown
-      %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
-        %i.glyphicon.glyphicon-user
-        Sign In
-        %b.caret
-      %ul.dropdown-menu
+  %li.dropdown
+    %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
+      %i.glyphicon.glyphicon-user
+      == Hi, #{current_user.name}
+      %b.caret
+    %ul.dropdown-menu
+      %li.dropdown-header Recent projects
+      - current_user.projects.each do |p|
+        %li= link_to p.title, p, target: '_self'
+      - if anonymous_user?
+        %li.divider
+        %li.dropdown-header Login
         %li= link_to 'Facebook', user_omniauth_authorize_path(:facebook), target: '_self'
         %li= link_to 'Google', user_omniauth_authorize_path(:google_oauth2), target: '_self'

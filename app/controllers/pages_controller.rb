@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_action { @project = Project.find(params[:project_id]) }
+  before_action { @project = current_user.projects.find(params[:project_id]) }
 
   def index
     @pages = @project.pages

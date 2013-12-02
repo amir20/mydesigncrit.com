@@ -1,5 +1,5 @@
 class CritsController < ApplicationController
-  before_action { @page = Project.find(params[:project_id]).pages.find(params[:page_id]) }
+  before_action { @page = current_user.projects.find(params[:project_id]).pages.find(params[:page_id]) }
 
   def index
     @crits = @page.crits
