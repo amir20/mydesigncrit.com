@@ -5,6 +5,7 @@
   
 .container
   %form{action: '/projects', method: 'post'}
+    = token_tag
     %h1 Create A New Crit
     .input-group.input-group-lg
       %span.input-group-addon Web page URL
