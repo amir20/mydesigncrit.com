@@ -6,7 +6,7 @@
       %b.caret
     %ul.dropdown-menu
       %li.dropdown-header Recent projects
-      - current_user.projects.each do |p|
+      - current_user.recent_projects.each do |p|
         %li= link_to p.title, p, target: '_self'
       - if anonymous_user?
         %li.divider

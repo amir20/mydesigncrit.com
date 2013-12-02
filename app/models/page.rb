@@ -2,6 +2,7 @@ class Page < ActiveRecord::Base
   validates :url, presence: true
 
   has_many :crits
+  belongs_to :project
 
   def process
     large_file = Pathname.new(Rails.root.join('public', 'jobs', id.to_s, 'screenshot.png'))
@@ -17,6 +18,11 @@ class Page < ActiveRecord::Base
     self.screenshot = "/jobs/#{id}/screenshot.png"
     self.thumbnail = "/jobs/#{id}/thumbnail.png"
     self.processed = true
+
+    if self.project.pages.size == 1
+      self.project.title = self.title
+      self.project.save
+    end
 
     save!
   end
