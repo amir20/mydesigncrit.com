@@ -3,14 +3,14 @@
     %a.navbar-brand{href: '/', target: '_self'}
       %i.icon-pagesetup
       DesignCrit.io
+  .navbar-collapse
+    %form.navbar-form.navbar-left
+      .form-group
+        %button.btn.btn-primary{type: 'submit', 'ng-click' => 'showModal()'}
+          %i.icon-addshape
+          New Page
 
-  %form.navbar-form.navbar-left
-    .form-group
-      %button.btn.btn-primary{type: 'submit', 'ng-click' => 'showModal()'}
-        %i.icon-addshape
-        New Page
-
-  = render 'layouts/login'
+    = render 'layouts/login'
 
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}

@@ -1,31 +1,54 @@
-#top
-  %nav.navbar{role: 'navigation'}
-    .navbar-header
-      %a.navbar-brand{href: '/', target: '_self'}
-        %i.icon-pagesetup
-        DesignCrit.io
+%nav.navbar.navbar-default{role: 'navigation'}
+  .navbar-header
+    %a.navbar-brand{href: '/', target: '_self'}
+      %i.icon-pagesetup
+      DesignCrit.io
+  .navbar-collapse
     = render 'layouts/login'
 
-  .jumbotron
+.row.jumbotron
+  .col-md-8.col-md-offset-2
     .page-header
       %h1
-        Critiquing Designs
-        %small has never been easier.
+        Designed
+        %small by developers
+        %br
+        Created
+        %small by designers
 
-    .container
-      %p.lead
-        When creating a new website communication is key.
-        Designers and developers still use emails and attachments to exchange feedback.
-        With designcrit.io you can create screen shots and annotate them with just a few clicks.
-        There is no need to upload a design. A screen shot is taken automatically from any accessible website.
-        Try yourself below by providing a URL.
+    %p.lead
+      With designcrit.io you can create and annotate on websites with just a few clicks.
+      A screen shot is taken automatically from any accessible website.
 
-
-%form#create-project{action: '/projects', method: 'post'}
+%form#create-project.row{action: '/projects', method: 'post'}
   = token_tag
-  %h1 Create your new project now
   .input-group.input-group-lg
-    %span.input-group-addon Web page URL
     %input.form-control{name: 'url', placeholder: 'http://example.com', required: true, type: 'url'}/
     .input-group-btn
-      %button.btn.btn-success{type: 'submit'} Go
+      %button.btn.btn-success{type: 'submit'} Create
+
+#screenshot.text-center
+  %img{'ng-src' => image_path('screenshot.jpg'), width: 800}
+
+#features
+  .container
+    .row
+      .col-md-4
+        %h3
+          %i.icon-domain
+          Create from a URL
+        DesignCrit.io will take a screenshots automatically so you don't have to. You can add more pages to a project.
+      .col-md-4
+        %h3
+          %i.icon-edit2
+          Annotate with comments
+        Create comments by selecting a region that you want to annotate then add some text to each annotation. Each page can have unlimited amount of annotations.
+      .col-md-4
+        %h3
+          %i.icon-share2
+          Share when done
+        You can share your project with anybody via e-mail. Sign in using Facebook or Google so you can save projects.
+
+%footer.text-center
+  copyright &copy; 2013 designcrit.io
+  = link_to 'about', '/about'
