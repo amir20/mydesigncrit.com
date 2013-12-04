@@ -8,6 +8,7 @@ Bundler.require(:default, Rails.env)
 
 module DesigncritIo
   class Application < Rails::Application
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     config.sass.preferred_syntax = :sass
   end
 end

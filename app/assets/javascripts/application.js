@@ -12,10 +12,11 @@
 //
 //= require angular
 //= require angular-resource
-//= require angular-animate
 //= require angular-route
-//= require ui-bootstrap-tpls-0.7.0
-//= require spin
+//= require angular-bootstrap
+//= require angular-moment
+//= require angular-retina/dist/angular-retina
+//= require spinjs
 //= require app
 //= require_tree .
 
