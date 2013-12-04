@@ -142,8 +142,16 @@ deleteCrit = ($rootScope) ->
       scope.crit.$delete()
       $rootScope.$broadcast('crit.delete', scope.crit)
 
+input = ->
+  restrict: 'E'
+  link: (scope, element, attrs) ->
+    if(attrs.type == "url")
+      element.bind 'keypress', (e) -> element.val("http://#{element.val()}") if e.which == 46 && element.val().indexOf('http') != 0
+      element.bind 'paste', (e) -> element.val("http://#{element.val()}") if element.val().indexOf('http') != 0
+
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', crit])
 app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
 app.directive('deleteCrit', ['$rootScope', deleteCrit])
+app.directive('input', [input])
