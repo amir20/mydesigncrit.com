@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20131202000642) do
     t.integer  "user_id"
     t.string   "title"
     t.string   "thumbnail"
+    t.string   "share_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

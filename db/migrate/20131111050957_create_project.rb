@@ -4,6 +4,7 @@ class CreateProject < ActiveRecord::Migration
       t.references :user
       t.string :title
       t.string :thumbnail
+      t.string :share_id
 
       t.timestamps
     end

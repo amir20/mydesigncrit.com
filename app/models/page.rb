@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  validates :url, presence: true
+  validates :url, presence: true, url: true
 
   has_many :crits
   belongs_to :project
