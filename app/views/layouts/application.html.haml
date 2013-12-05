@@ -8,4 +8,15 @@
     = javascript_include_tag 'application', defer: true
     = csrf_meta_tags
   %body{id: controller_name}
+    %header
+      - if content_for?(:header)
+        = yield(:header)
+      - else
+        %nav.navbar.navbar-default{role: 'navigation'}
+          .navbar-header
+            %a.navbar-brand{href: '/', target: '_self'}
+              %i.icon-pagesetup
+              DesignCrit.io
+          .navbar-collapse
+            = render 'layouts/login'
     = yield

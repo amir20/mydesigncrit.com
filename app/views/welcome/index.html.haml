@@ -1,11 +1,3 @@
-%nav.navbar.navbar-default{role: 'navigation'}
-  .navbar-header
-    %a.navbar-brand{href: '/', target: '_self'}
-      %i.icon-pagesetup
-      DesignCrit.io
-  .navbar-collapse
-    = render 'layouts/login'
-
 .row.jumbotron
   .col-md-8.col-md-offset-2
     .page-header
@@ -17,9 +9,10 @@
         %small by designers
 
     %p.lead
-      With designcrit.io you can create and annotate on websites with just a few clicks.
+      With DesignCrit.io you can create and annotate on websites with just a few clicks.
       A screen shot is taken automatically from any accessible website.
-%main
+
+%main{:role => 'main'}
   %form#create-project.row{action: '/projects', method: 'post'}
     = token_tag
     .input-group.input-group-lg
