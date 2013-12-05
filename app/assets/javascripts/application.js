@@ -15,7 +15,7 @@
 //= require angular-route
 //= require angular-bootstrap
 //= require angular-moment
-//= require angular-retina/dist/angular-retina
+//= require retina
 //= require spinjs
 //= require app
 //= require_tree .

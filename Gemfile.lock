@@ -28,7 +28,7 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
-    bootstrap-sass (3.0.2.1)
+    bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
     builder (3.1.4)
     coffee-rails (4.0.1)
@@ -134,6 +134,8 @@ GEM
     rake (10.1.0)
     rdoc (4.0.1)
       json (~> 1.4)
+    retina_rails (1.0.1)
+      rails (>= 3.0)
     rmagick (2.13.2)
     rspec-core (2.14.7)
     rspec-expectations (2.14.4)
@@ -202,6 +204,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   phantomjs.rb
   rails (= 4.0.2)
+  retina_rails
   rmagick
   rspec-rails (~> 2.0)
   sass-rails (~> 4.0.0)

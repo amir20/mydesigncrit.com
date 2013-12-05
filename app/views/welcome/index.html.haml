@@ -21,7 +21,7 @@
         %button.btn.btn-success{type: 'submit'} Create
 
   #screenshot.text-center
-    %img{'ng-src' => image_path('screenshot.jpg'), width: 800}
+    = image_tag('screenshot.jpg', retina: true)
 
   #features
     .container

@@ -1,5 +1,5 @@
 app = angular.module('designcrit',
-  ['designcritProjectService', 'designcritController', 'designcritRestService', 'designcritDirectives', 'ngRoute', 'ui.bootstrap', 'ngRetina', 'angularMoment'])
+  ['designcritProjectService', 'designcritController', 'designcritRestService', 'designcritDirectives', 'ngRoute', 'ui.bootstrap', 'angularMoment'])
 
 app.config ['$locationProvider', '$routeProvider', ($locationProvider, $routeProvider) ->
   $locationProvider.html5Mode(true)
