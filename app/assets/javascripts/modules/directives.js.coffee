@@ -92,7 +92,7 @@ loader = ->
       top: "auto" # Top position relative to parent in px
       left: "auto" # Left position relative to parent in px
 
-    spinner = new Spinner(opts).spin(element.find('#spinner')[0])
+    spinner = new Spinner(opts).spin(document.getElementById('spinner'))
 
 
 sidebar = ($timeout) ->
