@@ -11,9 +11,9 @@
       = render 'layouts/login'
 
 
-#project{'ng-controller' => 'ShareCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
+#project{'ng-controller' => 'ShareCtrl', 'ng-init' => "shareId = '#{@project.share_id}'"}
   %carousel
-    %slide{'ng-repeat' => 'page in pages'}
+    %slide{'ng-repeat' => 'page in project.pages'}
       %h3 {{ page.title }}
       #page.ng-cloak{ style: 'width:{{page.width}}px; height:{{page.height}}px; background-image: url({{page.screenshot}})'}
         %crit{ 'ng-repeat' => 'crit in page.crits', crit: 'crit', index: '$index + 1'}
