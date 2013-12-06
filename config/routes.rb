@@ -14,4 +14,5 @@ DesigncritIo::Application.routes.draw do
 
   root 'welcome#index'
   get '/delayed_job' => DelayedJobWeb, :anchor => false
+
 end
