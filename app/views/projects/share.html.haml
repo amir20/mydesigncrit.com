@@ -21,4 +21,5 @@
 %script{id: 'crit.html', type: 'text/ng-template'}
   .crit{style: 'left: {{crit.x}}px; top:{{crit.y}}px; width: {{crit.width}}px; height: {{crit.height}}px', 'ng-class' => '{small: crit.width < 50 && crit.height < 50}'}
     .index {{ index }}
+    .comment {{ crit.comment }}
 

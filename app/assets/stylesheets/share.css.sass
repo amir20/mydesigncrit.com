@@ -15,18 +15,33 @@
       box-shadow: 0 0 3px 1px rgba(0, 0, 0, .25)
 
       .crit
+        text-align: left
         box-shadow: 0 1px 2px #000
-        transition: background .3s ease .3s, min-width .4s ease .1s, min-height .4s ease .3s
+        transition: background .3s ease .1s, border-radius .3s ease, min-width .4s ease .1s, min-height .4s ease .3s
+
+        .comment
+          font-family: 'Questrial', sans-serif
+          font-size: 14px
+          overflow: hidden
+          height: 100%
+          padding: 5px
+          transition: min-width .4s ease .1s, min-height .4s ease .3s
+          color: rgba(0, 0, 0, .6)
 
         &:hover, &.selected
-          .index
-
-            left: -50px
-
           border-color: transparent
+          border-radius: 2px
           min-width: 180px
           min-height: 140px
           background: rgba(244, 244, 244, .95)
+
+          .index
+            left: -50px
+
+          .comment
+            overflow-y: auto
+            min-height: 140px
+            color: rgba(0, 0, 0, 1)
 
     .carousel-control
       font-size: 90px

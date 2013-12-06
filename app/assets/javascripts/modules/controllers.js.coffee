@@ -26,9 +26,9 @@ class PageCtrl
 
     $scope.createCrit = (e) ->
       if e.which is 1
-        rect = document.getElementById('page').getBoundingClientRect()
+        $page = $('#page')
         Crit = ProjectService.client.crit(pageId)
-        crit = new Crit(x: e.pageX - rect.left - 15, y: e.pageY - rect.top - 15)
+        crit = new Crit(x: e.pageX - $page.offset().left - 15, y: e.pageY - $page.offset().top - 15, width: 0, height: 0)
         crit.$save()
         crit.create = true
         ProjectService.selectedCrit = crit

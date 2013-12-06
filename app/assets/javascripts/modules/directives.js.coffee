@@ -8,14 +8,13 @@ crit = ($document) ->
     hoveredCrit: '='
     index: '='
   link: (scope, element, attrs) ->
-    page = element.parent()[0]
+    page = element.parent()
 
     resize = (e) ->
       e.preventDefault()
       e.stopPropagation()
-      rect = page.getBoundingClientRect()
-      scope.crit.width = (e.pageX - rect.left) - scope.crit.x
-      scope.crit.height = (e.pageY - rect.top) - scope.crit.y
+      scope.crit.width = (e.pageX - page.offset().left) - scope.crit.x
+      scope.crit.height = (e.pageY - page.offset().top) - scope.crit.y
       scope.$apply()
 
     mouseup = (e) ->
@@ -28,23 +27,19 @@ crit = ($document) ->
     move = (e) =>
       e.preventDefault()
       e.stopPropagation()
-      rect = page.getBoundingClientRect()
-      scope.crit.x = e.pageX - rect.left - @startX
-      scope.crit.y = e.pageY - rect.top - @startY
+      scope.crit.x = e.pageX - page.offset().left - @startX
+      scope.crit.y = e.pageY - page.offset().top - @startY
       scope.$apply()
 
     if scope.crit.create
       delete scope.crit.create
-      scope.crit.width = 0
-      scope.crit.height = 0
       $document.bind 'mousemove', resize
       $document.bind 'mouseup', mouseup
 
     scope.move = (e) =>
       if e.which is 1
-        rect = page.getBoundingClientRect()
-        @startX = e.pageX - rect.left - scope.crit.x
-        @startY = e.pageY - rect.top - scope.crit.y
+        @startX = e.pageX - page.offset().left - scope.crit.x
+        @startY = e.pageY - page.offset().top - scope.crit.y
         $document.bind 'mousemove', move
         $document.bind 'mouseup', mouseup
         scope.selectedCrit = scope.crit
