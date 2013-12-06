@@ -72,9 +72,19 @@ class NewPageModalCtrl
     $scope.add = ->
       $modalInstance.close($scope.selected.url)
 
+class ShareCtrl
+  constructor: ($scope, JsonRestClient, ProjectService) ->
+    $scope.$watch 'projectId', ->
+      client = JsonRestClient.client($scope.projectId)
+      $scope.project = client.project()
+      $scope.pages = client.pages()
+      $scope.pages.$promise.then ->
+        page.crits = client.crit(page.id).query() for page in $scope.pages
+
 
 app = angular.module('designcritController', [])
 app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClient', 'ProjectService', PageCtrl])
 app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', ProjectCtrl])
 app.controller('HeaderCtrl', ['$scope', '$modal', '$location', 'ProjectService', HeaderCtrl])
 app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', NewPageModalCtrl])
+app.controller('ShareCtrl', ['$scope', 'JsonRestClient', 'ProjectService', ShareCtrl])

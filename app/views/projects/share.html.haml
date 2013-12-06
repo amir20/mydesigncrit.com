@@ -1,0 +1,24 @@
+- content_for :header do
+  %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
+    .navbar-header
+      %a.navbar-brand{href: '/', target: '_self'}
+        %i.icon-pagesetup
+        DesignCrit.io
+    .navbar-collapse
+      %form.navbar-form.navbar-left
+        .form-group
+
+      = render 'layouts/login'
+
+
+#project{'ng-controller' => 'ShareCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
+  %carousel
+    %slide{'ng-repeat' => 'page in pages'}
+      %h3 {{ page.title }}
+      #page.ng-cloak{ style: 'width:{{page.width}}px; height:{{page.height}}px; background-image: url({{page.screenshot}})'}
+        %crit{ 'ng-repeat' => 'crit in page.crits', crit: 'crit', index: '$index + 1'}
+
+%script{id: 'crit.html', type: 'text/ng-template'}
+  .crit{style: 'left: {{crit.x}}px; top:{{crit.y}}px; width: {{crit.width}}px; height: {{crit.height}}px', 'ng-class' => '{small: crit.width < 50 && crit.height < 50}'}
+    .index {{ index }}
+

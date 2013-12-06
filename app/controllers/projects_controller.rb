@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
-
   def index
-
+    @project = current_user.projects
   end
 
   def create
@@ -28,5 +27,9 @@ class ProjectsController < ApplicationController
       format.html { redirect_to [@project, @project.pages.first] unless request.xhr? }
       format.json
     end
+  end
+
+  def share
+    @project = Project.find_by_share_id(params[:id])
   end
 end

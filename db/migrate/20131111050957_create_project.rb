@@ -10,5 +10,6 @@ class CreateProject < ActiveRecord::Migration
     end
 
     add_index :projects, :user_id
+    add_index :projects, :share_id
   end
 end
