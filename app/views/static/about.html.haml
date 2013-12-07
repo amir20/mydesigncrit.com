@@ -2,11 +2,8 @@
   %h1 About DesignCrit.io
 
 %article.container
-  %h2 Founder
   .row
     .col-md-10
-      %p DesignCrit.io was founded in 2012. It was created as a result to solve a pain that developers, designers and clients have to communicate with each other. Over the year, it has changed from a simple screenshot taking tool to a sophisticated online tool for sharing ideas. DesignCrit.io aims to be a free tool to all users that want to share ideas.
-
       %dl
         %dt
           %h4 crit
@@ -17,17 +14,26 @@
               An expression of opinion towards a design or idea
               .text-muted "That's a great website, let me create create a couple crits at DesignCrit."
 
+      %h2 Founder
+      %p
+        DesignCrit.io was founded in 2012 by Amir. He created this project as a result to solve a pain that developers, designers and clients have to communicate with each other. Over the year, it has changed from a simple screenshot taking tool to a sophisticated online tool for sharing ideas.
+        DesignCrit.io aims to be a free tool to all users that want to share ideas.
+
+
+
+
     .col-md-2.text-right
       = image_tag('amir.jpg', retina: true, class: 'img-rounded')
-      %div Amir
 
-  %h2 Website
+  %h2 Technology
   %p
-    DesignCrit.io is built on
+    If you are like me, then you love technology. DesignCrit.io was created with
     = link_to 'Ruby on Rails', 'http://rubyonrails.org/'
     ,
     = link_to 'AngularJS', 'http://angularjs.org/'
-    and
+    ,
     = link_to 'PhantomJS', 'http://phantomjs.org/'
-    hosted on Rackspace. We have pushed at least 2 new updates every month which fixes bugs and adds functionality. For suggestions, or bug reports, please send to
+    and hosted on Rackspace. We have pushed at least 2 new updates every month which fix bugs and adds functionality. For suggestions, or bug reports, please send to
     %a{href: 'mailto:findamir@gmail.com'} findamir@gmail.com
+
+= render 'layouts/footer'

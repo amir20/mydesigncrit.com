@@ -11,8 +11,8 @@
           = link_to p, target: '_self' do
             %i.icon-briefcase2
             = p.title
+      %li.divider
       - if anonymous_user?
-        %li.divider
         %li.dropdown-header Login
         %li
           = link_to user_omniauth_authorize_path(:facebook), target: '_self' do
