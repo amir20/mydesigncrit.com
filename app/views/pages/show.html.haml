@@ -10,8 +10,14 @@
           %button.btn.btn-primary{type: 'submit', 'ng-click' => 'showModal()'}
             %i.icon-addshape
             New Page
-
       = render 'layouts/login'
+      %form.navbar-form.navbar-right
+        .form-group
+          = link_to share_path(@project.share_id), class: 'btn btn-success', target: '_self' do
+            %i.icon-share2
+            Preview
+
+
 
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
