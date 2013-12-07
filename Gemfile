@@ -18,8 +18,8 @@ gem 'validate_url'
 gem 'retina_rails'
 gem 'high_voltage'
 
+# For JSON
 gem 'jbuilder', '~> 1.2'
-gem 'thin'
 
 # Use unicorn as the app server
 gem 'unicorn'
@@ -33,6 +33,7 @@ group :development, :test do
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano-bower'
+  gem 'thin'
 end
 
 # For background jobs
