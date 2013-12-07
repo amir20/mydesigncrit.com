@@ -33,6 +33,7 @@ group :development, :test do
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano-bower'
+  gem 'sepastian-capistrano3-unicorn'
   gem 'thin'
 end
 
