@@ -35,6 +35,8 @@ GEM
       i18n
       rake (>= 10.0.0)
       sshkit (>= 0.0.23)
+    capistrano-bower (0.0.2)
+      capistrano (>= 3.0.0.pre)
     capistrano-bundler (1.1.1)
       capistrano (~> 3.0)
       sshkit (>= 1.2.0)
@@ -226,6 +228,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass
   capistrano
+  capistrano-bower
   capistrano-bundler
   capistrano-nc (~> 0.1.0)
   capistrano-rails
