@@ -9,6 +9,8 @@ role :app, %w{designcrit.io}
 role :web, %w{designcrit.io}
 role :db,  %w{designcrit.io}
 
+set :rails_env, fetch(:stage)
+
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server
