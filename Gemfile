@@ -21,17 +21,17 @@ gem 'high_voltage'
 gem 'jbuilder', '~> 1.2'
 gem 'thin'
 
-
 # Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
-
+gem 'unicorn'
 
 group :development, :test do
   gem 'debugger'
   gem 'rspec-rails', '~> 2.0'
+  gem 'capistrano'
+  gem 'capistrano-nc', '~> 0.1.0'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
 end
 
 # For background jobs
