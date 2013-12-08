@@ -8,8 +8,8 @@
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application', defer: true
     = csrf_meta_tags
-  %body{id: controller_name, class: action_name}
     = render 'layouts/analytics' unless Rails.env.development?
+  %body{id: controller_name, class: action_name}
     %header
       - if content_for?(:header)
         = yield(:header)
