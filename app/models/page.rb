@@ -5,8 +5,8 @@ class Page < ActiveRecord::Base
   belongs_to :project
 
   def process
-    large_file = Pathname.new(Rails.root.join('public', 'jobs', id.to_s, 'screenshot.png'))
-    thumb_file = Pathname.new(Rails.root.join('public', 'jobs', id.to_s, 'thumbnail.png'))
+    large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
+    thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
 
     response = create_screenshot(large_file)
     img = ::Magick::Image::read(large_file).first
@@ -15,8 +15,8 @@ class Page < ActiveRecord::Base
     self.title = response['title']
     self.width = img.columns
     self.height = img.rows
-    self.screenshot = "/jobs/#{id}/screenshot.png"
-    self.thumbnail = "/jobs/#{id}/thumbnail.png"
+    self.screenshot = "/assets/jobs/#{id}/screenshot.png"
+    self.thumbnail = "/assets/jobs/#{id}/thumbnail.png"
     self.processed = true
 
     if self.project.pages.size == 1

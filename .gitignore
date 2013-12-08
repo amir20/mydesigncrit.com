@@ -16,5 +16,5 @@
 /log/*.log
 /tmp
 
-/public/jobs
+/public/assets
 /vendor/assets/components
