@@ -27,7 +27,6 @@ gem 'unicorn'
 group :development, :test do
   gem 'debugger'
   gem 'rspec-rails', '~> 2.0'
-  gem 'sshkit', '~> 1.0.0'
   gem 'capistrano'
   gem 'capistrano-nc', '~> 0.1.0'
   gem 'capistrano-rails'
