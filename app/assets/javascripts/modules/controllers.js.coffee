@@ -51,7 +51,7 @@ class HeaderCtrl
     $scope.showModal = ->
       modalInstance = $modal.open
         templateUrl: 'newPageModal.html'
-        controller: NewPageModalCtrl
+        controller: 'NewPageModalCtrl'
 
       modalInstance.result.then (url) ->
 
