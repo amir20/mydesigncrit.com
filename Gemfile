@@ -27,13 +27,10 @@ gem 'unicorn'
 group :development, :test do
   gem 'debugger'
   gem 'rspec-rails', '~> 2.0'
-  gem 'capistrano'
-  gem 'capistrano-nc', '~> 0.1.0'
-  gem 'capistrano-rails'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rvm'
-  gem 'capistrano-bower'
-  gem 'capistrano3-unicorn'
+  gem 'capistrano', '~> 2.0'
+  gem 'capistrano_colors'
+  gem 'rvm-capistrano'
+  gem 'capistrano-unicorn'
   gem 'thin'
 end
 

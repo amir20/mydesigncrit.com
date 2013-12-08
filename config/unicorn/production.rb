@@ -2,7 +2,7 @@
 app_path = File.expand_path(File.dirname(File.dirname(File.dirname(__FILE__))))
 
 # Set unicorn options
-worker_processes 8
+worker_processes 4
 preload_app true
 timeout 180
 listen '/tmp/designcrit.socket', :backlog => 64
@@ -15,7 +15,7 @@ stderr_path 'log/unicorn.log'
 stdout_path 'log/unicorn.log'
 
 # Set master PID location
-pid "#{File.dirname(app_path)}/shared/pids/unicorn.pid"
+pid "#{app_path}/tmp/pids/unicorn.pid"
 
 before_fork do |server, worker|
   ActiveRecord::Base.connection.disconnect!
