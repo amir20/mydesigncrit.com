@@ -108,7 +108,7 @@ sidebar = ($timeout) ->
       timeout = $timeout (->
         crit.$update()
         scope.saved = true
-      ), 500
+      ), 1000
 
     scope.done = ->
       scope.selectedCrit = null
