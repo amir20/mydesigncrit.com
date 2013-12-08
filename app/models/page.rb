@@ -9,7 +9,7 @@ class Page < ActiveRecord::Base
     thumb_file = Pathname.new(Rails.root.join('public', 'jobs', id.to_s, 'thumbnail.png'))
 
     response = create_screenshot(large_file)
-    img = Magick::Image::read(large_file).first
+    img = ::Magick::Image::read(large_file).first
     img.resize_to_fill(160 * 2, 120 * 2, Magick::NorthGravity).write(thumb_file)
 
     self.title = response['title']

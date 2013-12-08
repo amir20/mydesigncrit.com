@@ -47,4 +47,4 @@ gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
 # Resizing images
-gem 'rmagick'
+gem 'rmagick', :require => 'RMagick'
