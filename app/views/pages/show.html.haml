@@ -26,7 +26,7 @@
   %ul.nav.nav-tabs.ng-cloak
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page == data.selectedPage}'}
       %a.tab{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'}
-        %i.close &times;
+        %span.close &times;
         {{ page.title }}
 
   #canvas
