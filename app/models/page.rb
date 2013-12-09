@@ -35,6 +35,6 @@ class Page < ActiveRecord::Base
     FileUtils.mkdir_p(image.parent) unless image.parent.exist?
     bin = Rails.root.join('rasterize.js')
     json = Phantomjs.run(bin, url, image.to_s).strip
-    JSON.parse(json)
+    JSON.parse(json.each_line.to_a.last)
   end
 end
