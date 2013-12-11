@@ -33,7 +33,6 @@ group :development, :test do
 end
 
 # For background jobs
-gem 'phantomjs.rb'
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
 gem 'daemons'
