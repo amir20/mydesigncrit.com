@@ -44,7 +44,7 @@
               %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
 
           %br/
-          .progress{'ng-show' => 'upload != null'}
+          .progress.progress-striped.active{'ng-show' => 'upload != null'}
             .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
               %span.sr-only {{progress}}% Uploaded
 
