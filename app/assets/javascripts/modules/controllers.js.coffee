@@ -87,7 +87,7 @@ class WelcomeCtrl
         ).then((response) ->
           window.location = response.headers('Location')
         , null, (evt) ->
-          console.log parseInt(100.0 * evt.loaded / evt.total)
+          $scope.progress =  parseInt(100.0 * evt.loaded / evt.total)
         )
 
 app = angular.module('designcritController', [])

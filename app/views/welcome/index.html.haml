@@ -35,17 +35,18 @@
               .input-group-btn
                 %button.btn.btn-success{type: 'submit'} Start
         #image.tab-pane
-          %form{action: '/projects', method: 'post', enctype: 'multipart/form-data'}
-            = token_tag
-            .input-group.input-group-lg
-              %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
-                %div{'ng-show' => 'dropSupported'}
-                  %span.icon-upload2
-                  You can also drop a file here
+          %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
+            %div{'ng-show' => 'dropSupported'}
+              %span.icon-upload2
+              You can also drop a file here
+            #file-upload.btn.btn-success
+              Browse...
+              %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
 
-                #file-upload.btn.btn-success
-                  Browse...
-                  %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
+          %br/
+          .progress{'ng-show' => 'upload != null'}
+            .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
+              %span.sr-only {{progress}}% Uploaded
 
 
   #screenshot.text-center
