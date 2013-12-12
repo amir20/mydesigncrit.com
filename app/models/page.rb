@@ -1,23 +1,30 @@
 class Page < ActiveRecord::Base
-  validates :url, presence: true, url: true
+  validates :url, url: { allow_nil: true }
 
   has_many :crits
   belongs_to :project
 
   def process
     large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
-    thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
+    if self.screenshot.present?
+      img = ::Magick::Image::read(Pathname.new(Rails.root.join('public' + self.screenshot))).first
+      img.resize!(1024.to_f / img.columns).write(large_file)
+    else
+      response = create_screenshot(large_file)
+      img = ::Magick::Image::read(large_file).first
+      self.title = response['title']
+    end
 
-    response = create_screenshot(large_file)
-    img = ::Magick::Image::read(large_file).first
+    # Create thumbnail
+    thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
     img.resize_to_fill(160 * 2, 120 * 2, Magick::NorthGravity).write(thumb_file)
 
-    self.title = response['title']
+    self.thumbnail = "/assets/jobs/#{id}/thumbnail.png"
+    self.processed = true
     self.width = img.columns
     self.height = img.rows
     self.screenshot = "/assets/jobs/#{id}/screenshot.png"
-    self.thumbnail = "/assets/jobs/#{id}/thumbnail.png"
-    self.processed = true
+    self.screenshot = "/assets/jobs/#{id}/screenshot.png"
 
     if self.project.pages.size == 1
       self.project.title = self.title
@@ -25,6 +32,30 @@ class Page < ActiveRecord::Base
     end
 
     save!
+  end
+
+  def self.create_from_image!(params)
+    page = create!(title: params[:image].original_filename)
+    dir = Rails.root.join('public', 'assets', 'jobs', page.id.to_s)
+    FileUtils.mkdir_p(dir) unless dir.exist?
+
+    File.open(Rails.root.join('public', 'assets', 'jobs', page.id.to_s, params[:image].original_filename), 'wb') do |file|
+      file.write(params[:image].read)
+      page.screenshot = "/assets/jobs/#{page.id.to_s}/#{params[:image].original_filename}"
+      page.save!
+    end
+
+    page
+  end
+
+  def self.create_from_url!(params)
+    create!(url: params[:url], title: 'Loading...')
+  end
+
+  def self.create_from_url_or_image!(params)
+    page = params[:image].present? ? create_from_image!(params) : create_from_url!(params)
+    page.process
+    page
   end
 
   handle_asynchronously :process

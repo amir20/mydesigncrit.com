@@ -10,15 +10,43 @@
 
     %p.lead
       With DesignCrit.io you can create and annotate on websites with just a few clicks.
-      A screen shot is taken automatically from any accessible website.
+      A screenshot is taken automatically from any accessible website.
 
 %main{:role => 'main'}
-  %form#create-project.row{action: '/projects', method: 'post'}
-    = token_tag
-    .input-group.input-group-lg
-      %input.form-control{name: 'url', placeholder: 'http://example.com', required: true, type: 'url'}/
-      .input-group-btn
-        %button.btn.btn-success{type: 'submit'} Create
+  #create-project{'ng-controller' => 'WelcomeCtrl'}
+    .tabbable.tabs-left
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle' => 'tab', href: '#url', target: '_self'}
+            %span.icon-earth
+            From a URL
+        %li
+          %a{'data-toggle' => 'tab', href: '#image', target: '_self'}
+            %span.icon-upload
+            Upload a screenshot
+
+      .tab-content
+        #url.tab-pane.active
+          %form{action: '/projects', method: 'post'}
+            = token_tag
+            %label Start with a URL to take a screenshot automatically
+            .input-group.input-group-lg
+              %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url'}/
+              .input-group-btn
+                %button.btn.btn-success{type: 'submit'} Start
+        #image.tab-pane
+          %form{action: '/projects', method: 'post', enctype: 'multipart/form-data'}
+            = token_tag
+            .input-group.input-group-lg
+              %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
+                %div{'ng-show' => 'dropSupported'}
+                  %span.icon-upload2
+                  You can also drop a file here
+
+                #file-upload.btn.btn-success
+                  Browse...
+                  %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
+
 
   #screenshot.text-center
     = image_tag('screenshot.jpg', retina: true)

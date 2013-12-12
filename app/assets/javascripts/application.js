@@ -11,11 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap/tab
+//= require lodash
+//= require ng-file-upload/angular-file-upload-shim
 //= require angular
 //= require angular-resource
 //= require angular-route
 //= require angular-bootstrap
 //= require angular-moment
+//= require ng-file-upload
 //= require retina
 //= require spinjs
 //= require app

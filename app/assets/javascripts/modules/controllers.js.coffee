@@ -45,7 +45,7 @@ class ProjectCtrl
 
 
 class HeaderCtrl
-  constructor: ($scope, $modal,  $location, ProjectService) ->
+  constructor: ($scope, $modal, $location, ProjectService) ->
     $scope.data = ProjectService
 
     $scope.showModal = ->
@@ -54,7 +54,6 @@ class HeaderCtrl
         controller: 'NewPageModalCtrl'
 
       modalInstance.result.then (url) ->
-
         Page = ProjectService.client.page
         page = new Page(url: url)
         page.$save ->
@@ -77,9 +76,24 @@ class ShareCtrl
     $scope.$watch 'shareId', ->
       $scope.project = JsonRestClient.share($scope.shareId)
 
+class WelcomeCtrl
+  constructor: ($scope, $upload) ->
+    $scope.onFileSelect = ($files) ->
+      _.each $files, ($file) ->
+        $scope.upload = $upload.upload(
+          url: '/projects.json'
+          file: $file
+          fileFormDataName: 'image'
+        ).then((response) ->
+          window.location = response.headers('Location')
+        , null, (evt) ->
+          console.log parseInt(100.0 * evt.loaded / evt.total)
+        )
+
 app = angular.module('designcritController', [])
 app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClient', 'ProjectService', PageCtrl])
 app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', ProjectCtrl])
 app.controller('HeaderCtrl', ['$scope', '$modal', '$location', 'ProjectService', HeaderCtrl])
 app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', NewPageModalCtrl])
 app.controller('ShareCtrl', ['$scope', 'JsonRestClient', ShareCtrl])
+app.controller('WelcomeCtrl', ['$scope', '$upload', WelcomeCtrl])
