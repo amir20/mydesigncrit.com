@@ -57,11 +57,11 @@
                 Upload
 
           .tab-content
-            #url.tab-pane.active
+            %form#url.tab-pane.active{'ng-submit' => 'add()'}
               .input-group.input-group-lg
                 %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url', 'ng-model' => 'selected.url'}/
                 .input-group-btn
-                  %button.btn.btn-success{type: 'submit', 'ng-click' => 'add()'} Add
+                  %button.btn.btn-success{type: 'submit'} Add
             #image.tab-pane
               %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
                 %div{'ng-show' => 'dropSupported'}
