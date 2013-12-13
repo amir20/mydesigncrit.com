@@ -113,6 +113,7 @@ GEM
     net-ssh (2.7.0)
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
+    newrelic_rpm (3.7.0.177)
     oauth2 (0.8.1)
       faraday (~> 0.8)
       httpauth (~> 0.1)
@@ -231,6 +232,7 @@ DEPENDENCIES
   high_voltage
   jbuilder (~> 1.2)
   mysql2
+  newrelic_rpm
   omniauth
   omniauth-facebook
   omniauth-google-oauth2

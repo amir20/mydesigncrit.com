@@ -45,3 +45,5 @@ gem 'omniauth-google-oauth2'
 
 # Resizing images
 gem 'rmagick', :require => 'RMagick'
+
+gem 'newrelic_rpm'
