@@ -53,23 +53,35 @@ class HeaderCtrl
         templateUrl: 'newPageModal.html'
         controller: 'NewPageModalCtrl'
 
-      modalInstance.result.then (url) ->
-        Page = ProjectService.client.page
-        page = new Page(url: url)
-        page.$save ->
-          ProjectService.pages = ProjectService.client.pages()
-          $location.path("/projects/#{ProjectService.project.id}/pages/#{page.id}")
+      modalInstance.result.then (page) ->
+        ProjectService.pages = ProjectService.client.pages()
+        $location.path("/projects/#{ProjectService.project.id}/pages/#{page.id}")
 
 
 class NewPageModalCtrl
-  constructor: ($scope, $modalInstance) ->
+  constructor: ($scope, $modalInstance, $upload, ProjectService) ->
     $scope.selected = { url: '' }
 
     $scope.cancel = ->
       $modalInstance.dismiss('cancel')
 
     $scope.add = ->
-      $modalInstance.close($scope.selected.url)
+      Page = ProjectService.client.page
+      page = new Page(url: $scope.selected.url)
+      page.$save ->
+        $modalInstance.close(page)
+
+    $scope.onFileSelect = ($files) ->
+      _.each $files, ($file) ->
+        $scope.upload = $upload.upload(
+          url: "/projects/#{ProjectService.project.id}/pages.json"
+          file: $file
+          fileFormDataName: 'image'
+        ).then((response) ->
+          $modalInstance.close(response.data)
+        , null, (evt) ->
+          $scope.progress =  parseInt(100.0 * evt.loaded / evt.total)
+        )
 
 class ShareCtrl
   constructor: ($scope, JsonRestClient) ->
@@ -94,6 +106,6 @@ app = angular.module('designcritController', [])
 app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClient', 'ProjectService', PageCtrl])
 app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', ProjectCtrl])
 app.controller('HeaderCtrl', ['$scope', '$modal', '$location', 'ProjectService', HeaderCtrl])
-app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', NewPageModalCtrl])
+app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', '$upload', 'ProjectService', NewPageModalCtrl])
 app.controller('ShareCtrl', ['$scope', 'JsonRestClient', ShareCtrl])
 app.controller('WelcomeCtrl', ['$scope', '$upload', WelcomeCtrl])

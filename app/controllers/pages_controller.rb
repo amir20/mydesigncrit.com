@@ -6,8 +6,13 @@ class PagesController < ApplicationController
   end
 
   def create
-    @page = @project.pages.create!(url: params[:url])
-    @page.process
+    @page = Page.create_from_url_or_image!(params)
+    @project.pages << @page
+
+    respond_to do |format|
+      format.html { redirect_to [@project, @page] }
+      format.json { render action: 'show', status: :created, location: [@project, @page] }
+    end
   end
 
   def update

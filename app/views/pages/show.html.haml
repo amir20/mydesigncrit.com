@@ -45,11 +45,37 @@
         %h3 Add a new page
 
       .modal-body
-        .input-group
-          %span.input-group-addon Web page URL
-          %input.form-control{name: 'url', placeholder: 'http://example.com', required: true, type: 'url', 'ng-model' => 'selected.url'}
+        .tabbable.tabs-top
+          %ul.nav.nav-tabs
+            %li.active
+              %a{'data-toggle' => 'tab', href: '#url', target: '_self'}
+                %span.icon-earth
+                URL
+            %li
+              %a{'data-toggle' => 'tab', href: '#image', target: '_self'}
+                %span.icon-upload
+                Upload
+
+          .tab-content
+            #url.tab-pane.active
+              .input-group.input-group-lg
+                %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url', 'ng-model' => 'selected.url'}/
+                .input-group-btn
+                  %button.btn.btn-success{type: 'submit', 'ng-click' => 'add()'} Add
+            #image.tab-pane
+              %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
+                %div{'ng-show' => 'dropSupported'}
+                  %span.icon-upload2
+                  You can also drop a file here
+                #file-upload.btn.btn-success
+                  Browse...
+                  %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
+
+              %br/
+              .progress.progress-striped.active{'ng-show' => 'upload != null'}
+                .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
+                  %span.sr-only {{progress}}% Uploaded
 
       .modal-footer
-        %button.btn.btn-warning{'ng-click' => 'cancel()'} Cancel
-        %button.btn.btn-success{'ng-click' => 'add()', type: 'submit'} Add
-
+        .text-left
+          %button.btn.btn-warning{'ng-click' => 'cancel()'} Cancel
