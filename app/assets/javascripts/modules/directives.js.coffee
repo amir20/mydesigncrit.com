@@ -101,10 +101,13 @@ sidebar = ($timeout) ->
 
   link: (scope, element, attrs) ->
     timeout = null
+    scope.data = {comment: ''}
+
     scope.saveSelectedCrit = (e) ->
       $timeout.cancel(timeout)
       scope.saved = false
       crit = scope.selectedCrit
+      crit.comment = scope.data.comment
       timeout = $timeout (->
         crit.$update()
         scope.saved = true
@@ -125,6 +128,9 @@ sidebar = ($timeout) ->
 
     scope.showCritList = ->
       scope.selectedCrit == null
+
+    scope.$watch 'selectedCrit', (crit) ->
+      scope.data.comment = crit.comment if crit
 
 deleteCrit = ($rootScope) ->
   restrict: 'A'
