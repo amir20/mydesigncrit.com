@@ -2,7 +2,7 @@
 app_path = File.expand_path(File.dirname(File.dirname(File.dirname(__FILE__))))
 
 # Set unicorn options
-worker_processes 4
+worker_processes 2
 preload_app true
 timeout 180
 listen '/tmp/designcrit.socket', :backlog => 64
