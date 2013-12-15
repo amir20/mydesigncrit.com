@@ -14,6 +14,7 @@ set :use_sudo, false
 set :stages, %w(production)
 set :default_stage, 'production'
 set :delayed_job_command, 'bin/delayed_job'
+set :rvm_type, :system
 
 namespace :deploy do
   namespace :assets do
