@@ -36,12 +36,24 @@ class PageCtrl
 
 
 class ProjectCtrl
-  constructor: ($scope, $timeout, JsonRestClient, ProjectService) ->
+  constructor: ($scope, $timeout, JsonRestClient, ProjectService, $location) ->
     $scope.data = ProjectService
     $scope.$watch 'projectId', ->
       ProjectService.client = JsonRestClient.client($scope.projectId)
       ProjectService.project = ProjectService.client.project()
       ProjectService.pages = ProjectService.client.pages()
+
+    $scope.deletePage = (e, page) ->
+      e.preventDefault()
+      e.stopPropagation()
+      page.$delete()
+
+      index = ProjectService.pages.indexOf(page)
+      ProjectService.pages.splice(index, 1)
+      
+      if(ProjectService.selectedPage == page)
+        nextPage = ProjectService.pages[Math.max(0, index - 1)]
+        $location.path("/projects/#{ProjectService.project.id}/pages/#{nextPage.id}")
 
 
 class HeaderCtrl
@@ -104,7 +116,7 @@ class WelcomeCtrl
 
 app = angular.module('designcritController', [])
 app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClient', 'ProjectService', PageCtrl])
-app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', ProjectCtrl])
+app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', '$location', ProjectCtrl])
 app.controller('HeaderCtrl', ['$scope', '$modal', '$location', 'ProjectService', HeaderCtrl])
 app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', '$upload', 'ProjectService', NewPageModalCtrl])
 app.controller('ShareCtrl', ['$scope', 'JsonRestClient', ShareCtrl])
