@@ -1,5 +1,5 @@
 set :application, 'designcrit.io'
-server 'designcrit.io', :app, :web, :db, :assets, primary: true
+server '23.253.52.105', :app, :web, :db, :assets, primary: true
 set :branch, :master
 set :rails_env, 'production'
 set :unicorn_env, 'production'
