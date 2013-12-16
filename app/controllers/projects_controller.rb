@@ -36,4 +36,14 @@ class ProjectsController < ApplicationController
   def share
     @project = Project.find_by_share_id(params[:id])
   end
+
+  def email
+    @project = Project.find_by_share_id(params[:id])
+    ShareMailer.send_project_to(@project , params[:to]).deliver
+
+    respond_to do |format|
+      format.html { redirect_to @project }
+      format.json { head :no_content }
+    end
+  end
 end

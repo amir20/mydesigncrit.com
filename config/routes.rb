@@ -11,6 +11,7 @@ DesigncritIo::Application.routes.draw do
   end
 
   get '/v/:id', to: 'projects#share', as: :share
+  post '/v/:id', to: 'projects#email', as: :email
 
   root 'welcome#index'
   get '/delayed_job' => DelayedJobWeb, :anchor => false
