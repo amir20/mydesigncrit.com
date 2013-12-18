@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.0.0'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.0.beta1'
 gem 'mysql2'
 
 # Assets
@@ -30,6 +30,7 @@ group :development, :test do
   gem 'capistrano-unicorn'
   gem 'thin'
   gem 'sqlite3'
+  gem 'spring'
 end
 
 # For background jobs
