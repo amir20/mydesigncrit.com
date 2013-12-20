@@ -1,0 +1,46 @@
+#welcome.blurred
+  .row.jumbotron
+    .col-md-8.col-md-offset-2
+      .page-header
+        %h1
+          Designed
+          %small by developers
+          %br
+          Created
+          %small by designers
+
+      %p.lead
+        With DesignCrit.io you can create and annotate on websites with just a few clicks.
+        A screenshot is taken automatically from any accessible website.
+
+  %main{:role => 'main'}
+    #create-project{'ng-controller' => 'WelcomeCtrl'}
+      .tabbable.tabs-left
+        %ul.nav.nav-tabs
+          %li.active
+            %a{'data-toggle' => 'tab', href: '#url', target: '_self'}
+              %span.icon-earth
+              URL
+          %li
+            %a{'data-toggle' => 'tab', href: '#image', target: '_self'}
+              %span.icon-upload
+              Upload
+
+        .tab-content
+          #url.tab-pane.active
+            %form{action: '/projects', method: 'post'}
+              = token_tag
+              %label Start with a URL to take a screenshot automatically
+              .input-group.input-group-lg
+                %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url'}/
+                .input-group-btn
+                  %button.btn.btn-success{type: 'submit'} Start
+
+            %br/
+            .progress.progress-striped.active{'ng-show' => 'upload != null'}
+              .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
+                %span.sr-only {{progress}}% Uploaded
+
+
+    #screenshot.text-center
+      = image_tag('screenshot.jpg', retina: true)

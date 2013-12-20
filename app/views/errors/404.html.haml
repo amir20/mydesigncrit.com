@@ -1,0 +1,10 @@
+- content_for :header do
+  %div
+
+= render 'blurred_content'
+
+%main#content
+  #message.text-center
+    %i.icon-sad
+    %h1 Page not found
+    %p.lead DesignCrit.io could not locate this page. Please check the URL and make sure it is correct.

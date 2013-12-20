@@ -10,6 +10,7 @@ module DesigncritIo
   class Application < Rails::Application
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     config.sass.preferred_syntax = :sass
+    config.exceptions_app = self.routes
 
     ActionMailer::Base.smtp_settings = {
         :user_name => 'amirraminfar',

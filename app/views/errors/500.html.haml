@@ -1,0 +1,12 @@
+- content_for :header do
+  %div
+
+= render 'blurred_content'
+
+%main#content
+  #message.text-center
+    %i.icon-shocked
+    %h1 It's not you. It's us.
+    %p.lead
+      DesignCrit.io is experiencing internal errors. Please try again later or contact support at
+      %a{href:'mailto:tickets@designcrit.uservoice.com'} tickets@designcrit.uservoice.com

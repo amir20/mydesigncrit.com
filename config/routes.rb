@@ -16,4 +16,8 @@ DesigncritIo::Application.routes.draw do
   root 'welcome#index'
   get '/delayed_job' => DelayedJobWeb, :anchor => false
 
+  %w( 404 422 500 ).each do |code|
+    get code, :to => 'errors#show', :code => code
+  end
+
 end
