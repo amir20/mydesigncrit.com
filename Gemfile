@@ -14,6 +14,7 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'validate_url'
 gem 'retina_rails'
 gem 'high_voltage'
+gem 'redcarpet'
 
 # For JSON
 gem 'jbuilder', '~> 1.2'

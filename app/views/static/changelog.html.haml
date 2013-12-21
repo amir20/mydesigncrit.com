@@ -2,23 +2,8 @@
   .page-header
     %h1 Changelog
 
-  %ul
-    %li December 17, 2013 - Using latest Rails 4.1.0beta1 and added not supported page IE8
-    %li December 14, 2013 - Moved to a new server with 2x performance
-    %li December 14, 2013 - Added uservoice 
-    %li December 14, 2013 - Added share via email
-    %li December 13, 2013 - Fixed a bug where comments were not being saved correctly and the cursor was jumping
-    %li December 11, 2013 - Fixed broken background on screenshots and set it to white.
-    %li December 10, 2013 - Added file upload via drag and drop
-    %li December 11, 2013 - Fixed zombie threads using PhantomJS.rb
-    %li December 10, 2013 - Fixed a bug where z-index was not set. Updated Favicon.
-    %li December 10, 2013 - Added Google Analytics
-    %li December 9, 2013 - Force to use 1024px wide screen shots
-    %li December 8, 2013 - Added preview mode and share button
-    %li December 7, 2013 - Added privacy and about pages
-    %li December 5, 2013 - Added support for retina display
-    %li December 3, 2013 - Added authentication via Facebook or Google
-    %li December 1, 2013 - Relaunch of DesignCrit.io and deployed first version of application on Rackspace
+  :markdown
+    #{File.read(Rails.root.join('changelog.md'))}
 
 
 = render 'layouts/footer'

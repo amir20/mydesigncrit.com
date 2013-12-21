@@ -159,6 +159,7 @@ GEM
     rake (10.1.1)
     rdoc (4.0.1)
       json (~> 1.4)
+    redcarpet (3.0.0)
     retina_rails (1.0.1)
       rails (>= 3.0)
     rmagick (2.13.2)
@@ -243,6 +244,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   rails (= 4.1.0.beta1)
+  redcarpet
   retina_rails
   rmagick
   rspec-rails (~> 2.0)
