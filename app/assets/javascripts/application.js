@@ -21,7 +21,7 @@
 //= require angular-moment
 //= require ng-file-upload
 //= require retina
-//= require spinjs
+//= require spinjs/spin.js
 //= require app
 //= require_tree .
 
