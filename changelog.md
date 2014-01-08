@@ -1,3 +1,7 @@
+## January
+- January 5th - Fixed performance issues while loading for the first time
+
+## December
 - December 20, 2013 - Fixes user agent for PhantomJS
 - December 20, 2013 - Added pretty 404 pages :)
 - December 17, 2013 - Using latest Rails 4.1.0beta1 and added not supported page IE8
