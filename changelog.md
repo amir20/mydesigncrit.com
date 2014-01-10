@@ -1,5 +1,5 @@
 ## January
-- January 5th - Fixed performance issues while loading for the first time
+- January 5, 2014 - Fixed performance issues while loading for the first time
 
 ## December
 - December 20, 2013 - Fixes user agent for PhantomJS
