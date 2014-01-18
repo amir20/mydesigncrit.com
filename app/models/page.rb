@@ -26,12 +26,17 @@ class Page < ActiveRecord::Base
     self.screenshot = "/assets/jobs/#{id}/screenshot.png"
     self.screenshot = "/assets/jobs/#{id}/screenshot.png"
 
-    if self.project.pages.size == 1
-      self.project.title = self.title
-      self.project.save
-    end
+    begin
+      if self.project.pages.size == 1
+        self.project.title = self.title
+        self.project.save
+      end
 
-    save!
+      save
+    rescue Exception => e
+      logger.error e.message
+      logger.error e.backtrace.join("\n")
+    end
   end
 
   def self.create_from_image!(params)

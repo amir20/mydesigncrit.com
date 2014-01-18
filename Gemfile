@@ -31,7 +31,6 @@ group :development, :test do
   gem 'capistrano-unicorn'
   gem 'thin'
   gem 'sqlite3'
-  gem 'spring'
 end
 
 # For background jobs
