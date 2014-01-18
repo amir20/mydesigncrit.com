@@ -1,4 +1,5 @@
 ## January
+- January 18, 2014 - Fixes an exception that was causing background tasks to quit and stop working
 - January 17, 2014 - Update copyright year to 2014
 - January 17, 2014 - Fixed a bug where pages were not being rendered
 - January 5, 2014 - Fixed performance issues while loading for the first time
