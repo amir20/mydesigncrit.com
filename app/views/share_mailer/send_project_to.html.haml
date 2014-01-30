@@ -5,11 +5,11 @@
   %body
     %h1 There is a project waiting for you at DesignCrit.io!
     %p
-      Hey there! Someone using DesignCrit.io wants to share a #{link_to 'project', share_url(@project.share_id)} with you. Click the link below to see the project
+      Hey there! Someone using DesignCrit.io wants to share a #{link_to 'project', share_url(@project.share_id, host: 'designcrit.io') } with you. Click the link below to see the project
       and all the comments.
 
     %p{style: 'margin-top: 25px'}
-      = link_to 'See the project now at DesignCrit.io!', share_url(@project.share_id), style: 'background: #E03328; color: #fff; padding: 10px'
+      = link_to 'See the project now at DesignCrit.io!', share_url(@project.share_id, host: 'designcrit.io'), style: 'background: #E03328; color: #fff; padding: 10px'
 
     %h2{style: 'margin-top: 25px'} Project Summary
     %p
@@ -25,4 +25,4 @@
       %br/
       %br/
       You are receiving this message because someone shared a project with you.
-      DesignCrit.io does not collect any private data. Read the #{link_to 'privacy', page_url('privacy')} page if you have questions.
+      DesignCrit.io does not collect any private data. Read the #{link_to 'privacy', page_url('privacy', host: 'designcrit.io')} page if you have questions.
