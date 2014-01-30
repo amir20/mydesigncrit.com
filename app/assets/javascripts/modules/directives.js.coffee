@@ -42,7 +42,6 @@ crit = ($document) ->
         @startY = e.pageY - page.offset().top - scope.crit.y
         $document.bind 'mousemove', move
         $document.bind 'mouseup', mouseup
-        scope.selectedCrit = scope.crit
         e.stopPropagation()
         e.preventDefault()
 
