@@ -126,11 +126,10 @@ sidebar = ($timeout) ->
     scope.hideCrit = (crit) ->
       scope.hoveredCrit = null
 
-    scope.showCritList = ->
-      scope.selectedCrit == null
-
     scope.$watch 'selectedCrit', (crit) ->
-      scope.data.comment = crit.comment if crit
+      if crit
+        $timeout(-> element.find('#comment').focus())
+        scope.data.comment = crit.comment
 
 deleteCrit = ($rootScope) ->
   restrict: 'A'

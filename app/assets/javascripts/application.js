@@ -19,7 +19,7 @@
 //= require angular-route
 //= require angular-bootstrap
 //= require angular-moment
-//= require ng-file-upload
+//= require ng-file-upload/angular-file-upload
 //= require retina
 //= require spinjs/spin.js
 //= require app

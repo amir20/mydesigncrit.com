@@ -1,4 +1,6 @@
 ## January
+- January 30, 2014 - Added a default message when no crits exist
+- January 30, 2014 - Fixed bugs when writing comments.
 - January 30, 2014 - Updated to latest PhantomJS version 1.9.7
 - January 29, 2014 - Sending emails was broken. Fixed it.
 - January 18, 2014 - Fixes an exception that was causing background tasks to quit and stop working
