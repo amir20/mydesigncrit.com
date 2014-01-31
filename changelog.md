@@ -1,4 +1,5 @@
 ## January
+- January 30, 2014 - Adds keyboard shorts to save comments using command or ctrl
 - January 30, 2014 - Added a default message when no crits exist
 - January 30, 2014 - Fixed bugs when writing comments.
 - January 30, 2014 - Updated to latest PhantomJS version 1.9.7
