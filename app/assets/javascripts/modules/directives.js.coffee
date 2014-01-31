@@ -99,6 +99,8 @@ sidebar = ($timeout) ->
     hoveredCrit: '='
 
   link: (scope, element, attrs) ->
+    scope.mac = !navigator.platform.indexOf("Mac")
+
     timeout = null
     scope.data = {comment: ''}
 
@@ -115,6 +117,8 @@ sidebar = ($timeout) ->
     scope.done = ->
       scope.selectedCrit = null
       scope.hoveredCrit = null
+
+    key '⌘ + enter, ctrl + enter', -> scope.$apply(-> scope.done())
 
     scope.select = (crit) ->
       scope.selectedCrit = crit

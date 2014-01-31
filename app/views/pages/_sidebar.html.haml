@@ -18,4 +18,4 @@
         %label{for: 'comment'} Comment
         %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-change' => 'saveSelectedCrit()', 'ng-model' => 'data.comment'}
       .form-group
-        %button.btn.btn-success.btn-block{type: 'submit', 'ng-click' => 'done()'} Done
+        %button.btn.btn-success.btn-block{type: 'submit', 'ng-click' => 'done()'} {{ mac ? '⌘' : 'ctrl' }} + enter
