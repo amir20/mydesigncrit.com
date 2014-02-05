@@ -32,17 +32,16 @@
     .comment {{ crit.comment }}
 
 %script{id: 'email.html', type: 'text/ng-template'}
-  .modal-dialog
-    %form.modal-content{'ng-submit' => 'submit()'}
-      .modal-header
-        %h3 Share via email
+  %form.modal-content{'ng-submit' => 'submit()'}
+    .modal-header
+      %h3 Share via email
 
-      .modal-body
-        .form-group
-          %label{for: 'to'} Enter the email address you like to share this project.
-          %input#to.form-control{placeholder: 'joe@example.com', type: 'email', 'ng-model' => 'form.to'}/
+    .modal-body
+      .form-group
+        %label{for: 'to'} Enter the email address you like to share this project.
+        %input#to.form-control{placeholder: 'joe@example.com', type: 'email', 'ng-model' => 'form.to'}/
 
-      .modal-footer
-        %button.btn.btn-warning{type: 'reset', 'ng-click' => 'cancel()'} Cancel
-        %button.btn.btn-success{type: 'submit'} Send
+    .modal-footer
+      %button.btn.btn-warning{type: 'reset', 'ng-click' => 'cancel()'} Cancel
+      %button.btn.btn-success{type: 'submit'} Send
 

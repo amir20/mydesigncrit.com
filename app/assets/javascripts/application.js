@@ -13,6 +13,7 @@
 //= require jquery
 //= require bootstrap/tab
 //= require lodash
+//= require verge/verge.js
 //= require keymaster/keymaster
 //= require ng-file-upload/angular-file-upload-shim
 //= require angular

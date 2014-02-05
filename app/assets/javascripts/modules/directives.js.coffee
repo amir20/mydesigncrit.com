@@ -60,6 +60,11 @@ crit = ($document) ->
     scope.highlight = (b) ->
       if b then element.addClass('selected') else element.removeClass('selected')
 
+    scope.$watch 'selectedCrit', (selectedCrit) ->
+      $('html, body').animate(
+        scrollTop: element.offset().top - 100
+      , 500) if selectedCrit == scope.crit && !verge.inViewport(element)
+
 
 loader = ->
   restrict: 'E'
@@ -148,10 +153,9 @@ deleteCrit = ($rootScope) ->
 input = ($timeout) ->
   restrict: 'E'
   link: (scope, element, attrs) ->
-    if(attrs.type == "url")
+    if(attrs.type == 'url')
       element.bind 'keypress', (e) -> element.val("http://#{element.val()}") if e.which == 46 && element.val().indexOf('http') != 0
-      element.bind 'paste', (e) ->
-        $timeout (-> element.val("http://#{element.val()}") if element.val().indexOf('http') != 0), 100
+      element.bind 'paste', -> $timeout (-> element.val("http://#{element.val()}") if element.val().indexOf('http') != 0), 100
 
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', crit])

@@ -39,43 +39,41 @@
   = render 'sidebar.html'
 
 %script{id: 'newPageModal.html', type: 'text/ng-template'}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %h3 Add a new page
+  .modal-header
+    %h3 Add a new page
 
-      .modal-body
-        .tabbable.tabs-top
-          %ul.nav.nav-tabs
-            %li.active
-              %a{'data-toggle' => 'tab', href: '#url', target: '_self'}
-                %span.icon-earth
-                URL
-            %li
-              %a{'data-toggle' => 'tab', href: '#image', target: '_self'}
-                %span.icon-upload
-                Upload
+  .modal-body
+    .tabbable.tabs-top
+      %ul.nav.nav-tabs
+        %li.active
+          %a{'data-toggle' => 'tab', href: '#url', target: '_self'}
+            %span.icon-earth
+            URL
+        %li
+          %a{'data-toggle' => 'tab', href: '#image', target: '_self'}
+            %span.icon-upload
+            Upload
 
-          .tab-content
-            %form#url.tab-pane.active{'ng-submit' => 'add()'}
-              .input-group.input-group-lg
-                %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url', 'ng-model' => 'selected.url'}/
-                .input-group-btn
-                  %button.btn.btn-success{type: 'submit'} Add
-            #image.tab-pane
-              %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
-                %div{'ng-show' => 'dropSupported'}
-                  %span.icon-upload2
-                  You can also drop a file here
-                #file-upload.btn.btn-success
-                  Browse...
-                  %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
+      .tab-content
+        %form#url.tab-pane.active{'ng-submit' => 'add()'}
+          .input-group.input-group-lg
+            %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url', 'ng-model' => 'selected.url'}/
+            .input-group-btn
+              %button.btn.btn-success{type: 'submit'} Add
+        #image.tab-pane
+          %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
+            %div{'ng-show' => 'dropSupported'}
+              %span.icon-upload2
+              You can also drop a file here
+            #file-upload.btn.btn-success
+              Browse...
+              %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
 
-              %br/
-              .progress.progress-striped.active{'ng-show' => 'upload != null'}
-                .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
-                  %span.sr-only {{progress}}% Uploaded
+          %br/
+          .progress.progress-striped.active{'ng-show' => 'upload != null'}
+            .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
+              %span.sr-only {{progress}}% Uploaded
 
-      .modal-footer
-        .text-left
-          %button.btn.btn-warning{'ng-click' => 'cancel()'} Cancel
+  .modal-footer
+    .text-left
+      %button.btn.btn-warning{'ng-click' => 'cancel()'} Cancel
