@@ -28,8 +28,8 @@ class Page < ActiveRecord::Base
     self.processed = true
     self.width = img.columns
     self.height = img.rows
-    self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}.png")
-    self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}.png")
+    self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}_#{SecureRandom.hex}.png")
+    self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}_#{SecureRandom.hex}.png")
 
     FileUtils.rm_rf(thumb_file.parent)
 
