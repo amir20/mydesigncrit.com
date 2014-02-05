@@ -4,6 +4,12 @@ class Page < ActiveRecord::Base
   has_many :crits
   belongs_to :project
 
+  CONNECTION = Fog::Storage.new(
+      provider: 'Rackspace',
+      rackspace_username: 'amirraminfar',
+      rackspace_api_key: '59408113174c92574d89ef18847b15ed'
+  )
+
   def process
     large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
     if self.screenshot.present?
@@ -19,12 +25,11 @@ class Page < ActiveRecord::Base
     thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
     img.resize_to_fill(160 * 2, 120 * 2, Magick::NorthGravity).write(thumb_file)
 
-    self.thumbnail = "/assets/jobs/#{id}/thumbnail.png"
     self.processed = true
     self.width = img.columns
     self.height = img.rows
-    self.screenshot = "/assets/jobs/#{id}/screenshot.png"
-    self.screenshot = "/assets/jobs/#{id}/screenshot.png"
+    self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}.png")
+    self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}.png")
 
     begin
       if self.project.pages.size == 1
@@ -37,6 +42,16 @@ class Page < ActiveRecord::Base
       logger.error e.message
       logger.error e.backtrace.join("\n")
     end
+  end
+
+  def upload_to_cdn(file, key)
+    directory = CONNECTION.directories.get('designcrit')
+    file = directory.files.create(
+        key: key,
+        body: File.open(file),
+        public: true
+    )
+    file.public_url
   end
 
   def self.create_from_image!(params)

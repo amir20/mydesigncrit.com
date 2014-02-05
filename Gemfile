@@ -15,6 +15,7 @@ gem 'validate_url'
 gem 'retina_rails'
 gem 'high_voltage'
 gem 'redcarpet'
+gem 'fog'
 
 # For JSON
 gem 'jbuilder', '~> 1.2'
