@@ -31,6 +31,8 @@ class Page < ActiveRecord::Base
     self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}.png")
     self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}.png")
 
+    FileUtils.rm_rf(thumb_file.parent)
+
     begin
       if self.project.pages.size == 1
         self.project.title = self.title
