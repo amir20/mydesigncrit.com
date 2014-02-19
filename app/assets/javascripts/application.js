@@ -1,4 +1,4 @@
-//= require jquery
+//= require jquery/dist/jquery
 //= require bootstrap/tab
 //= require lodash
 //= require verge/verge.js
