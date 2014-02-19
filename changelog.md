@@ -1,3 +1,8 @@
+## February
+- February 18, 2014 - Fixes broken browse button on home page
+- February 18, 2014 - Fixes broken arrows on preview page
+- February 5, 2014 - Uploads screenshots to a CDN and secures with a random token
+
 ## January
 - January 30, 2014 - Adds keyboard shorts to save comments using command or ctrl
 - January 30, 2014 - Added a default message when no crits exist
