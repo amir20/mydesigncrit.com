@@ -1,31 +1,31 @@
 {
-    "name": "designcrit.io",
-    "version": "0.0.1",
-    "homepage": "https://github.com/amir20/mydesigncrit.com",
-    "authors": [
-        "Amir Raminfar <findamir@gmail.com>"
-    ],
-    "license": "MIT",
-    "private": true,
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "angular": "~1.2.0",
-        "angular-resource": "~1.2.0",
-        "angular-route": "~1.2.0",
-        "angular-bootstrap": ">0.7.0",
-        "angular-moment": "~0.6",
-        "angular-retina": "~0.2.0",
-        "ng-file-upload": "~1.2",
-        "spinjs": "~1.3.2",
-        "jquery": "~2.1",
-        "lodash": "~2.4.1",
-        "keymaster": "~1.6.1",
-        "verge": "~1.9.0"
-    }
+  "name": "designcrit.io",
+  "version": "0.0.1",
+  "homepage": "https://github.com/amir20/mydesigncrit.com",
+  "authors": [
+    "Amir Raminfar <findamir@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.2.13",
+    "angular-resource": "~1.2.13",
+    "angular-route": "~1.2.13",
+    "angular-bootstrap": "~0.10.0",
+    "angular-moment": "~0.6.2",
+    "angular-retina": "~0.3.1",
+    "ng-file-upload": "~1.2.7",
+    "spinjs": "~1.3.3",
+    "lodash": "~2.4.1",
+    "keymaster": "~1.6.1",
+    "verge": "~1.9.1",
+    "jquery": "~2.1.0"
+  }
 }
