@@ -14,7 +14,7 @@ module DesigncritIo
 
     ActionMailer::Base.smtp_settings = {
         :user_name => 'amirraminfar',
-        :password => 'Snapple101',
+        :password => '2229lovedale',
         :domain => 'designcrit.io',
         :address => 'smtp.sendgrid.net',
         :port => 587,
