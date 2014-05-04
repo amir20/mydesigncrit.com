@@ -50,7 +50,7 @@
 
 
   #screenshot.text-center
-    %img{'ng-src' => image_path('screenshot.jpg'), width: 800}
+    = image_tag_with_at2x 'screenshot.jpg'
 
   #features
     .container

@@ -1,3 +1,11 @@
+## May
+- May 2, 2014 - Upgrades all gems
+- May 2, 2014 - Upgraded to Rails version 4.1
+- May 1, 2014 - Fixed website going down
+
+## April
+- April 18, 2014 - Upgrades phantomjs
+
 ## February
 - February 18, 2014 - Fixes broken browse button on home page
 - February 18, 2014 - Fixes broken arrows on preview page
