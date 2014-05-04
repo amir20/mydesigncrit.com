@@ -9,8 +9,8 @@
 //= require angular-route
 //= require angular-bootstrap
 //= require angular-moment
+//= require angular-retina/dist/angular-retina
 //= require ng-file-upload/angular-file-upload
-//= require retina
 //= require spinjs/spin.js
 //= require app
 //= require_tree .
