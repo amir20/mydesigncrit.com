@@ -2,11 +2,11 @@
   %li.dropdown
     %a.dropdown-toggle{'data-toggle' => 'dropdown', href: '#'}
       %i.glyphicon.glyphicon-user
-      == Hi, #{current_user.name}
+      == Hi, #{guest_or_current_user.name}
       %b.caret
     %ul.dropdown-menu
       %li.dropdown-header Recent projects
-      - current_user.recent_projects.each do |p|
+      - guest_or_current_user.recent_projects.each do |p|
         %li
           = link_to p, target: '_self' do
             %i.icon-briefcase2

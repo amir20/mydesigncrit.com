@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
   after_action :set_csrf_cookie_for_ng
   before_action :detect_device_variant
 
-  def current_user
-    user = super
+  def create_guest_user_if_needed
+    user = current_user
     unless user
       user = AnonymousUser.create_guest
       sign_in(:user, user)

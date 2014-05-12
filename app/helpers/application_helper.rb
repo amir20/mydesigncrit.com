@@ -1,6 +1,14 @@
 module ApplicationHelper
   def anonymous_user?
-    current_user.is_a? AnonymousUser
+    guest_or_current_user.is_a? AnonymousUser
+  end
+
+  def guest_or_current_user
+    user = current_user
+    unless user
+      user = AnonymousUser.new(name: 'Guest')
+    end
+    user
   end
 
   def image_tag_with_at2x(name_at_1x, options={})

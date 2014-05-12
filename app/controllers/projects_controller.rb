@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
   def index
-    @project = current_user.projects
+    @projects = current_user.projects
   end
 
   def create
+    create_guest_user_if_needed
     @project = current_user.projects.create(title: 'Untitled')
     @page = Page.create_from_url_or_image!(params)
     @project.pages << @page

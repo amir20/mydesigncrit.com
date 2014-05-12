@@ -1,4 +1,7 @@
 ## May
+- May 11, 2014 - Only creates guest users when required for creating a project
+- May 11, 2014 - Upgraded to Rails 4.1.1
+- May 11, 2014 - Added newrelic monitor
 - May 2, 2014 - Upgrades all gems
 - May 2, 2014 - Upgraded to Rails version 4.1
 - May 1, 2014 - Fixed website going down
