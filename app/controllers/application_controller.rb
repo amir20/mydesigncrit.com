@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
   end
 
   def detect_device_variant
-
     case request.user_agent
       when /MSIE 8.0/i
         request.variant = :unsupported

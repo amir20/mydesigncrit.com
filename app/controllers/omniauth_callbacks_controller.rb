@@ -1,4 +1,5 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_action { create_guest_user_if_needed }
 
   def facebook
     @user = User.find_for_facebook_oauth(request.env['omniauth.auth'], current_user)
