@@ -14,7 +14,7 @@ DesigncritIo::Application.routes.draw do
   post '/v/:id', to: 'projects#email', as: :email
 
   root 'welcome#index'
-  get '/delayed_job' => DelayedJobWeb, :anchor => false
+  match '/delayed_job' => DelayedJobWeb, :anchor => false, via: [:get, :post]
 
   %w( 404 422 500 ).each do |code|
     get code, :to => 'errors#show', :code => code
