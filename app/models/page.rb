@@ -11,29 +11,30 @@ class Page < ActiveRecord::Base
   )
 
   def process
-    large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
-    if self.screenshot.present?
-      img = ::Magick::Image::read(Pathname.new(Rails.root.join('public' + self.screenshot))).first
-      img.resize!(1024.to_f / img.columns).write(large_file)
-    else
-      response = create_screenshot(large_file)
-      img = ::Magick::Image::read(large_file).first
-      self.title = response['title']
-    end
-
-    # Create thumbnail
-    thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
-    img.resize_to_fill(160 * 2, 120 * 2, Magick::NorthGravity).write(thumb_file)
-
-    self.processed = true
-    self.width = img.columns
-    self.height = img.rows
-    self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}_#{SecureRandom.hex}.png")
-    self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}_#{SecureRandom.hex}.png")
-
-    FileUtils.rm_rf(thumb_file.parent)
-
     begin
+      large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
+      if self.screenshot.present?
+        img = ::Magick::Image::read(Pathname.new(Rails.root.join('public' + self.screenshot))).first
+        img.resize!(1024.to_f / img.columns).write(large_file)
+      else
+        response = create_screenshot(large_file)
+        img = ::Magick::Image::read(large_file).first
+        self.title = response['title']
+      end
+
+      # Create thumbnail
+      thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
+      img.resize_to_fill(160 * 2, 120 * 2, Magick::NorthGravity).write(thumb_file)
+
+      self.processed = true
+      self.width = img.columns
+      self.height = img.rows
+      self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}_#{SecureRandom.hex}.png")
+      self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}_#{SecureRandom.hex}.png")
+
+      FileUtils.rm_rf(thumb_file.parent)
+
+
       if self.project.pages.size == 1
         self.project.title = self.title
         self.project.save
