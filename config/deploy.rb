@@ -15,7 +15,7 @@ set :stages, %w(production)
 set :default_stage, 'production'
 set :delayed_job_command, 'bin/delayed_job'
 set :rvm_type, :system
-set :delayed_job_args, '-n 2'
+set :delayed_job_args, '-n 1'
 
 namespace :deploy do
   namespace :assets do
