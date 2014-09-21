@@ -6,8 +6,8 @@ Bluepill.application('DesignCrit') do |app|
     process.stop_grace_time     = 10.seconds
     process.restart_grace_time  = 10.seconds
 
-    process.start_command = 'ruby bin/delayed_job -e production start'
-    process.stop_command  = 'ruby bin/delayed_job -e production stop'
+    process.start_command = 'RAILS_ENV=production ./bin/delayed_job start'
+    process.stop_command  = 'RAILS_ENV=production ./bin/delayed_job stop'
 
     process.pid_file = '/var/www/designcrit.io/shared/pids/delayed_job.pid'
   end
