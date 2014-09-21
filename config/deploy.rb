@@ -30,18 +30,18 @@ end
 namespace :bluepill do
   desc 'Stop processes that bluepill is monitoring and quit bluepill'
   task :quit, :roles => [:app] do
-    sudo 'bluepill stop'
-    sudo 'bluepill quit'
+    run 'bluepill --no-privilege stop'
+    run 'bluepill --no-privilege quit'
   end
 
   desc 'Load bluepill configuration and start it'
   task :start, :roles => [:app] do
-    sudo 'bluepill load /var/www/designcrit.io/current/config/bluepill/production.pill'
+    run 'bluepill --no-privilege load /var/www/designcrit.io/current/config/bluepill/production.pill'
   end
 
   desc 'Prints bluepills monitored processes statuses'
   task :status, :roles => [:app] do
-    sudo 'bluepill status'
+    run 'bluepill --no-privilege status'
   end
 end
 
