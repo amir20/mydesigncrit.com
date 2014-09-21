@@ -27,6 +27,25 @@ namespace :deploy do
 end
 
 
+namespace :bluepill do
+  desc 'Stop processes that bluepill is monitoring and quit bluepill'
+  task :quit, :roles => [:app] do
+    sudo 'bluepill stop'
+    sudo 'bluepill quit'
+  end
+
+  desc 'Load bluepill configuration and start it'
+  task :start, :roles => [:app] do
+    sudo 'bluepill load /var/www/designcrit.io/current/config/bluepill/production.pill'
+  end
+
+  desc 'Prints bluepills monitored processes statuses'
+  task :status, :roles => [:app] do
+    sudo 'bluepill status'
+  end
+end
+
+
 after 'deploy', 'deploy:migrate'
 after 'deploy', 'deploy:cleanup'
 after 'deploy:restart', 'unicorn:restart'
@@ -34,6 +53,7 @@ after 'deploy:stop', 'delayed_job:stop'
 after 'deploy:start', 'delayed_job:start'
 after 'deploy:restart', 'delayed_job:restart'
 before 'deploy:assets:precompile', 'deploy:assets:install'
+after 'deploy:update', 'bluepill:quit', 'bluepill:start'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
