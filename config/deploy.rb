@@ -30,18 +30,18 @@ end
 namespace :bluepill do
   desc 'Stop processes that bluepill is monitoring and quit bluepill'
   task :quit, :roles => [:app] do
-    run 'bluepill --no-privilege stop'
-    run 'bluepill --no-privilege quit'
+    run "cd #{current_path} && bundle exec bluepill --no-privilege stop"
+    run "cd #{current_path} && bundle exec bluepill --no-privilege quit"
   end
 
   desc 'Load bluepill configuration and start it'
   task :start, :roles => [:app] do
-    run 'bluepill --no-privilege load /var/www/designcrit.io/current/config/bluepill/production.pill'
+    run "cd #{current_path} && bundle exec bluepill --no-privilege load /var/www/designcrit.io/current/config/bluepill/production.pill"
   end
 
   desc 'Prints bluepills monitored processes statuses'
   task :status, :roles => [:app] do
-    run 'bluepill --no-privilege status'
+    run "cd #{current_path} && bundle exec bluepill --no-privilege status"
   end
 end
 
@@ -49,11 +49,13 @@ end
 after 'deploy', 'deploy:migrate'
 after 'deploy', 'deploy:cleanup'
 after 'deploy:restart', 'unicorn:restart'
-after 'deploy:stop', 'delayed_job:stop'
-after 'deploy:start', 'delayed_job:start'
-after 'deploy:restart', 'delayed_job:restart'
-before 'deploy:assets:precompile', 'deploy:assets:install'
+
+# after 'deploy:stop', 'delayed_job:stop'
+# after 'deploy:start', 'delayed_job:start'
+# after 'deploy:restart', 'delayed_job:restart'
+
 after 'deploy:update', 'bluepill:quit', 'bluepill:start'
+before 'deploy:assets:precompile', 'deploy:assets:install'
 
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
