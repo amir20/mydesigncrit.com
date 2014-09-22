@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.1.1'
+ruby '2.1.3'
 
 gem 'rails', '4.1.1'
 gem 'mysql2'
@@ -25,7 +25,6 @@ gem 'jbuilder', '~> 1.2'
 gem 'unicorn'
 
 group :development, :test do
-  gem 'debugger'
   gem 'rspec-rails', '~> 2.0'
   gem 'capistrano', '~> 2.0'
   gem 'capistrano_colors'
