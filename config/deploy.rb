@@ -65,22 +65,22 @@ namespace :foreman do
 
   desc 'Restart the application services'
   task :restart, :roles => :app do
-    run "sudo start #{application} || sudo restart #{application}"
+    run "sudo start #{application} || sudo stop #{application} && sudo start #{application}"
   end
 end
 
-# after 'deploy:update', 'foreman:export'
-# after "deploy:update", "foreman:restart"
+after 'deploy:update', 'foreman:export'
+after 'deploy:update', 'foreman:restart'
 
 after 'deploy', 'deploy:migrate'
 after 'deploy', 'deploy:cleanup'
-after 'deploy:restart', 'unicorn:restart'
 
+# after 'deploy:restart', 'unicorn:restart'
 # after 'deploy:stop', 'delayed_job:stop'
 # after 'deploy:start', 'delayed_job:start'
 # after 'deploy:restart', 'delayed_job:restart'
+# after 'deploy:update', 'bluepill:quit', 'bluepill:start'
 
-after 'deploy:update', 'bluepill:quit', 'bluepill:start'
 before 'deploy:assets:precompile', 'deploy:assets:install'
 
 default_run_options[:pty] = true
