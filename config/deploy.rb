@@ -50,7 +50,7 @@ end
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
   task :export, :roles => :app do
-    run "cd #{current_path} && rvmsudo bundle exec foreman export upstart /etc/init -a #{application} -l /var/log/#{application} -u amirraminfar"
+    run "cd #{current_path} && rvmsudo bundle exec foreman export upstart /etc/init -a #{application} -l /var/log/#{application} -u amirraminfar -e .env"
   end
 
   desc 'Start the application services'
