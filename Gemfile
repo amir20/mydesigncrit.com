@@ -50,3 +50,4 @@ gem 'omniauth-google-oauth2'
 gem 'rmagick', :require => 'RMagick'
 
 gem 'newrelic_rpm'
+gem 'foreman'

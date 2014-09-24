@@ -45,6 +45,30 @@ namespace :bluepill do
   end
 end
 
+namespace :foreman do
+  desc "Export the Procfile to Ubuntu's upstart scripts"
+  task :export, :roles => :app do
+    run "cd #{current_path} && rvmsudo bundle exec foreman export upstart /etc/init -a designcrit -l /var/designcrit/log"
+  end
+
+  desc 'Start the application services'
+  task :start, :roles => :app do
+    sudo 'start designcrit'
+  end
+
+  desc 'Stop the application services'
+  task :stop, :roles => :app do
+    sudo 'stop designcrit'
+  end
+
+  desc 'Restart the application services'
+  task :restart, :roles => :app do
+    run 'sudo start designcrit || sudo restart designcrit'
+  end
+end
+
+after 'deploy:update', 'foreman:export'
+# after "deploy:update", "foreman:restart"
 
 after 'deploy', 'deploy:migrate'
 after 'deploy', 'deploy:cleanup'
