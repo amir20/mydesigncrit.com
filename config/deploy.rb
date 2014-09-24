@@ -1,4 +1,4 @@
-set :application, 'designcrit.io'
+set :application, 'designcrit'
 server '23.253.52.105', :app, :web, :db, :assets, primary: true
 set :branch, :master
 set :rails_env, 'production'
@@ -16,6 +16,8 @@ set :default_stage, 'production'
 set :delayed_job_command, 'bin/delayed_job'
 set :rvm_type, :system
 set :delayed_job_args, '-n 1'
+
+set :default_environment, { 'rvmsudo_secure_path' => 0 }
 
 namespace :deploy do
   namespace :assets do
@@ -48,26 +50,26 @@ end
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
   task :export, :roles => :app do
-    run "cd #{current_path} && rvmsudo bundle exec foreman export upstart /etc/init -a designcrit -l /var/designcrit/log"
+    run "cd #{current_path} && rvmsudo bundle exec foreman export upstart /etc/init -a #{application} -l /var/log/#{application} -u amirraminfar"
   end
 
   desc 'Start the application services'
   task :start, :roles => :app do
-    sudo 'start designcrit'
+    run "start #{application}"
   end
 
   desc 'Stop the application services'
   task :stop, :roles => :app do
-    sudo 'stop designcrit'
+    run "stop #{application}"
   end
 
   desc 'Restart the application services'
   task :restart, :roles => :app do
-    run 'sudo start designcrit || sudo restart designcrit'
+    run "start #{application} || restart #{application}"
   end
 end
 
-after 'deploy:update', 'foreman:export'
+# after 'deploy:update', 'foreman:export'
 # after "deploy:update", "foreman:restart"
 
 after 'deploy', 'deploy:migrate'
