@@ -21,6 +21,7 @@ if (system.args.length != 3) {
                     return document.title;
                 });
                 console.log(JSON.stringify({title: title}));
+                page.close();
                 phantom.exit();
             }, 200);
         }
