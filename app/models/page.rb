@@ -15,7 +15,8 @@ class Page < ActiveRecord::Base
       large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
       if self.screenshot.present?
         img = ::Magick::Image::read(Pathname.new(Rails.root.join('public' + self.screenshot))).first
-        img.resize!(1024.to_f / img.columns).write(large_file)
+        img.resize!(1024.to_f / img.columns) if img.columns > 1024
+        img.write(large_file)
       else
         response = create_screenshot(large_file)
         img = ::Magick::Image::read(large_file).first

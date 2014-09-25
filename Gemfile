@@ -37,8 +37,6 @@ end
 # For background jobs
 gem 'delayed_job_active_record'
 gem 'delayed_job_web'
-gem 'daemons'
-gem 'bluepill'
 
 # For authenticating
 gem 'devise'

@@ -32,12 +32,6 @@ GEM
     autoprefixer-rails (3.1.0.20140911)
       execjs
     bcrypt (3.1.7)
-    blue-daemons (1.1.11)
-    bluepill (0.0.68)
-      activesupport (>= 3, < 5)
-      blue-daemons (~> 1.1.11)
-      i18n (~> 0.5)
-      state_machine (~> 1.1)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
@@ -234,7 +228,6 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     sqlite3 (1.3.9)
-    state_machine (1.2.0)
     thin (1.6.2)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -265,13 +258,11 @@ PLATFORMS
 
 DEPENDENCIES
   autoprefixer-rails
-  bluepill
   bootstrap-sass
   capistrano (~> 2.0)
   capistrano-unicorn
   capistrano_colors
   coffee-rails (~> 4.0.0)
-  daemons
   delayed_job_active_record
   delayed_job_web
   devise
