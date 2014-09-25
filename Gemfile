@@ -29,7 +29,6 @@ group :development, :test do
   gem 'capistrano', '~> 2.0'
   gem 'capistrano_colors'
   gem 'rvm-capistrano'
-  gem 'capistrano-unicorn'
   gem 'thin'
   gem 'sqlite3'
 end

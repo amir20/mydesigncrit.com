@@ -1,22 +1,17 @@
 set :application, 'designcrit'
-server '23.253.52.105', :app, :web, :db, :assets, primary: true
+server '162.243.155.204', :app, :web, :db, :assets, primary: true
 set :branch, :master
 set :rails_env, 'production'
-set :unicorn_env, 'production'
 set :app_env, 'production'
 set :deploy_to, '/var/www/designcrit.io'
 set :current_path, File.join(deploy_to, current_dir)
-set :unicorn_pid, File.join(current_path, 'tmp/pids/unicorn.pid')
 set :repository, 'git@github.com:amir20/mydesigncrit.com.git'
 set :scm, :git
 set :deploy_via, :remote_cache
 set :use_sudo, false
 set :stages, %w(production)
 set :default_stage, 'production'
-set :delayed_job_command, 'bin/delayed_job'
 set :rvm_type, :system
-set :delayed_job_args, '-n 1'
-
 set :default_environment, { 'rvmsudo_secure_path' => 0 }
 
 namespace :deploy do
@@ -27,8 +22,6 @@ namespace :deploy do
     end
   end
 end
-
-
 
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
@@ -48,7 +41,7 @@ namespace :foreman do
 
   desc 'Restart the application services'
   task :restart, :roles => :app do
-    run "sudo start #{application} || sudo stop #{application} && sudo start #{application}"
+    run "sudo restart #{application} || sudo start #{application}"
   end
 end
 
@@ -64,6 +57,4 @@ ssh_options[:forward_agent] = true
 
 require 'bundler/capistrano'
 require 'rvm/capistrano'
-require 'capistrano-unicorn'
 require 'capistrano_colors'
-require 'delayed/recipes'
