@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 20140926070220) do
     t.boolean  "private",     default: true, null: false
   end
 
+  add_index "projects", ["share_id"], name: "index_projects_on_share_id"
   add_index "projects", ["user_id"], name: "index_projects_on_user_id"
 
   create_table "users", force: true do |t|

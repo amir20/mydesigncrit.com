@@ -1,14 +1,17 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = current_user.projects
+    @projects = Project.accessible_by(current_ability)
   end
 
   def create
     create_guest_user_if_needed
+    authorize! :create, Project
+
     @project = current_user.projects.create(title: 'Untitled')
+    authorize! :create, @project => Page
+
     @page = Page.create_from_url_or_image!(params)
     @project.pages << @page
-
 
     respond_to do |format|
       format.html { redirect_to [@project, @page] }
@@ -17,16 +20,21 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = current_user.projects.find(params[:id])
+    @project = Project.find(params[:id])
+    authorize! :update, @project
   end
 
   def destroy
-    @project = current_user.projects.find(params[:id])
+    @project = Project.find(params[:id])
+
+    authorize! :update, @project
+
     @project.destroy
   end
 
   def show
-    @project = current_user.projects.find(params[:id])
+    @project = Project.find(params[:id])
+    authorize! :read, @project
 
     respond_to do |format|
       format.html { redirect_to [@project, @project.pages.first] unless request.xhr? }
@@ -36,10 +44,13 @@ class ProjectsController < ApplicationController
 
   def share
     @project = Project.find_by_share_id(params[:id])
+    authorize! :share, @project
   end
 
   def email
     @project = Project.find_by_share_id(params[:id])
+    authorize! :share, @project
+
     ShareMailer.send_project_to(@project , params[:to]).deliver
 
     respond_to do |format|

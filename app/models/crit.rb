@@ -4,4 +4,6 @@ class Crit < ActiveRecord::Base
   has_one :project, through: :page
 
   counter_culture [:page, :project]
+
+  validates :user, presence: true
 end
