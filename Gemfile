@@ -42,6 +42,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'cancan'
 
 # Resizing images
 gem 'rmagick', :require => 'RMagick'

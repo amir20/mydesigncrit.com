@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131202000642) do
+ActiveRecord::Schema.define(version: 20140926022942) do
 
   create_table "crits", force: true do |t|
     t.integer  "page_id"
@@ -23,9 +23,11 @@ ActiveRecord::Schema.define(version: 20131202000642) do
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   add_index "crits", ["page_id"], name: "index_crits_on_page_id"
+  add_index "crits", ["user_id"], name: "index_crits_on_user_id"
 
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
@@ -67,7 +69,6 @@ ActiveRecord::Schema.define(version: 20131202000642) do
     t.datetime "updated_at"
   end
 
-  add_index "projects", ["share_id"], name: "index_projects_on_share_id"
   add_index "projects", ["user_id"], name: "index_projects_on_user_id"
 
   create_table "users", force: true do |t|

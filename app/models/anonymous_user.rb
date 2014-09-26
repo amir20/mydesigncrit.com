@@ -1,6 +1,6 @@
 class AnonymousUser < User
 
   def self.create_guest
-    create(name: 'Guest', provider: 'tilofy', email: "guest-#{SecureRandom.random_number(0xffffff)}@tilofy.com")
+    create(name: 'Guest', provider: 'designcrit', email: "#{SecureRandom.hex}@designcrit.com")
   end
 end
