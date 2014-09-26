@@ -18,6 +18,9 @@ gem 'high_voltage'
 gem 'redcarpet'
 gem 'fog'
 
+# Active record
+gem 'counter_culture'
+
 # For JSON
 gem 'jbuilder', '~> 1.2'
 
