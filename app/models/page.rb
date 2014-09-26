@@ -4,6 +4,7 @@ class Page < ActiveRecord::Base
   has_many :crits
   belongs_to :project, touch: true
 
+
   CONNECTION = Fog::Storage.new(
       provider: 'Rackspace',
       rackspace_username: 'amirraminfar',

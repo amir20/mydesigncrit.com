@@ -5,5 +5,7 @@ class Crit < ActiveRecord::Base
 
   counter_culture [:page, :project]
 
+  default_scope { includes(:user) }
+
   validates :user, presence: true
 end

@@ -1,14 +1,18 @@
-div.crit
+.crit
   position: absolute
   box-shadow: 0 1px 2px #000
   border-radius: 3px
-  background: rgba(255, 237, 13, 0.5)
+  background: rgba(149, 165, 166, .5)
   border: transparent solid 2px
   transition: background .3s ease, border-radius .3s ease
   list-style: none
   min-height: 10px
   min-width: 10px
-  cursor: move
+  cursor: auto
+
+  &.owner
+    background: rgba(243, 156, 18, .8)
+    cursor: move
 
   .close
     display: none
@@ -33,7 +37,7 @@ div.crit
   &.selected
     border-color: transparent !important
 
-  &:hover, &.selected
+  &.owner:hover, &.selected
     background: rgba(232, 95, 0, 0.8)
     box-shadow: 0 1px 2px #000
 

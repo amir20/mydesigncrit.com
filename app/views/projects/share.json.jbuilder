@@ -1,5 +1,5 @@
-json.extract! @project, :id, :title, :thumbnail
+json.partial! 'project', project: @project
 json.pages @project.pages do |page|
-  json.partial! page, partial: 'pages/page', as: :page
+  json.partial! 'pages/page', page: page
   json.crits page.crits, partial: 'crits/crit', as: :crit
 end
