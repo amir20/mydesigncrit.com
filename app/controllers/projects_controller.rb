@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
     create_guest_user_if_needed
     authorize! :create, Project
 
-    @project = current_user.projects.create(title: 'Untitled')
+    @project = current_user.projects.create(title: 'Untitled', private: params[:private] == 'true')
     authorize! :create, @project => Page
 
     @page = Page.create_from_url_or_image!(params)

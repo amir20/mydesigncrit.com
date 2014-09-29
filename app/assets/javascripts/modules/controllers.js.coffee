@@ -115,6 +115,7 @@ class WelcomeCtrl
         $scope.upload = $upload.upload(
           url: '/projects.json'
           file: $file
+          data: { private: $('#privacy').is(':checked') }
           fileFormDataName: 'image'
         ).then((response) ->
           window.location = response.headers('Location')
