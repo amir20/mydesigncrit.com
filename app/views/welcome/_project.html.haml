@@ -1,0 +1,18 @@
+%li.project.col-lg-3.col-md-3.col-sm-4.col-xs-6
+  = link_to project, title: project.title do
+    = image_tag project.pages.first.thumbnail
+    .text-right.stats
+      %i.glyphicon.glyphicon-file
+      = project.pages_count
+      %i.glyphicon.glyphicon-comment
+      = project.crits_count
+
+    .text-left.title
+      = project.title
+
+  .text-left
+    %time{ 'am-time-ago' => "'#{project.created_at.to_time.iso8601}'"}
+
+  - if can? :manage, project
+    .options
+      Edit goes here
