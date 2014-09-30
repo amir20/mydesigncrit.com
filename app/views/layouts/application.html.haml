@@ -21,4 +21,7 @@
               DesignCrit.io
           .navbar-collapse
             = render 'layouts/login'
+            %ul.nav.navbar-nav.navbar-right
+              %li
+                = link_to 'All Public Projects', projects_path
     = yield

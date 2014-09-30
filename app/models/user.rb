@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   devise :omniauthable, omniauth_providers: [:facebook, :google_oauth2]
   has_many :projects
   has_many :crits
-  has_many :pages, through: :projects
 
   def self.find_for_facebook_oauth(auth, guest_user)
     user = User.where(email: auth.info.email).first
@@ -37,6 +36,6 @@ class User < ActiveRecord::Base
 
 
   def recent_projects
-    projects.order(created_at: :desc).limit(10)
+    projects.limit(10)
   end
 end

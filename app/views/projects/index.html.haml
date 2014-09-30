@@ -12,11 +12,11 @@
 
       %nav
         %ul
-          %li= link_to 'Public Projects', projects_url
-          %li= link_to 'My Projects', projects_url
+          %li= link_to 'Public Projects', projects_path
+          %li= link_to 'My Projects', projects_path
 
     %main.col-md-10.col-md-offset-2.col-xs-8.col-xs-offset-4
       %ul
-        = render partial: 'project', collection: @projects
+        = render partial: 'project', collection: @projects, locals: {test: 1}
 
       = render 'layouts/footer'

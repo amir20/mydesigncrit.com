@@ -160,9 +160,17 @@ input = ($timeout) ->
       element.bind 'keypress', (e) -> element.val("http://#{element.val()}") if e.which == 46 && element.val().indexOf('http') != 0
       element.bind 'paste', -> $timeout (-> element.val("http://#{element.val()}") if element.val().indexOf('http') != 0), 100
 
+# Hack to fix routing when ng-route is not being used
+anchor =  ->
+  restrict: 'E'
+  link: (scope, element, attrs) ->
+    unless element.hasClass('routed')
+      element.attr('target', '_self')
+
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', crit])
 app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
 app.directive('deleteCrit', ['$rootScope', deleteCrit])
 app.directive('input', ['$timeout', input])
+app.directive('a', [anchor])
