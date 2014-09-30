@@ -1,6 +1,10 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = Project.accessible_by(current_ability)
+    @projects = if params[:user_id]
+                  User.find(params[:user_id]).projects.accessible_by(current_ability)
+                else
+                  Project.accessible_by(current_ability)
+                end
   end
 
   def create
@@ -51,7 +55,7 @@ class ProjectsController < ApplicationController
     @project = Project.find_by_share_id(params[:id])
     authorize! :share, @project
 
-    ShareMailer.send_project_to(@project , params[:to]).deliver
+    ShareMailer.send_project_to(@project, params[:to]).deliver
 
     respond_to do |format|
       format.html { redirect_to @project }

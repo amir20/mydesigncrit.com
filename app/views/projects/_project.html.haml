@@ -12,3 +12,7 @@
 
   .text-left
     %time{ 'am-time-ago' => "'#{project.created_at.to_time.iso8601}'"}
+
+  - if can? :manage, project
+    .options
+      Edit goes here

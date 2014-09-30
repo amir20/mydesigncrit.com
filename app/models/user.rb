@@ -34,7 +34,6 @@ class User < ActiveRecord::Base
     user
   end
 
-
   def recent_projects
     projects.limit(10)
   end

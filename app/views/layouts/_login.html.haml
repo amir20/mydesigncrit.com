@@ -14,7 +14,7 @@
       %li.divider
       %li.dropdown-header Profile
       %li
-        = link_to 'Manage Projects', projects_path
+        = link_to 'Manage Projects', user_projects_path(guest_or_current_user)
       %li.divider
       - if anonymous_user?
         %li.dropdown-header Login
