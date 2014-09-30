@@ -5,4 +5,6 @@ class Project < ActiveRecord::Base
   belongs_to :user
 
   validates :user, presence: true
+
+  default_scope { includes(:pages).order(created_at: :desc) }
 end

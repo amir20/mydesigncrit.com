@@ -38,22 +38,21 @@ crit = ($document) ->
 
     scope.move = (e) =>
       if e.which is 1
-        e.stopPropagation()
-        e.preventDefault()
         if scope.crit.user.can_manage
           @startX = e.pageX - page.offset().left - scope.crit.x
           @startY = e.pageY - page.offset().top - scope.crit.y
           $document.bind 'mousemove', move
           $document.bind 'mouseup', mouseup
-
-    scope.resize = (e) ->
       e.stopPropagation()
       e.preventDefault()
+
+    scope.resize = (e) ->
       if scope.crit.user.can_manage
         $document.bind 'mousemove', resize
         $document.bind 'mouseup', mouseup
         scope.selectedCrit = scope.crit
-
+      e.stopPropagation()
+      e.preventDefault()
 
     scope.select = (e) ->
       if scope.crit.user.can_manage

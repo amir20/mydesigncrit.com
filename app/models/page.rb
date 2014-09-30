@@ -2,7 +2,7 @@ class Page < ActiveRecord::Base
   validates :url, url: { allow_nil: true }
 
   has_many :crits
-  belongs_to :project, touch: true
+  belongs_to :project, touch: true, counter_cache: true
 
 
   CONNECTION = Fog::Storage.new(

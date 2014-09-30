@@ -1,0 +1,11 @@
+%li.project.col-lg-3.col-md-3.col-sm-4.col-xs-6
+  = link_to project, title: project.title, target: '_self' do
+    = image_tag project.pages.first.thumbnail
+    .text-right.stats
+      %i.glyphicon.glyphicon-file
+      = project.pages_count
+      %i.glyphicon.glyphicon-comment
+      = project.crits_count
+
+  .text-left
+    %time{ 'am-time-ago' => "'#{project.created_at}'"}

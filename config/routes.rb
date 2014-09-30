@@ -10,6 +10,7 @@ DesigncritIo::Application.routes.draw do
     end
   end
 
+
   get '/v/:id', to: 'projects#share', as: :share
   post '/v/:id', to: 'projects#email', as: :email
 
