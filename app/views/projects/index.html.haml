@@ -1,3 +1,22 @@
-.container
-  %ul#projects
-    = render partial: 'project', collection: @projects
+- content_for :header do
+  .navbar.navbar-default
+    .navbar-collapse
+      = render 'layouts/login'
+
+.container-fluid
+  .row
+    #menu.col-md-2.col-xs-4
+      %a.navbar-brand{href: '/', target: '_self'}
+        %i.icon-pagesetup
+        DesignCrit.io
+
+      %nav
+        %ul
+          %li= link_to 'Public Projects', projects_url
+          %li= link_to 'My Projects', projects_url
+
+    %main.col-md-10.col-md-offset-2.col-xs-8.col-xs-offset-4
+      %ul
+        = render partial: 'project', collection: @projects
+
+      = render 'layouts/footer'

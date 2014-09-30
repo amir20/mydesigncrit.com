@@ -7,5 +7,8 @@
       %i.glyphicon.glyphicon-comment
       = project.crits_count
 
+    .text-left.title
+      = project.title
+
   .text-left
-    %time{ 'am-time-ago' => "'#{project.created_at}'"}
+    %time{ 'am-time-ago' => "'#{project.created_at.to_time.iso8601}'"}
