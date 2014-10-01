@@ -13,7 +13,8 @@
       %nav
         %ul
           %li= nav_link 'Public Projects', projects_path
-          %li= nav_link 'My Projects', user_projects_path(guest_or_current_user)
+          - if valid_session?
+            %li= nav_link 'My Projects', user_projects_path(guest_or_current_user)
 
     %main.col-md-10.col-md-offset-2.col-xs-8.col-xs-offset-4
       %ul

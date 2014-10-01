@@ -3,6 +3,10 @@ module ApplicationHelper
     guest_or_current_user.is_a? AnonymousUser
   end
 
+  def valid_session?
+    guest_or_current_user.id.present?
+  end
+
   def guest_or_current_user
     current_user || AnonymousUser.new(name: 'Guest')
   end

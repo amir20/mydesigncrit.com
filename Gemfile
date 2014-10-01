@@ -20,6 +20,8 @@ gem 'fog'
 
 # Active record
 gem 'counter_culture'
+gem 'punching_bag'
+gem 'kaminari'
 
 # For JSON
 gem 'jbuilder', '~> 1.2'

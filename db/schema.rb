@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140926070220) do
+ActiveRecord::Schema.define(version: 20141001033027) do
 
   create_table "crits", force: true do |t|
     t.integer  "page_id"
@@ -73,8 +73,19 @@ ActiveRecord::Schema.define(version: 20140926070220) do
     t.boolean  "private",     default: true, null: false
   end
 
-  add_index "projects", ["share_id"], name: "index_projects_on_share_id"
   add_index "projects", ["user_id"], name: "index_projects_on_user_id"
+
+  create_table "punches", force: true do |t|
+    t.integer  "punchable_id",                          null: false
+    t.string   "punchable_type", limit: 20,             null: false
+    t.datetime "starts_at",                             null: false
+    t.datetime "ends_at",                               null: false
+    t.datetime "average_time",                          null: false
+    t.integer  "hits",                      default: 1, null: false
+  end
+
+  add_index "punches", ["average_time"], name: "index_punches_on_average_time"
+  add_index "punches", ["punchable_type", "punchable_id"], name: "punchable_index"
 
   create_table "users", force: true do |t|
     t.string   "email",      default: "", null: false
