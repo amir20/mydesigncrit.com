@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
     @projects = if params[:user_id]
                   User.find(params[:user_id]).projects.accessible_by(current_ability)
                 else
-                  Project.accessible_by(current_ability)
+                  Project.accessible_by(current_ability).where('user_id != ?', current_user)
                 end
   end
 
