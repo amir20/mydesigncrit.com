@@ -37,7 +37,7 @@
             Upload your own design...
             %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
 
-      %div#upload-supported{'ng-show' => 'dropSupported'}
+      #upload-supported.pull-right{'ng-show' => 'dropSupported'}
         %span.glyphicon.glyphicon-info-sign
         You can drop a file here to start upload
 
