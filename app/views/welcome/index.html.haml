@@ -41,7 +41,8 @@
         %span.glyphicon.glyphicon-info-sign
         You can drop a file here to start upload
 
-
+    %ul#featured
+      = render partial: 'project', collection: @projects
     #screenshot.text-center
       = image_tag_with_at2x 'screenshot.jpg'
 
