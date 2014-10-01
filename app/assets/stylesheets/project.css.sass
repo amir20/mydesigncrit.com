@@ -113,44 +113,6 @@ footer
   .navbar-brand
     color: #fff
 
-  li.project
-    list-style: none
-    padding: 10px
-    color: #666
-    font-size: 12px
-    height: 420px
-
-    img
-      width: 100%
-      border: 1px solid #efefef
-      padding: 1px
-
-    a
-      color: #666
-
-      .title
-        font-size: 16px
-        margin: 20px 0
-
-      &:hover
-        text-decoration: none
-        img
-          border: 1px solid #3498db
-
-        .title
-          color: #222
-
-    .stats
-      padding-top: 10px
-
-      i
-        margin-left: 10px
-
-    time
-      font-style: italic
-      &:before
-        content: '\2014  '
-
   #menu
     background: #D35400
     bottom: 0
@@ -196,3 +158,43 @@ footer
 
     ul
       padding: 10px
+
+li.project
+  list-style: none
+  padding: 10px
+  color: #666
+  font-size: 12px
+  height: 300px
+
+  .image
+    position: relative
+
+  .text
+    background: rgba(26, 188, 156, 0)
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    position: absolute
+    padding: 10px
+    color: #fff
+    font-size: 16px
+    opacity: 0
+    transition: all .4s ease
+    font-weight: 500
+
+    &:hover
+      background: rgba(26, 188, 156, 0.8)
+      opacity: 1
+
+
+
+  time
+    font-style: italic
+    &:before
+      content: '\2014  '
+
+  img
+    width: 100%
+    border: 1px solid #efefef
+    padding: 1px
