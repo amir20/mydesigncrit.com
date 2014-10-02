@@ -8,6 +8,7 @@
 //= require angular-resource
 //= require angular-route
 //= require angular-bootstrap
+//= require ngAnimate/js/angular-animate.min.js
 //= require moment
 //= require angular-moment
 //= require retina.js/dist/retina
