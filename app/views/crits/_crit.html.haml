@@ -1,9 +1,9 @@
 .crit{'ng-style' => "{ left: crit.x + 'px', top: crit.y + 'px', width: crit.width + 'px', height: crit.height + 'px' }",
 'ng-mousedown' => 'move($event)', 'ng-click' => 'select($event)',
 'ng-class' => '{selected: crit == selectedCrit || crit == hoveredCrit, small: crit.width < 50 && crit.height < 50, owner: crit.user.can_manage}'}
-  %a.close{'delete-crit' => 'crit', 'ng-show' => 'crit.user.can_manage'} &times;
+  /%a.close{'delete-crit' => 'crit', 'ng-show' => 'crit.user.can_manage'} &times;
   %a.resize{'ng-mousedown' => 'resize($event)', 'ng-show' => 'crit.user.can_manage'}
   .index {{ index }}
-
-  .thought
-    This is a test
+  %span.handle
+    .comment-box.left
+      %textarea{placeholder: 'Enter your comment', 'msd-elastic' => true, 'ng-model' => 'comment'}

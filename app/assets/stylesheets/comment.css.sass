@@ -1,0 +1,67 @@
+$animation: cubic-bezier(0.175, 0.885, 0.320, 1.275)
+
+.comment-box
+  position: absolute
+  margin: 1em 0 3em
+  background: #fff
+  border-radius: 1px
+  box-shadow: 0 1px 2px #000
+  height: 0
+  width: 0
+  transition: width .3s $animation, height .3s $animation, opacity .3s $animation
+  visibility: hidden
+  opacity: 0
+  top: -30px
+  left: -14px
+
+  .handle:hover > &
+    height: auto
+    width: 200px
+    opacity: 1
+    padding: 10px
+    visibility: visible
+
+    textarea
+      width: 100%
+
+
+    &.left
+      margin-left: 50px
+
+
+  textarea
+    display: block
+    min-height: 60px
+    border: 1px dashed #ccc
+    width: 180px
+    resize: none
+    border-radius: 2px
+    padding: 5px
+    font-size: 12px
+
+    &:focus
+      border-color: transparent
+      outline: none
+      box-shadow: none
+
+
+  &:after
+    content: ''
+    position: absolute
+    bottom: -15px
+    left: 50px
+    border-width: 15px 15px 0
+    border-style: solid
+    border-color: #fff transparent
+    display: block
+    width: 0
+    filter: drop-shadow(-2px 0px 1px rgba(0, 0, 0, 0.5))
+
+  &.left:after
+    top: 16px
+    left: -22px
+    bottom: auto
+    border-width: 10px 24px 10px 0
+    border-color: transparent #fff
+
+

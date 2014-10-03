@@ -9,7 +9,7 @@
       %h2 Crits on This Page
       %ol.crits
         %li{ 'ng-repeat' => 'crit in crits' }
-          %a{href: '#', 'ng-mouseenter' => 'showCrit(crit)', 'ng-mouseleave' => 'hideCrit(crit)', 'ng-click' => 'select(crit)'} {{ crit.comment || 'No comment yet' }}
+          %a.routed{href: '#', 'ng-mouseenter' => 'showCrit(crit)', 'ng-mouseleave' => 'hideCrit(crit)', 'ng-click' => 'select(crit)'} {{ crit.comment || 'No comment yet' }}
 
   %div{'ng-switch-when' => 'false'}
     %h2 Edit This Crit

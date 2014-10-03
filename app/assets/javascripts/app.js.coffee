@@ -7,6 +7,7 @@ app = angular.module('designcrit',
    'ui.bootstrap',
    'angularMoment',
    'angularFileUpload',
+   'monospaced.elastic',
    'ngAnimate'])
 
 app.config ['$locationProvider', '$routeProvider', ($locationProvider, $routeProvider) ->

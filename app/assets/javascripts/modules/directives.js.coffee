@@ -1,4 +1,4 @@
-crit = ($document) ->
+crit = ($document, $timeout) ->
   restrict: 'E'
   templateUrl: 'crit.html'
   replace: true
@@ -9,6 +9,8 @@ crit = ($document) ->
     index: '='
   link: (scope, element, attrs) ->
     page = element.parent()
+    scope.comment = scope.crit.comment
+    scope.$broadcast('elastic:adjust')
 
     resize = (e) ->
       e.preventDefault()
@@ -37,14 +39,14 @@ crit = ($document) ->
       $document.bind 'mouseup', mouseup
 
     scope.move = (e) =>
-      if e.which is 1
-        if scope.crit.user.can_manage
+      if element.get(0) is e.target
+        if e.which is 1 && scope.crit.user.can_manage
           @startX = e.pageX - page.offset().left - scope.crit.x
           @startY = e.pageY - page.offset().top - scope.crit.y
           $document.bind 'mousemove', move
           $document.bind 'mouseup', mouseup
-      e.stopPropagation()
-      e.preventDefault()
+        e.stopPropagation()
+        e.preventDefault()
 
     scope.resize = (e) ->
       if scope.crit.user.can_manage
@@ -55,18 +57,31 @@ crit = ($document) ->
       e.preventDefault()
 
     scope.select = (e) ->
-      if scope.crit.user.can_manage
-        scope.selectedCrit = scope.crit
-      e.stopPropagation()
-      e.preventDefault()
+      if element.get(0) is e.target
+        scope.selectedCrit = scope.crit if scope.crit.user.can_manage
+        e.stopPropagation()
+        e.preventDefault()
 
     scope.highlight = (b) ->
       if b then element.addClass('selected') else element.removeClass('selected')
 
     scope.$watch 'selectedCrit', (selectedCrit) ->
-      $('html, body').animate(
-        scrollTop: element.offset().top - 100
-      , 500) if selectedCrit == scope.crit && !verge.inViewport(element)
+      if selectedCrit == scope.crit
+        $('html, body').animate(
+          scrollTop: element.offset().top - 100
+        , 500) if !verge.inViewport(element)
+
+    timeout = null
+    scope.$watch 'comment', (newVal, oldVal) ->
+      if newVal != oldVal
+        $timeout.cancel(timeout)
+        scope.saving = true
+        scope.crit.comment = scope.comment
+        timeout = $timeout (->
+          scope.crit.$update()
+          scope.saving = false
+        ), 1000
+
 
 
 loader = ->
@@ -139,7 +154,6 @@ sidebar = ($timeout) ->
 
     scope.$watch 'selectedCrit', (crit) ->
       if crit
-        $timeout(-> element.find('#comment').focus())
         scope.data.comment = crit.comment
 
 deleteCrit = ($rootScope) ->
@@ -168,7 +182,7 @@ anchor =  ->
       element.attr('target', '_self')
 
 app = angular.module('designcritDirectives', [])
-app.directive('crit', ['$document', crit])
+app.directive('crit', ['$document', '$timeout', crit])
 app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
 app.directive('deleteCrit', ['$rootScope', deleteCrit])
