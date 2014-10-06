@@ -6,8 +6,7 @@ app = angular.module('designcrit',
    'ngRoute',
    'ui.bootstrap',
    'angularMoment',
-   'angularFileUpload',
-   'monospaced.elastic'])
+   'angularFileUpload'])
 
 app.config ['$locationProvider', '$routeProvider', ($locationProvider, $routeProvider) ->
   $locationProvider.html5Mode(true)

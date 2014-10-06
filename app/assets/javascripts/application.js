@@ -10,7 +10,6 @@
 //= require angular-route
 //= require angular-bootstrap
 //= require angular-moment
-//= require angular-elastic
 //= require retina.js/dist/retina
 //= require ng-file-upload/angular-file-upload
 //= require spinjs/spin.js

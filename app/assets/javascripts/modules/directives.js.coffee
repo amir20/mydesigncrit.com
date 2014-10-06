@@ -10,7 +10,6 @@ crit = ($document, $timeout) ->
   link: (scope, element, attrs) ->
     page = element.parent()
     scope.comment = scope.crit.comment
-    scope.$broadcast('elastic:adjust')
 
     resize = (e) ->
       e.preventDefault()
@@ -181,10 +180,21 @@ anchor =  ->
     unless element.hasClass('routed')
       element.attr('target', '_self')
 
+simpleElastic =  ($timeout) ->
+  restrict: 'AC'
+  require: 'ngModel'
+  link: (scope, element, attrs, ngModel) ->
+    scope.$watch (-> ngModel.$modelValue), (newValue) ->
+      $timeout ->
+        element.css('height', 'auto' )
+        element.height(element.get(0).scrollHeight)
+
+
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', '$timeout', crit])
 app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
 app.directive('deleteCrit', ['$rootScope', deleteCrit])
 app.directive('input', ['$timeout', input])
+app.directive('simpleElastic', ['$timeout', simpleElastic])
 app.directive('a', [anchor])
