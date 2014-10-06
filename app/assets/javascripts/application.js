@@ -9,7 +9,6 @@
 //= require angular-resource
 //= require angular-route
 //= require angular-bootstrap
-//= require angular-animate
 //= require angular-moment
 //= require angular-elastic
 //= require retina.js/dist/retina
