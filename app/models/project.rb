@@ -6,7 +6,7 @@ class Project < ActiveRecord::Base
 
   validates :user, presence: true
 
-  default_scope { includes(:pages).order(created_at: :desc) }
+  default_scope { order(created_at: :desc) }
 
   acts_as_punchable
 
