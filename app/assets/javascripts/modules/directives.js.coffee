@@ -72,16 +72,10 @@ crit = ($document, $timeout) ->
 
     timeout = null
     scope.$watch 'comment', (newVal, oldVal) ->
-      if newVal != oldVal
+      unless newVal is oldVal
         $timeout.cancel(timeout)
-        scope.saving = true
         scope.crit.comment = scope.comment
-        timeout = $timeout (->
-          scope.crit.$update()
-          scope.saving = false
-        ), 1000
-
-
+        timeout = $timeout (-> scope.crit.$update()), 1000
 
 loader = ->
   restrict: 'E'
@@ -121,20 +115,7 @@ sidebar = ($timeout) ->
     hoveredCrit: '='
 
   link: (scope, element, attrs) ->
-    scope.mac = !navigator.platform.indexOf("Mac")
-
-    timeout = null
-    scope.data = {comment: ''}
-
-    scope.saveSelectedCrit = (e) ->
-      $timeout.cancel(timeout)
-      scope.saved = false
-      crit = scope.selectedCrit
-      crit.comment = scope.data.comment
-      timeout = $timeout (->
-        crit.$update()
-        scope.saved = true
-      ), 1000
+    scope.data = comment: ''
 
     scope.done = ->
       scope.selectedCrit = null
@@ -142,18 +123,18 @@ sidebar = ($timeout) ->
 
     key '⌘ + enter, ctrl + enter', -> scope.$apply(-> scope.done())
 
-    scope.select = (crit) ->
-      scope.selectedCrit = crit
+    scope.select = (crit) -> scope.selectedCrit = crit
+    scope.showCrit = (crit) -> scope.hoveredCrit = crit
+    scope.hideCrit = (crit) -> scope.hoveredCrit = null
+    scope.$watch 'selectedCrit', (crit) -> scope.data.comment = crit.comment if crit
+    scope.$watch 'selectedCrit.comment', (comment) -> scope.data.comment = comment
 
-    scope.showCrit = (crit) ->
-      scope.hoveredCrit = crit
-
-    scope.hideCrit = (crit) ->
-      scope.hoveredCrit = null
-
-    scope.$watch 'selectedCrit', (crit) ->
-      if crit
-        scope.data.comment = crit.comment
+    timeout = null
+    scope.$watch 'data.comment', (newVal, oldVal) ->
+      unless newVal is oldVal
+        $timeout.cancel(timeout)
+        scope.selectedCrit.comment = scope.data.comment
+        timeout = $timeout (-> scope.selectedCrit.$update()), 1000
 
 deleteCrit = ($rootScope) ->
   restrict: 'A'

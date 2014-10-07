@@ -6,16 +6,24 @@
 
 
     #crits{'ng-if' => 'crits.length > 0'}
-      %h2 Crits on This Page
+      %h2 All Crits
       %ol.crits
         %li{ 'ng-repeat' => 'crit in crits' }
-          %a.routed{href: '#', 'ng-mouseenter' => 'showCrit(crit)', 'ng-mouseleave' => 'hideCrit(crit)', 'ng-click' => 'select(crit)'} {{ crit.comment || 'No comment yet' }}
+          %a.routed{href: '#', 'ng-mouseenter' => 'showCrit(crit)', 'ng-mouseleave' => 'hideCrit(crit)', 'ng-click' => 'select(crit)'}
+            .index {{ $index + 1 }}
+            .comment {{ crit.comment || 'No comment yet' }}
+            .created-at
+              %time{ 'am-time-ago' => 'crit.created_at'}
 
-  %div{'ng-switch-when' => 'false'}
-    %h2 Edit This Crit
+  .detail{'ng-switch-when' => 'false'}
+    %button.btn.btn-primary.pull-right{type: 'submit', 'ng-click' => 'done()'} &laquo; Back
+    %h2 Crit {{ crits.indexOf(selectedCrit) + 1 }}
     %form{role: 'form'}
       .form-group
-        %label{for: 'comment'} Comment
-        %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-change' => 'saveSelectedCrit()', 'ng-model' => 'data.comment'}
-      .form-group
-        %button.btn.btn-success.btn-block{type: 'submit', 'ng-click' => 'done()'} {{ mac ? '⌘' : 'ctrl' }} + enter
+        %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-model' => 'data.comment', 'simple-elastic' => true, 'ng-disabled' => '!selectedCrit.user.can_manage'}
+    .time
+      Created
+      %time.created-at{ 'am-time-ago' => 'selectedCrit.created_at'}
+
+    %a.btn.btn-warning{'delete-crit' => 'selectedCrit', 'ng-show' => 'selectedCrit.user.can_manage'} &cross; Remove
+
