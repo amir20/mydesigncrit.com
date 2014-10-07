@@ -7,6 +7,7 @@ class CritsController < ApplicationController
   end
 
   def create
+    create_guest_user_if_needed
     authorize! :create, @page => Crit
 
     @crit = @page.crits.build(crit_params)

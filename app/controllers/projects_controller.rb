@@ -2,8 +2,10 @@ class ProjectsController < ApplicationController
   def index
     @projects = if params[:user_id]
                   User.find(params[:user_id]).projects.accessible_by(current_ability)
-                else
+                elsif current_user.present?
                   Project.accessible_by(current_ability).where('user_id != ?', current_user)
+                else
+                  Project.accessible_by(current_ability)
                 end
   end
 

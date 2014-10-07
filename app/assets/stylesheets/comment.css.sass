@@ -13,6 +13,7 @@ $animation: cubic-bezier(0.175, 0.885, 0.320, 1.275)
   opacity: 0
   top: -30px
   left: -14px
+  cursor: auto
 
   .handle:hover > &
     height: auto
@@ -38,10 +39,11 @@ $animation: cubic-bezier(0.175, 0.885, 0.320, 1.275)
     font-size: 12px
     overflow-y: hidden
 
-    &:focus
+    &:focus, &:disabled
       border-color: transparent
       outline: none
       box-shadow: none
+      background: inherit
 
   &:after
     content: ''

@@ -38,7 +38,7 @@ crit = ($document, $timeout) ->
       $document.bind 'mouseup', mouseup
 
     scope.move = (e) =>
-      if element.get(0) is e.target
+      if _.isEmpty $(e.target).parents('.handle')
         if e.which is 1 && scope.crit.user.can_manage
           @startX = e.pageX - page.offset().left - scope.crit.x
           @startY = e.pageY - page.offset().top - scope.crit.y
@@ -56,7 +56,7 @@ crit = ($document, $timeout) ->
       e.preventDefault()
 
     scope.select = (e) ->
-      if element.get(0) is e.target
+      if _.isEmpty $(e.target).parents('.handle')
         scope.selectedCrit = scope.crit if scope.crit.user.can_manage
         e.stopPropagation()
         e.preventDefault()
