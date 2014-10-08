@@ -17,7 +17,11 @@
             %li= nav_link 'My Projects', user_projects_path(guest_or_current_user)
 
     %main.col-md-10.col-md-offset-2.col-xs-8.col-xs-offset-4
-      %ul
-        = render(partial: 'project', collection: @projects) || render('no_projects')
+      - if @projects.empty?
+        .container
+          = render 'no_projects'
+      - else
+        %ul
+          = render partial: 'project', collection: @projects
 
       = render 'layouts/footer'
