@@ -19,6 +19,8 @@ class ProjectsController < ApplicationController
     @page = Page.create_from_url_or_image!(params)
     @project.pages << @page
 
+    @project.punch(request)
+
     respond_to do |format|
       format.html { redirect_to [@project, @page] }
       format.json { render action: 'show', status: :created, location: [@project, @page] }
