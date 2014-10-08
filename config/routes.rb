@@ -10,14 +10,19 @@ DesigncritIo::Application.routes.draw do
     end
   end
 
+  resources :users, only: [:show] do
+    resources :projects, only: [:destroy, :index]
+    resources :crits, only: [:index]
+  end
+
   get '/v/:id', to: 'projects#share', as: :share
   post '/v/:id', to: 'projects#email', as: :email
 
   root 'welcome#index'
-  match '/delayed_job' => DelayedJobWeb, :anchor => false, via: [:get, :post]
+  match '/delayed_job' => DelayedJobWeb, anchor: false, via: [:get, :post]
 
   %w( 404 422 500 ).each do |code|
-    get code, :to => 'errors#show', :code => code
+    get code, :to => 'errors#show', code: code
   end
 
 end

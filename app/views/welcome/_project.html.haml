@@ -1,0 +1,9 @@
+%li.project.col-lg-3.col-md-3.col-sm-6
+  = link_to project, title: project.title do
+    .image
+      .text
+        = project.title
+      = image_tag project.pages.first.thumbnail
+
+  .text-left
+    %time{ 'am-time-ago' => "'#{project.updated_at.to_time.iso8601}'"}

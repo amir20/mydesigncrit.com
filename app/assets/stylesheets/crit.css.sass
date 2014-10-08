@@ -1,14 +1,33 @@
-div.crit
+.crit
   position: absolute
   box-shadow: 0 1px 2px #000
   border-radius: 3px
-  background: rgba(255, 237, 13, 0.5)
+  background: rgba(149, 165, 166, .5)
   border: transparent solid 2px
   transition: background .3s ease, border-radius .3s ease
   list-style: none
   min-height: 10px
   min-width: 10px
-  cursor: move
+  cursor: auto
+
+  > .handle
+    border-radius: 20px
+    width: 20px
+    height: 20px
+    background: rgba(192, 57, 43, 0.8)
+    display: block
+    position: absolute
+    top: 50%
+    left: 50%
+    margin-left: -10px
+    margin-top: -10px
+
+    &:hover
+      background: rgba(192, 57, 43, 0.99)
+
+  &.owner
+    background: rgba(26, 188, 156, 0.7)
+    cursor: move
 
   .close
     display: none
@@ -29,11 +48,12 @@ div.crit
 
   &:hover
     border-color: lightblue
+    z-index: 10
 
   &.selected
     border-color: transparent !important
 
-  &:hover, &.selected
+  &.owner:hover, &.selected
     background: rgba(232, 95, 0, 0.8)
     box-shadow: 0 1px 2px #000
 
@@ -56,11 +76,13 @@ div.crit
 
   &.small
     border-radius: 30px
-    min-width: 30px
-    min-height: 30px
+    min-width: 40px
+    min-height: 40px
     .index
-      top: -55px
-      left: -20px
+      top: -66px
+      left: -40px
       color: rgba(255, 237, 13, 0.95)
+      width: 100px
+      text-align: center
 
 

@@ -1,1 +1,1 @@
-json.extract! project, :id, :title, :thumbnail
+json.extract! project, :id, :title, :thumbnail, :created_at, :updated_at

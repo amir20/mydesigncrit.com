@@ -96,6 +96,7 @@ footer
   padding: 50px 0
   color: #999
   background: #f3f3f3
+  clear: both
 
   a
     color: #777
@@ -103,3 +104,93 @@ footer
 
     &:hover
       color: #777
+
+#projects.index
+  .navbar.navbar-default
+    background: none
+    border: none
+
+  .navbar-brand
+    color: #fff
+
+  #menu
+    background: #D35400
+    bottom: 0
+    top: 0
+    position: fixed
+    text-align: right
+    padding: 0
+
+    a.navbar-brand
+      display: block
+      float: none
+
+    nav
+      margin-top: 150px
+
+      ul
+        margin: 0
+        padding: 0
+
+      li
+        list-style: none
+        border-top: 2px solid #C0392B
+
+        &:last-child
+          border-bottom: 2px solid #C0392B
+
+        a
+          padding: 10px
+          color: #fff
+          display: block
+
+          &.active
+            background: #E67E22
+
+          &:hover
+            background: #F39C12
+            text-decoration: none
+
+  main
+    padding: 0
+
+    ul
+      padding: 10px
+
+li.project
+  list-style: none
+  padding: 10px
+  color: #666
+  font-size: 12px
+  height: 300px
+
+  .image
+    position: relative
+
+  .text
+    background: rgba(26, 188, 156, 0)
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    position: absolute
+    padding: 10px
+    color: #fff
+    font-size: 16px
+    opacity: 0
+    transition: all .4s ease
+    font-weight: 500
+
+    &:hover
+      background: rgba(26, 188, 156, 0.8)
+      opacity: 1
+
+  time
+    font-style: italic
+    &:before
+      content: '\2014  '
+
+  img
+    width: 100%
+    border: 1px solid #efefef
+    padding: 1px

@@ -25,8 +25,8 @@ class PageCtrl
     ProjectService.pages.$promise.then loaded
 
     $scope.createCrit = (e) ->
-      if e.which is 1
-        $page = $('#page')
+      $page = $('#page')
+      if e.which is 1  && e.target is $page.get(0)
         Crit = ProjectService.client.crit(pageId)
         crit = new Crit(x: e.pageX - $page.offset().left - 15, y: e.pageY - $page.offset().top - 15, width: 0, height: 0)
         crit.$save()
@@ -115,6 +115,7 @@ class WelcomeCtrl
         $scope.upload = $upload.upload(
           url: '/projects.json'
           file: $file
+          data: { private: $('#privacy').is(':checked') }
           fileFormDataName: 'image'
         ).then((response) ->
           window.location = response.headers('Location')

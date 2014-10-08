@@ -18,17 +18,54 @@
       opacity: 0
 
   .crits
-    padding: 10px 30px
+    padding: 0
+    margin: 10px 0 0
     font-size: 14px
+    list-style: none
 
-    li a
-      font-size: 14px
-      white-space: nowrap
-      width: 90%
-      overflow: hidden
-      text-overflow: ellipsis
-      display: inline-block
-      margin-bottom: -5px
+    li
+      a
+        position: relative
+        padding: 5px 30px 5px 8px
+        font-size: 14px
+        color: #333
+        background: rgba(241, 196, 15, .5)
+        display: block
+        margin-bottom: 5px
+
+        &:hover
+          background: rgba(241, 196, 15, .9)
+          text-decoration: none
+
+      .comment
+        white-space: nowrap
+        width: 100%
+        overflow: hidden
+        text-overflow: ellipsis
+        display: inline-block
+        margin-bottom: -5px
+
+      .index
+        color: white
+        font-size: 46px
+        position: absolute
+        right: -1px
+        top: -11px
+        font-weight: bolder
+        font-style: italic
+
+      .created-at
+        font-size: 80%
+        display: block
+        margin-top: 2px
+
+
+  .detail
+    .time
+      float: right
+      font-size: 12px
+      color: #888
+
 
   #placeholder
     padding-top: 10px

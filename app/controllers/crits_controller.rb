@@ -1,21 +1,31 @@
 class CritsController < ApplicationController
-  before_action { @page = current_user.projects.find(params[:project_id]).pages.find(params[:page_id]) }
+  before_action { @page = Project.find(params[:project_id]).pages.find(params[:page_id]) }
 
   def index
+    authorize! :read, @page
     @crits = @page.crits
   end
 
   def create
-    @crit = @page.crits.create(crit_params)
+    create_guest_user_if_needed
+    authorize! :create, @page => Crit
+
+    @crit = @page.crits.build(crit_params)
+    @crit.user = current_user
+    @crit.save!
   end
 
   def update
     @crit = @page.crits.find(params[:id])
+    authorize! :update, @crit
+
     @crit.update(crit_params)
   end
 
   def destroy
     @crit = @page.crits.find(params[:id])
+    authorize! :destroy, @crit
+
     @crit.destroy
 
     head :no_content

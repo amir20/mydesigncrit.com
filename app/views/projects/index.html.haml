@@ -1,0 +1,27 @@
+- content_for :header do
+  .navbar.navbar-default
+    .navbar-collapse
+      = render 'layouts/login'
+
+.container-fluid
+  .row
+    #menu.col-md-2.col-xs-4
+      %a.navbar-brand{href: '/'}
+        %i.icon-pagesetup
+        DesignCrit.io
+
+      %nav
+        %ul
+          %li= nav_link 'Public Projects', projects_path
+          - if valid_session?
+            %li= nav_link 'My Projects', user_projects_path(guest_or_current_user)
+
+    %main.col-md-10.col-md-offset-2.col-xs-8.col-xs-offset-4
+      - if @projects.empty?
+        .container
+          = render 'no_projects'
+      - else
+        %ul
+          = render partial: 'project', collection: @projects
+
+      = render 'layouts/footer'

@@ -1,56 +1,52 @@
-.row.jumbotron
-  .col-md-8.col-md-offset-2
+.container
+  .row.jumbotron
     .page-header
       %h1
-        Designed
-        %small by developers
-        %br
-        Developed
-        %small by designers
+        Collaborate. Innovate. Share.
 
     %p.lead
-      With DesignCrit.io you can create and annotate on websites with just a few clicks.
-      A screenshot is taken automatically from any accessible website.
+      DesignCrit.io is a design feedback app that allows you to create and annotate live websites in just a few clicks,
+      with screenshots taken directly from any accessible website. Projects can be private or public for anybody to write feedback.
 
 %main{:role => 'main'}
-  #create-project{'ng-controller' => 'WelcomeCtrl'}
-    .tabbable.tabs-left
-      %ul.nav.nav-tabs
-        %li.active
-          %a{'data-toggle' => 'tab', href: '#url', target: '_self'}
-            %span.icon-earth
-            URL
-        %li
-          %a{'data-toggle' => 'tab', href: '#image', target: '_self'}
-            %span.icon-upload
-            Upload
-
-      .tab-content
-        #url.tab-pane.active
+  .container
+    #create-project.box.drop-box{'ng-controller' => 'WelcomeCtrl', 'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
+      .row
+        .col-md-8
           %form{action: '/projects', method: 'post'}
             = token_tag
-            %label Start with a URL to take a screenshot automatically
             .input-group.input-group-lg
               %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url'}/
               .input-group-btn
-                %button.btn.btn-success{type: 'submit'} Start
-        #image.tab-pane
-          %div{'ng-file-drop' => 'onFileSelect($files)', 'ng-file-drop-available' => 'dropSupported=true', 'ng-class' => '{"drop-box": dropSupported}'}
-            %div{'ng-show' => 'dropSupported'}
-              %span.icon-upload2
-              You can also drop a file here
-            #file-upload.btn.btn-success
-              Browse...
-              %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
+                %button.btn.btn-primary{type: 'submit'} Start
+            %br/
 
-          %br/
-          .progress.progress-striped.active{'ng-show' => 'upload != null'}
-            .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
-              %span.sr-only {{progress}}% Uploaded
+            .progress.progress-striped.active{'ng-show' => 'upload != null'}
+              .progress-bar.progress-bar-success{'aria-valuemax' => '100', 'aria-valuemin' => '0', 'aria-valuenow' => '{{progress}}', role: 'progressbar', style: 'width: {{progress}}%'}
+                %span.sr-only {{progress}}% Uploaded
+
+            .text-left
+              %input#privacy{type: 'checkbox', 'ng-model' => 'private', value: 'true', name: 'private'}/
+              %label{for: 'privacy'}
+                %span.ui>
+                {{ private ? 'Only you can modify this project' : 'Other people can comment on this project' }}
+
+        .col-md-4.text-right
+          #file-upload.btn.btn-success.btn-lg
+            %span.icon-upload2
+            Upload your own design...
+            %input#file-input{name: 'image', type: 'file', 'ng-file-select' => 'onFileSelect($files)'}/
+
+      #upload-supported.pull-right{'ng-show' => 'dropSupported'}
+        %span.glyphicon.glyphicon-info-sign
+        You can drop a file here to start upload
 
 
-  #screenshot.text-center
-    = image_tag_with_at2x 'screenshot.jpg'
+    %h1 Featured Projects
+    %ul#featured
+      = render partial: 'project', collection: @projects
+    #screenshot.text-center
+      = image_tag_with_at2x 'screenshot.jpg'
 
   #features
     .container

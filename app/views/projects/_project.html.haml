@@ -1,0 +1,16 @@
+%li.project.col-lg-3.col-md-3.col-sm-4.col-xs-6
+  = link_to project, title: project.title do
+    .image
+      .text
+        = project.title
+      = image_tag project.pages.first.thumbnail
+
+  .text-left
+    %time{ 'am-time-ago' => "'#{project.updated_at.to_time.iso8601}'"}
+
+  - if can? :manage, project
+    .manage.text-right
+
+      = link_to project_path(project), method: :delete, class: 'btn btn-warning btn-xs' do
+        %i.glyphicon.glyphicon-remove
+        Remove

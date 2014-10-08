@@ -5,26 +5,31 @@
       == Hi, #{guest_or_current_user.name}
       %b.caret
     %ul.dropdown-menu
-      %li.dropdown-header Recent projects
+      %li.dropdown-header Your recent projects
       - guest_or_current_user.recent_projects.each do |p|
         %li
-          = link_to p, target: '_self' do
+          = link_to p do
             %i.icon-briefcase2
             = p.title
+      - if valid_session?
+        %li.divider
+        %li.dropdown-header Profile
+        %li
+          = link_to 'Manage Projects', user_projects_path(guest_or_current_user)
       %li.divider
       - if anonymous_user?
         %li.dropdown-header Login
         %li
-          = link_to user_omniauth_authorize_path(:facebook), target: '_self' do
+          = link_to user_omniauth_authorize_path(:facebook) do
             %i.icon-facebook
             Facebook
         %li
-          = link_to user_omniauth_authorize_path(:google_oauth2), target: '_self' do
+          = link_to user_omniauth_authorize_path(:google_oauth2) do
             %i.icon-gmail
             Google
       - else
         %li
-          = link_to destroy_user_session_path, target: '_self' do
+          = link_to destroy_user_session_path do
             %i.glyphicon.glyphicon-log-out
             Logout
 

@@ -1,19 +1,20 @@
 - content_for :header do
   %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
     .navbar-header
-      %a.navbar-brand{href: '/', target: '_self'}
+      %a.navbar-brand{href: '/'}
         %i.icon-pagesetup
         DesignCrit.io
     .navbar-collapse
-      %form.navbar-form.navbar-left
-        .form-group
-          %button.btn.btn-primary{type: 'submit', 'ng-click' => 'newPageModal()'}
-            %i.icon-addshape
-            New Page
+      - if can? :create, @project => Page
+        %form.navbar-form.navbar-left
+          .form-group
+            %button.btn.btn-primary{type: 'submit', 'ng-click' => 'newPageModal()'}
+              %i.icon-addshape
+              New Page
       = render 'layouts/login'
       %form.navbar-form.navbar-right
         .form-group
-          = link_to share_path(@project.share_id), class: 'btn btn-success', target: '_self' do
+          = link_to share_path(@project.share_id), class: 'btn btn-success' do
             %i.icon-share2
             Preview
 
@@ -22,8 +23,9 @@
 
   %ul.nav.nav-tabs.ng-cloak
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page == data.selectedPage}'}
-      %a.tab{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'}
-        %span.close{'ng-click' => 'deletePage($event, page)', 'ng-show' => 'data.pages.length > 1'} &times;
+      %a.tab.routed{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'}
+        - if can? :destroy, @project => Page
+          %span.close{'ng-click' => 'deletePage($event, page)', 'ng-show' => 'data.pages.length > 1'} &times;
         {{ page.title }}
 
   #canvas
@@ -46,11 +48,11 @@
     .tabbable.tabs-top
       %ul.nav.nav-tabs
         %li.active
-          %a{'data-toggle' => 'tab', href: '#url', target: '_self'}
+          %a.routed{'data-toggle' => 'tab', href: '#url', target: '_self'}
             %span.icon-earth
             URL
         %li
-          %a{'data-toggle' => 'tab', href: '#image', target: '_self'}
+          %a.routed{'data-toggle' => 'tab', href: '#image', target: '_self'}
             %span.icon-upload
             Upload
 

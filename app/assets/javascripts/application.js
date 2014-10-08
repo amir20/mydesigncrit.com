@@ -1,6 +1,8 @@
-//= require jquery/dist/jquery
+//= require jquery
+//= require jquery-ujs
 //= require bootstrap/tab
 //= require lodash
+//= require moment
 //= require verge/verge.js
 //= require keymaster/keymaster
 //= require ng-file-upload/angular-file-upload-shim
@@ -10,7 +12,7 @@
 //= require angular-bootstrap
 //= require angular-moment
 //= require retina.js/dist/retina
-//= require ng-file-upload/angular-file-upload
+//= require ng-file-upload
 //= require spinjs/spin.js
 //= require app
 //= require_tree .

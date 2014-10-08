@@ -1,4 +1,4 @@
-crit = ($document) ->
+crit = ($document, $timeout) ->
   restrict: 'E'
   templateUrl: 'crit.html'
   replace: true
@@ -9,6 +9,7 @@ crit = ($document) ->
     index: '='
   link: (scope, element, attrs) ->
     page = element.parent()
+    scope.comment = scope.crit.comment
 
     resize = (e) ->
       e.preventDefault()
@@ -37,34 +38,41 @@ crit = ($document) ->
       $document.bind 'mouseup', mouseup
 
     scope.move = (e) =>
-      if e.which is 1
-        @startX = e.pageX - page.offset().left - scope.crit.x
-        @startY = e.pageY - page.offset().top - scope.crit.y
-        $document.bind 'mousemove', move
-        $document.bind 'mouseup', mouseup
+      if _.isEmpty $(e.target).parents('.handle')
+        if e.which is 1 && scope.crit.user.can_manage
+          @startX = e.pageX - page.offset().left - scope.crit.x
+          @startY = e.pageY - page.offset().top - scope.crit.y
+          $document.bind 'mousemove', move
+          $document.bind 'mouseup', mouseup
         e.stopPropagation()
         e.preventDefault()
 
     scope.resize = (e) ->
-      $document.bind 'mousemove', resize
-      $document.bind 'mouseup', mouseup
-      scope.selectedCrit = scope.crit
+      if scope.crit.user.can_manage
+        $document.bind 'mousemove', resize
+        $document.bind 'mouseup', mouseup
+        scope.selectedCrit = scope.crit
       e.stopPropagation()
       e.preventDefault()
 
     scope.select = (e) ->
-      scope.selectedCrit = scope.crit
-      e.stopPropagation()
-      e.preventDefault()
+      if _.isEmpty $(e.target).parents('.handle')
+        scope.selectedCrit = scope.crit if scope.crit.user.can_manage
+        e.stopPropagation()
+        e.preventDefault()
 
-    scope.highlight = (b) ->
-      if b then element.addClass('selected') else element.removeClass('selected')
+    scope.highlight = (b) -> if b then element.addClass('selected') else element.removeClass('selected')
 
     scope.$watch 'selectedCrit', (selectedCrit) ->
-      $('html, body').animate(
-        scrollTop: element.offset().top - 100
-      , 500) if selectedCrit == scope.crit && !verge.inViewport(element)
+      $('html, body').animate(scrollTop: element.offset().top - 100, 400) if selectedCrit == scope.crit && !verge.inViewport(element)
 
+    timeout = null
+    scope.$watch 'crit.comment', -> scope.comment = scope.crit.comment
+    scope.$watch 'comment', (newVal, oldVal) ->
+      unless scope.crit.comment is newVal
+        $timeout.cancel(timeout)
+        scope.crit.comment = scope.comment
+        timeout = $timeout (-> scope.crit.$update()), 1000
 
 loader = ->
   restrict: 'E'
@@ -104,20 +112,7 @@ sidebar = ($timeout) ->
     hoveredCrit: '='
 
   link: (scope, element, attrs) ->
-    scope.mac = !navigator.platform.indexOf("Mac")
-
-    timeout = null
-    scope.data = {comment: ''}
-
-    scope.saveSelectedCrit = (e) ->
-      $timeout.cancel(timeout)
-      scope.saved = false
-      crit = scope.selectedCrit
-      crit.comment = scope.data.comment
-      timeout = $timeout (->
-        crit.$update()
-        scope.saved = true
-      ), 1000
+    scope.data = comment: ''
 
     scope.done = ->
       scope.selectedCrit = null
@@ -125,19 +120,19 @@ sidebar = ($timeout) ->
 
     key '⌘ + enter, ctrl + enter', -> scope.$apply(-> scope.done())
 
-    scope.select = (crit) ->
-      scope.selectedCrit = crit
+    scope.select = (crit) -> scope.selectedCrit = crit
+    scope.showCrit = (crit) -> scope.hoveredCrit = crit
+    scope.hideCrit = (crit) -> scope.hoveredCrit = null
+    scope.$watch 'selectedCrit', (crit) -> scope.data.comment = crit.comment if crit
+    scope.$watch 'selectedCrit.comment', (comment) -> scope.data.comment = comment
 
-    scope.showCrit = (crit) ->
-      scope.hoveredCrit = crit
-
-    scope.hideCrit = (crit) ->
-      scope.hoveredCrit = null
-
-    scope.$watch 'selectedCrit', (crit) ->
-      if crit
-        $timeout(-> element.find('#comment').focus())
-        scope.data.comment = crit.comment
+    timeout = null
+    scope.$watch 'data.comment', (newVal, oldVal) ->
+      unless !scope.selectedCrit? || scope.selectedCrit.comment is newVal
+        $timeout.cancel(timeout)
+        crit = scope.selectedCrit
+        crit.comment = scope.data.comment
+        timeout = $timeout (-> crit.$update()), 1000
 
 deleteCrit = ($rootScope) ->
   restrict: 'A'
@@ -157,9 +152,28 @@ input = ($timeout) ->
       element.bind 'keypress', (e) -> element.val("http://#{element.val()}") if e.which == 46 && element.val().indexOf('http') != 0
       element.bind 'paste', -> $timeout (-> element.val("http://#{element.val()}") if element.val().indexOf('http') != 0), 100
 
+# Hack to fix routing when ng-route is not being used
+anchor =  ->
+  restrict: 'E'
+  link: (scope, element, attrs) ->
+    unless element.hasClass('routed')
+      element.attr('target', '_self')
+
+simpleElastic =  ($timeout) ->
+  restrict: 'AC'
+  require: 'ngModel'
+  link: (scope, element, attrs, ngModel) ->
+    scope.$watch (-> ngModel.$modelValue), (newValue) ->
+      $timeout ->
+        element.css('height', 'auto' )
+        element.height(element.get(0).scrollHeight)
+
+
 app = angular.module('designcritDirectives', [])
-app.directive('crit', ['$document', crit])
+app.directive('crit', ['$document', '$timeout', crit])
 app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
 app.directive('deleteCrit', ['$rootScope', deleteCrit])
 app.directive('input', ['$timeout', input])
+app.directive('simpleElastic', ['$timeout', simpleElastic])
+app.directive('a', [anchor])

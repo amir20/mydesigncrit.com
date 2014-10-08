@@ -18,6 +18,11 @@ gem 'high_voltage'
 gem 'redcarpet'
 gem 'fog'
 
+# Active record
+gem 'counter_culture'
+gem 'punching_bag'
+gem 'kaminari'
+
 # For JSON
 gem 'jbuilder', '~> 1.2'
 
@@ -42,6 +47,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'cancan'
 
 # Resizing images
 gem 'rmagick', :require => 'RMagick'
