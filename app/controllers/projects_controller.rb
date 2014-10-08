@@ -33,9 +33,11 @@ class ProjectsController < ApplicationController
   def destroy
     @project = Project.find(params[:id])
 
-    authorize! :update, @project
+    authorize! :destroy, @project
 
     @project.destroy
+
+    redirect_to user_projects_path(current_user)
   end
 
   def show

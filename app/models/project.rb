@@ -4,10 +4,9 @@ class Project < ActiveRecord::Base
   has_many :pages
   belongs_to :user
 
-  validates :user, presence: true
-
   default_scope { includes(:pages).order(created_at: :desc) }
 
   acts_as_punchable
 
+  validates :user, presence: true
 end

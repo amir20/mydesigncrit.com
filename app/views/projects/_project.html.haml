@@ -9,5 +9,8 @@
     %time{ 'am-time-ago' => "'#{project.updated_at.to_time.iso8601}'"}
 
   - if can? :manage, project
-    .options
-      Edit goes here
+    .manage.text-right
+
+      = link_to project_path(project), method: :delete, class: 'btn btn-warning btn-xs' do
+        %i.glyphicon.glyphicon-remove
+        Remove
