@@ -6,7 +6,6 @@
 
 
     #crits{'ng-if' => 'crits.length > 0'}
-      %h2 All Crits
       %ol.crits
         %li{ 'ng-repeat' => 'crit in crits' }
           %a.routed{href: '#', 'ng-mouseenter' => 'showCrit(crit)', 'ng-mouseleave' => 'hideCrit(crit)', 'ng-click' => 'select(crit)'}

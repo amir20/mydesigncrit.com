@@ -61,18 +61,15 @@ crit = ($document, $timeout) ->
         e.stopPropagation()
         e.preventDefault()
 
-    scope.highlight = (b) ->
-      if b then element.addClass('selected') else element.removeClass('selected')
+    scope.highlight = (b) -> if b then element.addClass('selected') else element.removeClass('selected')
 
     scope.$watch 'selectedCrit', (selectedCrit) ->
-      if selectedCrit == scope.crit
-        $('html, body').animate(
-          scrollTop: element.offset().top - 100
-        , 500) if !verge.inViewport(element)
+      $('html, body').animate(scrollTop: element.offset().top - 100, 400) if selectedCrit == scope.crit && !verge.inViewport(element)
 
     timeout = null
+    scope.$watch 'crit.comment', -> scope.comment = scope.crit.comment
     scope.$watch 'comment', (newVal, oldVal) ->
-      unless newVal is oldVal
+      unless scope.crit.comment is newVal
         $timeout.cancel(timeout)
         scope.crit.comment = scope.comment
         timeout = $timeout (-> scope.crit.$update()), 1000
@@ -131,10 +128,11 @@ sidebar = ($timeout) ->
 
     timeout = null
     scope.$watch 'data.comment', (newVal, oldVal) ->
-      unless newVal is oldVal
+      unless !scope.selectedCrit? || scope.selectedCrit.comment is newVal
         $timeout.cancel(timeout)
-        scope.selectedCrit.comment = scope.data.comment
-        timeout = $timeout (-> scope.selectedCrit.$update()), 1000
+        crit = scope.selectedCrit
+        crit.comment = scope.data.comment
+        timeout = $timeout (-> crit.$update()), 1000
 
 deleteCrit = ($rootScope) ->
   restrict: 'A'
