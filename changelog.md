@@ -1,3 +1,11 @@
+## October 2014
+- DesignCrit v2 launched!
+- Projects can be marked as private or public
+- Public projects can be collaborated and shared with everybody
+- Added "featured" section on homepage
+- Deletion of projects projects is now possible via profile page
+- Adds a new way of commenting so that it is easier
+
 ## September 2014
 - Fixed broken CSS with fonts and bootstrap
 - Added bluepill around delayed_job so that rendering websites never breaks again
