@@ -8,7 +8,7 @@
       %form.navbar-form.navbar-left
         .form-group
       = render 'layouts/login'
-      - if can? :edit, @project
+      - if can? :read, @project
         %form.navbar-form.navbar-right
           .form-group
             %button.btn.btn-primary{'ng-click' => "emailModal('#{@project.share_id}')"}
