@@ -36,5 +36,8 @@ class PagesController < ApplicationController
 
   def show
     @page = @project.pages.find(params[:id])
+
+    authorize! :read, @project
+    authorize! :read, @page
   end
 end
