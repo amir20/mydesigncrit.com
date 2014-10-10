@@ -19,4 +19,12 @@ module ApplicationHelper
   def nav_link(name, path)
     link_to name, path, class: ('active' if current_page?(path))
   end
+
+  def project_img(project, options = {})
+    unless project.pages.empty?
+      image_tag project.pages.first.thumbnail, options
+    else
+      tag :div, class: 'no-image'
+    end
+  end
 end

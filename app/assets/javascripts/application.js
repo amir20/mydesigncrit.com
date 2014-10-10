@@ -14,6 +14,7 @@
 //= require retina.js/dist/retina
 //= require ng-file-upload
 //= require spinjs/spin.js
+//= require wowjs
 //= require app
 //= require_tree .
 
@@ -22,4 +23,6 @@ key.filter = function (event) {
     key.setScope(/^(INPUT|TEXTAREA|SELECT)$/.test(tagName) ? 'input' : 'other');
     return true;
 }
+
+new WOW().init();
 
