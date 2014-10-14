@@ -37,9 +37,10 @@ class Page < ActiveRecord::Base
       FileUtils.rm_rf(thumb_file.parent)
 
 
-      if self.project.pages.size == 1
-        self.project.title = self.title
-        self.project.save
+      if project.pages.size == 1
+        project.title = title
+        project.thumbnail = thumbnail
+        project.save
       end
 
       save

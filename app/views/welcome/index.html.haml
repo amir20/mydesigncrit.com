@@ -16,7 +16,7 @@
           %form{action: '/projects', method: 'post'}
             = token_tag
             .input-group.input-group-lg
-              %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url'}/
+              %input.form-control{name: 'url', placeholder: 'http://example.com', type: 'url', required: 'true'}/
               .input-group-btn
                 %button.btn.btn-primary{type: 'submit'} Start
             %br/
