@@ -11,6 +11,7 @@ class PagesController < ApplicationController
     authorize! :create, @project => Page
     @page = Page.create_from_url_or_image!(params)
     @project.pages << @page
+    @page.process
 
     respond_to do |format|
       format.html { redirect_to [@project, @page] }

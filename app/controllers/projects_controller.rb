@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
 
     @page = Page.create_from_url_or_image!(params)
     @project.pages << @page
-
+    @page.process
     @project.punch(request)
 
     respond_to do |format|
