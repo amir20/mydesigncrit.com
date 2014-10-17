@@ -42,6 +42,7 @@ group :development, :test do
   gem 'rvm-capistrano'
   gem 'thin'
   gem 'sqlite3'
+  gem 'quiet_assets'
 end
 
 # For background jobs
