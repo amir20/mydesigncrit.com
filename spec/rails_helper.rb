@@ -9,6 +9,14 @@ require 'database_cleaner'
 require 'simplecov'
 SimpleCov.start
 
+Capybara.register_driver :poltergeist do |app|
+  options = {
+      phantomjs_logger: File.open("#{Rails.root}/log/test_phantomjs.log", 'a'),
+      phantomjs_options: %w(--load-images=no --disk-cache=false),
+  }
+  Capybara::Poltergeist::Driver.new(app, options)
+end
+
 Capybara.javascript_driver = :poltergeist
 Delayed::Worker.delay_jobs = false
 
