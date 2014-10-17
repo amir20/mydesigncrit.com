@@ -36,7 +36,7 @@ class Page < ActiveRecord::Base
 
       FileUtils.rm_rf(thumb_file.parent)
 
-
+      project.reload
       if project.pages.size == 1
         project.title = title
         project.thumbnail = thumbnail
@@ -67,9 +67,9 @@ class Page < ActiveRecord::Base
 
     File.open(Rails.root.join('public', 'assets', 'jobs', page.id.to_s, params[:image].original_filename), 'wb') do |file|
       file.write(params[:image].read)
-      page.screenshot = "/assets/jobs/#{page.id.to_s}/#{params[:image].original_filename}"
-      page.save!
     end
+    page.screenshot = "/assets/jobs/#{page.id.to_s}/#{params[:image].original_filename}"
+    page.save!
 
     page
   end
@@ -79,9 +79,7 @@ class Page < ActiveRecord::Base
   end
 
   def self.create_from_url_or_image!(params)
-    page = params[:image].present? ? create_from_image!(params) : create_from_url!(params)
-    page.process
-    page
+    params[:image].present? ? create_from_image!(params) : create_from_url!(params)
   end
 
   handle_asynchronously :process

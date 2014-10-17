@@ -1,4 +1,4 @@
 %loader{ loading: 'loading' }
 #page.ng-cloak{ 'ng-style' => "{ width: data.selectedPage.width + 'px', height: data.selectedPage.height + 'px', 'background-image': 'url(' + data.selectedPage.screenshot + ')' }",
-'ng-mousedown' => 'createCrit($event)' }
+'ng-mousedown' => 'createCrit($event)', 'data-url' => '{{ data.selectedPage.url }}'}
   %crit{ 'ng-repeat' => 'crit in data.selectedPage.crits', crit: 'crit', 'selected-crit' => 'data.selectedCrit', 'hovered-crit' => 'data.hoveredCrit', index: '$index + 1'}

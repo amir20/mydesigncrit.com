@@ -30,7 +30,13 @@ gem 'jbuilder', '~> 1.2'
 gem 'unicorn'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails', '~> 3.0.0', require: false
+  gem 'capybara', require: false
+  gem 'poltergeist', require: false
+  gem 'factory_girl_rails'
+  gem 'pry-remote', require: false
+  gem 'database_cleaner', require: false
+  gem 'simplecov', require: false
   gem 'capistrano', '~> 2.0'
   gem 'capistrano_colors'
   gem 'rvm-capistrano'
