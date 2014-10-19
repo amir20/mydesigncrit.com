@@ -8,7 +8,8 @@ class Page < ActiveRecord::Base
   CONNECTION = Fog::Storage.new(
       provider: 'Rackspace',
       rackspace_username: 'amirraminfar',
-      rackspace_api_key: '59408113174c92574d89ef18847b15ed'
+      rackspace_api_key: '59408113174c92574d89ef18847b15ed',
+      rackspace_region: 'dfw'
   )
 
   def process
@@ -89,7 +90,7 @@ class Page < ActiveRecord::Base
     Rails.logger.info("Rasterizing #{url}.")
     FileUtils.mkdir_p(image.parent) unless image.parent.exist?
     bin = Rails.root.join('rasterize.js')
-    json = `phantomjs --ssl-protocol=any #{bin} #{url} #{image.to_s}`
+    json = `phantomjs --ssl-protocol=tlsv1 #{bin} #{url} #{image.to_s}`
     JSON.parse(json.each_line.to_a.last)
   end
 end
