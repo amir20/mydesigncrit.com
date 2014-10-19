@@ -66,8 +66,12 @@ crit = ($document, $timeout) ->
     scope.$watch 'selectedCrit', (selectedCrit) ->
       $('html, body').animate(scrollTop: element.offset().top - 100, 400) if selectedCrit == scope.crit && !verge.inViewport(element)
 
+
+    commentWatcherEnabled = true
     timeout = null
-    scope.$watch 'crit.comment', -> scope.comment = scope.crit.comment
+    scope.disableCommentWatcher = -> commentWatcherEnabled = false
+    scope.enableCommentWatcher = -> commentWatcherEnabled = true
+    scope.$watch 'crit.comment', -> scope.comment = scope.crit.comment if commentWatcherEnabled
     scope.$watch 'comment', (newVal, oldVal) ->
       unless scope.crit.comment is newVal
         $timeout.cancel(timeout)
