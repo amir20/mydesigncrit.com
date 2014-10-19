@@ -89,7 +89,7 @@ class Page < ActiveRecord::Base
     Rails.logger.info("Rasterizing #{url}.")
     FileUtils.mkdir_p(image.parent) unless image.parent.exist?
     bin = Rails.root.join('rasterize.js')
-    json = `phantomjs #{bin} #{url} #{image.to_s}`
+    json = `phantomjs --ssl-protocol=any #{bin} #{url} #{image.to_s}`
     JSON.parse(json.each_line.to_a.last)
   end
 end
