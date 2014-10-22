@@ -14,7 +14,6 @@
   background: #ece8e0
   -webkit-touch-callout: none
   -webkit-user-select: none
-  -khtml-user-select: none
   -moz-user-select: none
   -ms-user-select: none
   user-select: none
@@ -31,7 +30,7 @@
 
     li.active
       a
-        box-shadow: 0px 0px 0px -1px rgba(0, 0, 0, 0.25), 0px 0px 0px -1px rgba(0, 0, 0, 0.25)
+        box-shadow: 0 0 0px -1px rgba(0, 0, 0, 0.25), 0 0 0px -1px rgba(0, 0, 0, 0.25)
     a
       max-width: 300px
       text-overflow: ellipsis
@@ -39,7 +38,7 @@
       overflow: hidden
 
   #canvas
-    background-image: image_url('checker.png')
+    background: #fff image_url('checker.svg')
     min-height: 600px
     margin-right: 350px
     padding: 20px 0
@@ -47,9 +46,8 @@
 
   #page
     position: relative
-    background-repeat: no-repeat
     margin: 0 auto
-    background-color: #fff
+    background: #fff no-repeat
     min-height: 700px
 
 .modal
