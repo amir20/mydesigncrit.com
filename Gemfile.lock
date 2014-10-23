@@ -33,7 +33,7 @@ GEM
     arel (5.0.1.20140414130214)
     autoprefixer-rails (3.1.2.20141016)
       execjs
-    bcrypt (3.1.7)
+    bcrypt (3.1.8)
     bootstrap-sass (3.2.0.2)
       sass (~> 3.2)
     builder (3.2.2)
@@ -125,7 +125,7 @@ GEM
     fog-sakuracloud (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.3.21)
+    fog-softlayer (0.3.22)
       fog-core
       fog-json
     fog-xml (0.1.0)
