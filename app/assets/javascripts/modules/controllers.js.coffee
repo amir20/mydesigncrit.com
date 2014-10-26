@@ -31,7 +31,6 @@ class PageCtrl
         crit = new Crit(x: e.pageX - $page.offset().left - 15, y: e.pageY - $page.offset().top - 15, width: 0, height: 0)
         crit.$save()
         crit.create = true
-        ProjectService.selectedCrit = crit
         ProjectService.selectedPage.crits.push(crit)
 
 

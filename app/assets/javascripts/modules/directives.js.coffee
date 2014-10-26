@@ -18,9 +18,13 @@ crit = ($document, $timeout) ->
       scope.crit.height = (e.pageY - page.offset().top) - scope.crit.y
       scope.$apply()
 
-    mouseup = (e) ->
+    mouseup = (e) =>
       e.preventDefault()
       e.stopPropagation()
+      if @newCrit
+        @newCrit = false
+        scope.selectedCrit = scope.crit
+
       $document.unbind('mouseup')
       $document.unbind('mousemove')
       scope.crit.$update()
@@ -33,9 +37,9 @@ crit = ($document, $timeout) ->
       scope.$apply()
 
     if scope.crit.create
-      delete scope.crit.create
       $document.bind 'mousemove', resize
       $document.bind 'mouseup', mouseup
+      @newCrit = true
 
     scope.move = (e) =>
       if _.isEmpty $(e.target).parents('.handle')
@@ -56,8 +60,8 @@ crit = ($document, $timeout) ->
       e.preventDefault()
 
     scope.select = (e) ->
+      scope.selectedCrit = scope.crit if scope.crit.user.can_manage
       if _.isEmpty $(e.target).parents('.handle')
-        scope.selectedCrit = scope.crit if scope.crit.user.can_manage
         e.stopPropagation()
         e.preventDefault()
 
@@ -77,34 +81,6 @@ crit = ($document, $timeout) ->
         $timeout.cancel(timeout)
         scope.crit.comment = scope.comment
         timeout = $timeout (-> scope.crit.$update()), 1000
-
-loader = ->
-  restrict: 'E'
-  template: '<div id="loader" ng-show="loading"><div id="message"><div id="spinner"></div><div>Please wait...</div></div></div>'
-  replace: true
-  scope:
-    loading: '='
-  link: (scope, element, attrs) ->
-    opts =
-      lines: 13 # The number of lines to draw
-      length: 20 # The length of each line
-      width: 10 # The line thickness
-      radius: 30 # The radius of the inner circle
-      corners: 1 # Corner roundness (0..1)
-      rotate: 0 # The rotation offset
-      direction: 1 # 1: clockwise, -1: counterclockwise
-      color: "#fff" # #rgb or #rrggbb or array of colors
-      speed: 1 # Rounds per second
-      trail: 60 # Afterglow percentage
-      shadow: false # Whether to render a shadow
-      hwaccel: true # Whether to use hardware acceleration
-      className: "spinner" # The CSS class to assign to the spinner
-      zIndex: 2e9 # The z-index (defaults to 2000000000)
-      top: "auto" # Top position relative to parent in px
-      left: "auto" # Left position relative to parent in px
-
-    spinner = new Spinner(opts).spin(document.getElementById('spinner'))
-
 
 sidebar = ($timeout) ->
   restrict: 'E'
@@ -172,6 +148,32 @@ simpleElastic =  ($timeout) ->
         element.css('height', 'auto' )
         element.height(element.get(0).scrollHeight)
 
+loader = ->
+  restrict: 'E'
+  template: '<div id="loader" ng-show="loading"><div id="message"><div id="spinner"></div><div>Please wait...</div></div></div>'
+  replace: true
+  scope:
+    loading: '='
+  link: (scope, element, attrs) ->
+    opts =
+      lines: 13 # The number of lines to draw
+      length: 20 # The length of each line
+      width: 10 # The line thickness
+      radius: 30 # The radius of the inner circle
+      corners: 1 # Corner roundness (0..1)
+      rotate: 0 # The rotation offset
+      direction: 1 # 1: clockwise, -1: counterclockwise
+      color: "#fff" # #rgb or #rrggbb or array of colors
+      speed: 1 # Rounds per second
+      trail: 60 # Afterglow percentage
+      shadow: false # Whether to render a shadow
+      hwaccel: true # Whether to use hardware acceleration
+      className: "spinner" # The CSS class to assign to the spinner
+      zIndex: 2e9 # The z-index (defaults to 2000000000)
+      top: "auto" # Top position relative to parent in px
+      left: "auto" # Left position relative to parent in px
+
+    spinner = new Spinner(opts).spin(document.getElementById('spinner'))
 
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', '$timeout', crit])
