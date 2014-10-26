@@ -19,7 +19,7 @@
     %h2 Crit {{ crits.indexOf(selectedCrit) + 1 }}
     %form{role: 'form'}
       .form-group
-        %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-model' => 'data.comment', 'simple-elastic' => true, 'ng-disabled' => '!selectedCrit.user.can_manage'}
+        %textarea.form-control#comment{placeholder: 'Enter your comment', rows: 4, 'ng-model' => 'data.comment', 'simple-elastic' => true, 'ng-disabled' => 'selectedCrit.id != null && !selectedCrit.user.can_manage'}
     .time
       Created
       %time.created-at{ 'am-time-ago' => 'selectedCrit.created_at'}

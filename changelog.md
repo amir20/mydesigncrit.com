@@ -1,4 +1,7 @@
 ## October 2014
+- Updated to Phantom 1.9.8
+- Removed empty comments
+- Made comment box focused after click
 - DesignCrit v2 launched!
 - Projects can be marked as private or public
 - Public projects can be collaborated and shared with everybody

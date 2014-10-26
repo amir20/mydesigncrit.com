@@ -1,4 +1,4 @@
-crit = ($document, $timeout) ->
+crit = ($document, $timeout, $rootScope) ->
   restrict: 'E'
   templateUrl: 'crit.html'
   replace: true
@@ -10,6 +10,7 @@ crit = ($document, $timeout) ->
   link: (scope, element, attrs) ->
     page = element.parent()
     scope.comment = scope.crit.comment
+    canEdit = scope.canEdit = -> !scope.crit.id || scope.crit.user.can_manage
 
     resize = (e) ->
       e.preventDefault()
@@ -21,13 +22,13 @@ crit = ($document, $timeout) ->
     mouseup = (e) =>
       e.preventDefault()
       e.stopPropagation()
-      if @newCrit
-        @newCrit = false
+      unless scope.crit.id
         scope.selectedCrit = scope.crit
-
+        $timeout (-> element.find('.comment-box textarea').focus()), 100
+      scope.crit.$update() if scope.crit.id
       $document.unbind('mouseup')
       $document.unbind('mousemove')
-      scope.crit.$update()
+      scope.$apply()
 
     move = (e) =>
       e.preventDefault()
@@ -36,14 +37,13 @@ crit = ($document, $timeout) ->
       scope.crit.y = e.pageY - page.offset().top - @startY
       scope.$apply()
 
-    if scope.crit.create
+    if scope.crit.create?
       $document.bind 'mousemove', resize
       $document.bind 'mouseup', mouseup
-      @newCrit = true
 
     scope.move = (e) =>
       if _.isEmpty $(e.target).parents('.handle')
-        if e.which is 1 && scope.crit.user.can_manage
+        if e.which is 1 && canEdit()
           @startX = e.pageX - page.offset().left - scope.crit.x
           @startY = e.pageY - page.offset().top - scope.crit.y
           $document.bind 'mousemove', move
@@ -52,7 +52,7 @@ crit = ($document, $timeout) ->
         e.preventDefault()
 
     scope.resize = (e) ->
-      if scope.crit.user.can_manage
+      if canEdit()
         $document.bind 'mousemove', resize
         $document.bind 'mouseup', mouseup
         scope.selectedCrit = scope.crit
@@ -60,16 +60,19 @@ crit = ($document, $timeout) ->
       e.preventDefault()
 
     scope.select = (e) ->
-      scope.selectedCrit = scope.crit if scope.crit.user.can_manage
+      if canEdit()
+        scope.selectedCrit = scope.crit
+        $timeout (-> element.find('.comment-box textarea').focus()), 100
       if _.isEmpty $(e.target).parents('.handle')
         e.stopPropagation()
         e.preventDefault()
 
     scope.highlight = (b) -> if b then element.addClass('selected') else element.removeClass('selected')
 
-    scope.$watch 'selectedCrit', (selectedCrit) ->
+    scope.$watch 'selectedCrit', (selectedCrit, oldSelectedCrit) ->
       $('html, body').animate(scrollTop: element.offset().top - 100, 400) if selectedCrit == scope.crit && !verge.inViewport(element)
-
+      if !scope.crit.id && oldSelectedCrit == scope.crit
+        if scope.crit.comment then scope.crit.$save() else $rootScope.$broadcast('crit.delete', scope.crit)
 
     commentWatcherEnabled = true
     timeout = null
@@ -80,7 +83,8 @@ crit = ($document, $timeout) ->
       unless scope.crit.comment is newVal
         $timeout.cancel(timeout)
         scope.crit.comment = scope.comment
-        timeout = $timeout (-> scope.crit.$update()), 1000
+        timeout = $timeout (-> if !scope.crit.id then scope.crit.$save() else scope.crit.$update()), 1000
+
 
 sidebar = ($timeout) ->
   restrict: 'E'
@@ -112,7 +116,7 @@ sidebar = ($timeout) ->
         $timeout.cancel(timeout)
         crit = scope.selectedCrit
         crit.comment = scope.data.comment
-        timeout = $timeout (-> crit.$update()), 1000
+        timeout = $timeout (-> if !crit.id then crit.$save() else crit.$update()), 1000
 
 deleteCrit = ($rootScope) ->
   restrict: 'A'
@@ -176,7 +180,7 @@ loader = ->
     spinner = new Spinner(opts).spin(document.getElementById('spinner'))
 
 app = angular.module('designcritDirectives', [])
-app.directive('crit', ['$document', '$timeout', crit])
+app.directive('crit', ['$document', '$timeout', '$rootScope', crit])
 app.directive('sidebar', ['$timeout', sidebar])
 app.directive('loader', [loader])
 app.directive('deleteCrit', ['$rootScope', deleteCrit])
