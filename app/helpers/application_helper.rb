@@ -29,6 +29,6 @@ module ApplicationHelper
   end
 
   def ssl_cdn(url)
-    url.gsub(/\.r\d\d\./, '.ssl.').sub('http:', 'https:')
+    url.gsub(/\.r\d\d\./, '.ssl.').sub('http:', 'https:') unless url.nil?
   end
 end
