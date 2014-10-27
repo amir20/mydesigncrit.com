@@ -9,11 +9,10 @@ if (system.args.length != 3) {
     address = system.args[1];
     output = system.args[2];
     page.viewportSize = { width: 1024, height: 800 };
-    page.settings.userAgent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36';
     page.open(address, function (status) {
         if (status !== 'success') {
             console.log('Unable to load the address!');
-            phantom.exit();
+            phantom.exit(1);
         } else {
             window.setTimeout(function () {
                 page.render(output);
