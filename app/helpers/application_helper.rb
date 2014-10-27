@@ -22,7 +22,7 @@ module ApplicationHelper
 
   def project_img(project, options = {})
     if project.thumbnail.nil?
-      tag :div, class: 'no-image'
+      image_tag 'no-image.png', options.merge('data-no-retina' => true)
     else
       image_tag ssl_cdn(project.thumbnail), options
     end
