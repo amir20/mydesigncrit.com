@@ -21,10 +21,14 @@ module ApplicationHelper
   end
 
   def project_img(project, options = {})
-    unless project.pages.empty?
-      image_tag project.pages.first.thumbnail, options
-    else
+    if project.thumbnail.nil?
       tag :div, class: 'no-image'
+    else
+      image_tag ssl_cdn(project.thumbnail), options
     end
+  end
+
+  def ssl_cdn(url)
+    url.gsub(/\.r\d\d\./, '.ssl.').sub('http:', 'https:')
   end
 end
