@@ -3,7 +3,7 @@
     .image
       .text
         = project.title
-      = project_img project
+      = project_img project, width: 320, height: 240
 
   .text-left
     %time{ 'am-time-ago' => "'#{project.updated_at.to_time.iso8601}'"}
