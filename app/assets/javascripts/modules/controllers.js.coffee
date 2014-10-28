@@ -133,6 +133,9 @@ class EmailModalCtrl
         $scope.sending = false
       $modalInstance.close()
 
+class TitleCtrl
+  constructor: ($scope, ProjectService) ->
+    $scope.data = ProjectService
 
 app = angular.module('designcritController', [])
 app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClient', 'ProjectService', PageCtrl])
@@ -142,3 +145,4 @@ app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', '$upload', 'Proj
 app.controller('EmailModalCtrl', ['$scope', '$modalInstance', '$http', 'projectId', EmailModalCtrl])
 app.controller('ShareCtrl', ['$scope', 'JsonRestClient', ShareCtrl])
 app.controller('WelcomeCtrl', ['$scope', '$upload', WelcomeCtrl])
+app.controller('TitleCtrl', ['$scope', 'ProjectService', TitleCtrl])
