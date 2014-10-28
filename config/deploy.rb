@@ -45,6 +45,18 @@ namespace :foreman do
   end
 end
 
+namespace :logs do
+  desc 'tails log files'
+  task :tail, :roles => :app do
+    trap('INT') { exit 0 }
+    run "tail -f #{shared_path}/log/production.log" do |channel, stream, data|
+      puts data
+      break if stream == :err
+    end
+  end
+
+end
+
 before 'deploy:assets:precompile', 'deploy:assets:install'
 
 after 'deploy', 'deploy:migrate'
