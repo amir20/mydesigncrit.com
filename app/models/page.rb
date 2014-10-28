@@ -4,6 +4,8 @@ class Page < ActiveRecord::Base
   has_many :crits
   belongs_to :project, touch: true, counter_cache: true
 
+  acts_as_paranoid
+
 
   CONNECTION = Fog::Storage.new(
       provider: 'Rackspace',

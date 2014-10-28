@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141001033027) do
+ActiveRecord::Schema.define(version: 20141028205428) do
 
   create_table "crits", force: true do |t|
     t.integer  "page_id"
@@ -24,8 +24,10 @@ ActiveRecord::Schema.define(version: 20141001033027) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.datetime "deleted_at"
   end
 
+  add_index "crits", ["deleted_at"], name: "index_crits_on_deleted_at"
   add_index "crits", ["page_id"], name: "index_crits_on_page_id"
   add_index "crits", ["user_id"], name: "index_crits_on_user_id"
 
@@ -57,8 +59,10 @@ ActiveRecord::Schema.define(version: 20141001033027) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "crits_count", default: 0,     null: false
+    t.datetime "deleted_at"
   end
 
+  add_index "pages", ["deleted_at"], name: "index_pages_on_deleted_at"
   add_index "pages", ["project_id"], name: "index_pages_on_project_id"
 
   create_table "projects", force: true do |t|
@@ -71,8 +75,10 @@ ActiveRecord::Schema.define(version: 20141001033027) do
     t.integer  "pages_count", default: 0,    null: false
     t.integer  "crits_count", default: 0,    null: false
     t.boolean  "private",     default: true, null: false
+    t.datetime "deleted_at"
   end
 
+  add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at"
   add_index "projects", ["share_id"], name: "index_projects_on_share_id"
   add_index "projects", ["user_id"], name: "index_projects_on_user_id"
 

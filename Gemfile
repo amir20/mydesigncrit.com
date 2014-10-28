@@ -22,6 +22,7 @@ gem 'fog'
 gem 'counter_culture'
 gem 'punching_bag'
 gem 'kaminari'
+gem 'paranoia', '~> 2.0'
 
 # For JSON
 gem 'jbuilder', '~> 1.2'

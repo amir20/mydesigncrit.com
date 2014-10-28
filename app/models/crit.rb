@@ -7,5 +7,7 @@ class Crit < ActiveRecord::Base
 
   default_scope { includes(:user) }
 
+  acts_as_paranoid
+
   validates :user, presence: true
 end

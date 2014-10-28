@@ -10,6 +10,7 @@ class Project < ActiveRecord::Base
   scope :not_user, -> (user) { where('user_id != ?', user) }
 
   acts_as_punchable
+  acts_as_paranoid
 
   validates :user, presence: true
 end
