@@ -79,7 +79,6 @@ ActiveRecord::Schema.define(version: 20141028205428) do
   end
 
   add_index "projects", ["deleted_at"], name: "index_projects_on_deleted_at"
-  add_index "projects", ["share_id"], name: "index_projects_on_share_id"
   add_index "projects", ["user_id"], name: "index_projects_on_user_id"
 
   create_table "punches", force: true do |t|

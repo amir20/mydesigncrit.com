@@ -24,7 +24,7 @@ module ApplicationHelper
     if project.thumbnail.nil?
       image_tag 'no-image.png', options.merge('data-no-retina' => true)
     else
-      image_tag ssl_cdn(project.thumbnail), options
+      image_tag ssl_cdn(project.thumbnail), options.merge(height: nil)
     end
   end
 
