@@ -70,9 +70,10 @@ crit = ($document, $timeout, $rootScope) ->
     scope.highlight = (b) -> if b then element.addClass('selected') else element.removeClass('selected')
 
     scope.$watch 'selectedCrit', (selectedCrit, oldSelectedCrit) ->
-      $('html, body').animate(scrollTop: element.offset().top - 100, 400) if selectedCrit == scope.crit && !verge.inViewport(element)
-      if !scope.crit.id && oldSelectedCrit == scope.crit
-        if scope.crit.comment then scope.crit.$save() else $rootScope.$broadcast('crit.delete', scope.crit)
+      if selectedCrit != oldSelectedCrit
+        $('html, body').animate(scrollTop: element.offset().top - 100, 400) if selectedCrit == scope.crit && !verge.inViewport(element)
+        if !scope.crit.id && oldSelectedCrit == scope.crit
+          if scope.crit.comment then scope.crit.$save() else $rootScope.$broadcast('crit.delete', scope.crit)
 
     commentWatcherEnabled = true
     timeout = null
@@ -101,8 +102,6 @@ sidebar = ($timeout) ->
     scope.done = ->
       scope.selectedCrit = null
       scope.hoveredCrit = null
-
-    key '⌘ + enter, ctrl + enter', -> scope.$apply(-> scope.done())
 
     scope.select = (crit) -> scope.selectedCrit = crit
     scope.showCrit = (crit) -> scope.hoveredCrit = crit
