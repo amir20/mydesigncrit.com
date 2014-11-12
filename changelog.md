@@ -1,3 +1,9 @@
+## November 2014
+- Updated to latest ruby 2.1
+- Fixed a bug with scrolling
+- Fixes image width not being scaled correctly
+- Added HeapAnalytics
+
 ## October 2014
 - Updated to Phantom 1.9.8
 - Removed empty comments
