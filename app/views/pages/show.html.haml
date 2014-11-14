@@ -1,5 +1,7 @@
 -content_for :title do
   %title{ 'ng-controller' => 'TitleCtrl', 'ng-bind' => '"designcrit.io - " + data.selectedPage.title'} designcrit.io - #{@project.title}
+  %meta{content: "Feedback on #{@project.title}", property: 'og:title'}/
+  %meta{content: "#{ssl_cdn(@project.thumbnail)}", property: 'og:image'}/
 
 - content_for :header do
   %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
@@ -11,18 +13,16 @@
       - if can? :create, @project => Page
         %form.navbar-form.navbar-left
           .form-group
-            %button.btn.btn-primary{type: 'submit', 'ng-click' => 'newPageModal()'}
+            %button.btn.btn-success{type: 'submit', 'ng-click' => 'newPageModal()'}
               %i.icon-addshape
               New Page
-          .form-group
-            
-            %a.twitter-share-button{'data-count' => 'none', 'data-hashtags' => 'designcrit.io', :href => 'https://twitter.com/share'} Tweet
+
       = render 'layouts/login'
       %form.navbar-form.navbar-right
         .form-group
-          = link_to share_path(@project.share_id), class: 'btn btn-success' do
-            %i.icon-share2
-            Preview
+          %button.btn.btn-primary.share{'ng-click' => 'shareModal()'}
+            %i.glyphicon.glyphicon-share-alt
+            Share
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
   %sidebar{'selected-crit' => 'data.selectedCrit', 'hovered-crit' => 'data.hoveredCrit', 'crits' => 'data.selectedPage.crits'}
@@ -44,7 +44,7 @@
   = render 'crits/crit'
 
 %script{id: 'sidebar.html', type: 'text/ng-template'}
-  = render 'sidebar.html'
+  = render 'sidebar'
 
 %script{id: 'newPageModal.html', type: 'text/ng-template'}
   .modal-header
@@ -85,3 +85,17 @@
   .modal-footer
     .text-left
       %button.btn.btn-warning{'ng-click' => 'cancel()'} Cancel
+
+%script{id: 'shareModal.html', type: 'text/ng-template'}
+  .modal-header
+    %h3 Share this project
+
+  .modal-body
+    %a.btn.btn-primary.twitter-share-button{href: "https://twitter.com/share?url=#{request.original_url}", popup: '', width: '500', height: '300'} Twitter
+    %a.btn.btn-primary.facebook-share-button{href: "https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}", popup: '', width: '500', height: '300'} Facebook
+    %a.btn.btn-primary.copy-button{href: '', 'clip-copy' => "'#{request.original_url}'"} Copy
+    %a.btn.btn-primary.email-button{} Email
+
+  .modal-footer
+    .text-right
+      %button.btn.btn-warning{'ng-click' => 'cancel()'} Done
