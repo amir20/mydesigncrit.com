@@ -8,7 +8,7 @@ class CritsController < ApplicationController
 
   def create
     create_guest_user_if_needed
-    authorize! :create, @page => Crit
+    authorize! :create, @page.crits.new
 
     @crit = @page.crits.build(crit_params)
     @crit.user = current_user

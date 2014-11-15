@@ -10,7 +10,7 @@
         %i.icon-pagesetup
         DesignCrit.io
     .navbar-collapse
-      - if can? :create, @project => Page
+      - if can? :create, @project.pages.new
         %form.navbar-form.navbar-left
           .form-group
             %button.btn.btn-success{type: 'submit', 'ng-click' => 'newPageModal()'}
@@ -30,7 +30,7 @@
   %ul.nav.nav-tabs.ng-cloak
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page == data.selectedPage}'}
       %a.tab.routed{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'}
-        - if can? :destroy, @project => Page
+        - if can? :destroy, @project.pages.new
           %span.close{'ng-click' => 'deletePage($event, page)', 'ng-show' => 'data.pages.length > 1'} &times;
         {{ page.title }}
 
@@ -91,9 +91,9 @@
     %h3 Share this project
 
   .modal-body
-    %a.btn.btn-primary.twitter-share-button{href: "https://twitter.com/share?url=#{request.original_url}", popup: '', width: '500', height: '300'} Twitter
-    %a.btn.btn-primary.facebook-share-button{href: "https://www.facebook.com/sharer/sharer.php?u=#{request.original_url}", popup: '', width: '500', height: '300'} Facebook
-    %a.btn.btn-primary.copy-button{href: '', 'clip-copy' => "'#{request.original_url}'"} Copy
+    %a.btn.btn-primary.twitter-share-button{href: "https://twitter.com/share?url=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300'} Twitter
+    %a.btn.btn-primary.facebook-share-button{href: "https://www.facebook.com/sharer/sharer.php?u=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300'} Facebook
+    %a.btn.btn-primary.copy-button{href: '', 'clip-copy' => "'#{share_url(@project.share_id)}'"} Copy
     %a.btn.btn-primary.email-button{} Email
 
   .modal-footer
