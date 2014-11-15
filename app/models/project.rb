@@ -2,7 +2,7 @@ class Project < ActiveRecord::Base
   before_create do
     self.share_id = loop do
       random_token = SecureRandom.urlsafe_base64(4)
-      break random_token unless Project.exists?(share_id: random_token)
+      break random_token unless Project.find_by_share_id(random_token)
     end
   end
 
