@@ -90,12 +90,11 @@
   .modal-header
     %h3 Share this project
 
-  .modal-body
-    %a.btn.btn-primary.twitter-share-button{href: "https://twitter.com/share?url=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300'} Twitter
-    %a.btn.btn-primary.facebook-share-button{href: "https://www.facebook.com/sharer/sharer.php?u=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300'} Facebook
-    %a.btn.btn-primary.copy-button{href: '', 'clip-copy' => "'#{share_url(@project.share_id)}'"} Copy
-    %a.btn.btn-primary.email-button{} Email
+  .modal-body.text-center
+    %a.share-button.twitter{href: "https://twitter.com/share?url=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300', title: 'Twitter'}
+    %a.share-button.facebook{href: "https://www.facebook.com/sharer/sharer.php?u=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300', title: 'Facebook'}
+    %a.share-button.copy{href: '', 'clip-copy' => "'#{share_url(@project.share_id)}'", title: 'Copy to clipboard'}
+    %a.share-button.email{href: '', title: 'Email'}
 
-  .modal-footer
-    .text-right
-      %button.btn.btn-warning{'ng-click' => 'cancel()'} Done
+  .modal-footer.text-right
+    %button.btn.btn-warning{'ng-click' => 'cancel()'} Done

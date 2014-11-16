@@ -32,8 +32,5 @@
     "ngInfiniteScroll": "~1.1.2",
     "zeroclipboard": "~2.1.6",
     "ng-clip": "~0.2.4"
-  },
-  "resolutions": {
-    "angular": ">=1.1.3"
   }
 }
