@@ -30,7 +30,6 @@
     "animate-css": "~3.2.0",
     "jquery-ujs": "~1.0.1",
     "ngInfiniteScroll": "~1.1.2",
-    "zeroclipboard": "~2.1.6",
     "ng-clip": "~0.2.4"
   }
 }

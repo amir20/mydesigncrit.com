@@ -17,6 +17,7 @@ gem 'retina_rails'
 gem 'high_voltage'
 gem 'redcarpet'
 gem 'fog'
+gem 'zeroclipboard-rails'
 
 # Active record
 gem 'counter_culture'
