@@ -1,7 +1,9 @@
 -content_for :title do
   %title{ 'ng-controller' => 'TitleCtrl', 'ng-bind' => '"designcrit.io - " + data.selectedPage.title'} designcrit.io - #{@project.title}
   %meta{content: "Feedback on #{@project.title}", property: 'og:title'}/
-  %meta{content: "#{ssl_cdn(@project.thumbnail)}", property: 'og:image'}/
+  %meta{content: "#{@project.thumbnail}", property: 'og:image'}/
+  %meta{content: "#{ssl_cdn(@project.thumbnail)}", property: 'og:image:secure_url'}/
+  %meta{content: "#{share_url(@project.share_id)}", property: 'og:url'}/
 
 - content_for :header do
   %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
