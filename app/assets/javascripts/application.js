@@ -3,6 +3,7 @@
 //= require bootstrap/tab
 //= require lodash
 //= require moment
+//= require zeroclipboard
 //= require verge/verge.js
 //= require keymaster/keymaster
 //= require ng-file-upload/angular-file-upload-shim
@@ -13,6 +14,7 @@
 //= require angular-moment
 //= require retina.js/dist/retina
 //= require ng-file-upload
+//= require ng-clip
 //= require wowjs
 //= require app
 //= require_tree .

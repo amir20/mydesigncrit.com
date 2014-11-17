@@ -14,10 +14,7 @@ class Ability
 
     can :manage, Crit, page: { project: { user_id: user.id } }
 
-    # is ok right now !user.is_a?(AnonymousUser)
-    if user.persisted?
-      can :manage, Crit, user_id: user.id
-      can :create, Crit, page: { project: { private: false } }
-    end
+    can :create, Crit, page: { project: { private: false } }
+    can :manage, Crit, user_id: user.id
   end
 end

@@ -138,9 +138,7 @@ input = ($timeout) ->
 # Hack to fix routing when ng-route is not being used
 anchor =  ->
   restrict: 'E'
-  link: (scope, element, attrs) ->
-    unless element.hasClass('routed')
-      element.attr('target', '_self')
+  link: (scope, element, attrs) -> element.attr('target', '_self') unless element.hasClass('routed')
 
 simpleElastic =  ($timeout) ->
   restrict: 'AC'
@@ -159,6 +157,20 @@ loader = ->
     loading: '='
   link: (scope, element, attrs) ->
 
+popup =  ($window) ->
+  restrict: 'A'
+  link: (scope, element, attrs) ->
+    element.bind 'click', (e) ->
+      e.stopPropagation()
+      e.preventDefault()
+      options = angular.extend(
+        width: 400
+        height: 300
+      , attrs
+      )
+      joined = _.pairs(options).map((item) -> "#{item[0]}=#{item[1]}").join(', ')
+      $window.open(attrs.href, attrs.title, joined)
+
 app = angular.module('designcritDirectives', [])
 app.directive('crit', ['$document', '$timeout', '$rootScope', crit])
 app.directive('sidebar', ['$timeout', sidebar])
@@ -167,3 +179,4 @@ app.directive('deleteCrit', ['$rootScope', deleteCrit])
 app.directive('input', ['$timeout', input])
 app.directive('simpleElastic', ['$timeout', simpleElastic])
 app.directive('a', [anchor])
+app.directive('popup', ['$window', popup])

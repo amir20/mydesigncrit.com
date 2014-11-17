@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
     authorize! :create, Project
 
     @project = current_user.projects.create(title: 'Untitled', private: params[:private] == 'true')
-    authorize! :create, @project => Page
+    authorize! :create, @project.pages.new
 
     @page = Page.create_from_url_or_image!(params)
     @project.pages << @page
@@ -57,6 +57,11 @@ class ProjectsController < ApplicationController
   def share
     @project = Project.find_by_share_id(params[:id])
     authorize! :share, @project
+
+    respond_to do |format|
+      format.html { redirect_to [@project, @project.pages.first] if can? :create, @project.pages.first.crits.new }
+      format.json
+    end
   end
 
   def email

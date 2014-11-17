@@ -71,3 +71,47 @@
           font-size: 90px
           padding-left: 6px
           margin-top: -51px
+
+.share-dialog
+  min-height: 200px
+
+  .form-group.email
+    margin-top: 20px
+    transition: all ease 0.2s
+
+    &.ng-hide
+      opacity: 0
+
+  .alert
+    margin-top: 10px
+    opacity: 1
+    transition: all ease 0.2s
+
+    &.ng-hide
+      opacity: 0
+  .share-button
+    border-radius: 50px
+    display: inline-block
+    width: 80px
+    height: 80px
+    margin: 0 10px
+    transition: margin .3s ease
+
+    &:hover, &.zeroclipboard-is-hover
+      margin: 0 50px
+
+    &.twitter
+      background: #55acee image-url('twitter.svg') no-repeat
+      background-position: -8px -8px
+
+    &.facebook
+      background: #3b5998 image-url('facebook.svg') no-repeat
+      background-position: 32px 26px
+
+    &.copy
+      background: #888 image-url('copy.svg') no-repeat
+      background-position: 25px 15px
+
+    &.email
+      background: #c0392b image-url('email.svg') no-repeat
+      background-position: 8px 2px

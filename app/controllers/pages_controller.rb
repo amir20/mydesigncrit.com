@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   end
 
   def create
-    authorize! :create, @project => Page
+    authorize! :create, @project.pages.new
     @page = Page.create_from_url_or_image!(params)
     @project.pages << @page
     @page.process

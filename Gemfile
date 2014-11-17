@@ -44,6 +44,8 @@ group :development, :test do
   gem 'thin'
   gem 'sqlite3'
   gem 'quiet_assets'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 # For background jobs

@@ -1,5 +1,7 @@
 -content_for :title do
   %title{ 'ng-controller' => 'TitleCtrl', 'ng-bind' => '"designcrit.io - " + data.selectedPage.title'} designcrit.io - #{@project.title}
+  %meta{content: "Feedback on #{@project.title}", property: 'og:title'}/
+  %meta{content: "#{ssl_cdn(@project.thumbnail)}", property: 'og:image'}/
 
 - content_for :header do
   %nav.navbar.navbar-inverse.navbar-fixed-top{role: 'navigation', 'ng-controller' => 'HeaderCtrl'}
@@ -8,18 +10,19 @@
         %i.icon-pagesetup
         DesignCrit.io
     .navbar-collapse
-      - if can? :create, @project => Page
+      - if can? :create, @project.pages.new
         %form.navbar-form.navbar-left
           .form-group
-            %button.btn.btn-primary{type: 'submit', 'ng-click' => 'newPageModal()'}
+            %button.btn.btn-success{type: 'submit', 'ng-click' => 'newPageModal()'}
               %i.icon-addshape
               New Page
+
       = render 'layouts/login'
       %form.navbar-form.navbar-right
         .form-group
-          = link_to share_path(@project.share_id), class: 'btn btn-success' do
-            %i.icon-share2
-            Preview
+          %button.btn.btn-primary.share{'ng-click' => 'shareModal()'}
+            %i.glyphicon.glyphicon-share-alt
+            Share
 
 #project{'ng-controller' => 'ProjectCtrl', 'ng-init' => "projectId = '#{@project.id}'"}
   %sidebar{'selected-crit' => 'data.selectedCrit', 'hovered-crit' => 'data.hoveredCrit', 'crits' => 'data.selectedPage.crits'}
@@ -27,7 +30,7 @@
   %ul.nav.nav-tabs.ng-cloak
     %li{'ng-repeat' => 'page in data.pages', 'ng-class' => '{active: page == data.selectedPage}'}
       %a.tab.routed{'ng-href' => '/projects/{{data.project.id}}/pages/{{page.id}}'}
-        - if can? :destroy, @project => Page
+        - if can? :destroy, @project.pages.new
           %span.close{'ng-click' => 'deletePage($event, page)', 'ng-show' => 'data.pages.length > 1'} &times;
         {{ page.title }}
 
@@ -41,7 +44,7 @@
   = render 'crits/crit'
 
 %script{id: 'sidebar.html', type: 'text/ng-template'}
-  = render 'sidebar.html'
+  = render 'sidebar'
 
 %script{id: 'newPageModal.html', type: 'text/ng-template'}
   .modal-header
@@ -82,3 +85,27 @@
   .modal-footer
     .text-left
       %button.btn.btn-warning{'ng-click' => 'cancel()'} Cancel
+
+%script{id: 'shareModal.html', type: 'text/ng-template'}
+  .modal-header
+    %h3 Share this project
+
+  .modal-body.text-center.share-dialog
+    %a.share-button.twitter{href: "https://twitter.com/share?text=Critique my website!&url=#{share_url(@project.share_id)}&hashtags=designcrit.io", popup: '', width: '500', height: '300', title: 'Twitter'}
+    %a.share-button.facebook{href: "https://www.facebook.com/sharer/sharer.php?u=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300', title: 'Facebook'}
+    %a.share-button.copy{href: '', 'clip-copy' => "'#{share_url(@project.share_id)}'", title: 'Copy to clipboard', 'clip-click' =>'alert = "Project URL successfully copied to clipboard."'}
+    %a.share-button.email{href: '', title: 'Email', 'ng-click' =>'email = true'}
+
+    .form-group.email.ng-hide-animate{ 'ng-show' => 'email' }
+      %form{ 'ng-submit' => 'submitEmail()' }
+        .input-group
+          %input.form-control{placeholder: 'joe@example.com', type: 'email', 'ng-model' => 'form.to'}/
+          %span.input-group-btn
+            %button.btn.btn-success{type: 'submit'} Send
+
+    .alert.alert-success.ng-hide-animate{role: 'alert', 'ng-show' => 'alert', 'ng-bind' => 'alert'}
+
+
+
+  .modal-footer.text-right
+    %button.btn.btn-warning{'ng-click' => 'cancel()'} Done
