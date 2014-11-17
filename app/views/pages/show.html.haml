@@ -90,11 +90,22 @@
   .modal-header
     %h3 Share this project
 
-  .modal-body.text-center
-    %a.share-button.twitter{href: "https://twitter.com/share?url=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300', title: 'Twitter'}
+  .modal-body.text-center.share-dialog
+    %a.share-button.twitter{href: "https://twitter.com/share?text=Critique my website!&url=#{share_url(@project.share_id)}&hashtags=designcrit.io", popup: '', width: '500', height: '300', title: 'Twitter'}
     %a.share-button.facebook{href: "https://www.facebook.com/sharer/sharer.php?u=#{share_url(@project.share_id)}", popup: '', width: '500', height: '300', title: 'Facebook'}
-    %a.share-button.copy{href: '', 'clip-copy' => "'#{share_url(@project.share_id)}'", title: 'Copy to clipboard'}
-    %a.share-button.email{href: '', title: 'Email'}
+    %a.share-button.copy{href: '', 'clip-copy' => "'#{share_url(@project.share_id)}'", title: 'Copy to clipboard', 'clip-click' =>'alert = "Project URL successfully copied to clipboard."'}
+    %a.share-button.email{href: '', title: 'Email', 'ng-click' =>'email = true'}
+
+    .form-group.email.ng-hide-animate{ 'ng-show' => 'email' }
+      %form{ 'ng-submit' => 'submitEmail()' }
+        .input-group
+          %input.form-control{placeholder: 'joe@example.com', type: 'email', 'ng-model' => 'form.to'}/
+          %span.input-group-btn
+            %button.btn.btn-success{type: 'submit'} Send
+
+    .alert.alert-success.ng-hide-animate{role: 'alert', 'ng-show' => 'alert', 'ng-bind' => 'alert'}
+
+
 
   .modal-footer.text-right
     %button.btn.btn-warning{'ng-click' => 'cancel()'} Done

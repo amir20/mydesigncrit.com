@@ -58,13 +58,6 @@ class HeaderCtrl
   constructor: ($scope, $modal, $location, ProjectService) ->
     $scope.data = ProjectService
 
-    $scope.emailModal = (projectId) ->
-      $modal.open
-        templateUrl: 'email.html'
-        controller: 'EmailModalCtrl'
-        resolve:
-          projectId: -> projectId
-
     $scope.newPageModal = ->
       modalInstance = $modal.open
         templateUrl: 'newPageModal.html'
@@ -106,10 +99,15 @@ class NewPageModalCtrl
         )
 
 class ShareModalCtrl
-  constructor: ($scope, $modalInstance, ProjectService) ->
+  constructor: ($scope, $modalInstance, $http, ProjectService) ->
+    $scope.form = { to: '' }
+    $scope.cancel = -> $modalInstance.dismiss('cancel')
 
-    $scope.cancel = ->
-      $modalInstance.dismiss('cancel')
+    $scope.submitEmail = ->
+      $scope.alert = 'Sending email...'
+      $http.post("/v/#{ProjectService.project.share_id}", to: $scope.form.to).success ->
+        $scope.form.to = ''
+        $scope.alert = 'Email successfully sent.'
 
 
 class ShareCtrl
@@ -133,18 +131,6 @@ class WelcomeCtrl
           $scope.progress =  parseInt(100.0 * evt.loaded / evt.total)
         )
 
-class EmailModalCtrl
-  constructor: ($scope, $modalInstance, $http, projectId) ->
-    $scope.form = { to: '' }
-
-    $scope.cancel = -> $modalInstance.dismiss('cancel')
-
-    $scope.submit = ->
-      $scope.sending = true
-      $http.post("/v/#{projectId}", to: $scope.form.to).success ->
-        $scope.sending = false
-      $modalInstance.close()
-
 class TitleCtrl
   constructor: ($scope, ProjectService) ->
     $scope.data = ProjectService
@@ -154,8 +140,9 @@ app.controller('PageCtrl', ['$scope', '$routeParams', '$timeout', 'JsonRestClien
 app.controller('ProjectCtrl', ['$scope', '$timeout', 'JsonRestClient', 'ProjectService', '$location', ProjectCtrl])
 app.controller('HeaderCtrl', ['$scope', '$modal', '$location', 'ProjectService', HeaderCtrl])
 app.controller('NewPageModalCtrl', ['$scope', '$modalInstance', '$upload', 'ProjectService', NewPageModalCtrl])
-app.controller('ShareModalCtrl', ['$scope', '$modalInstance', 'ProjectService', NewPageModalCtrl])
-app.controller('EmailModalCtrl', ['$scope', '$modalInstance', '$http', 'projectId', EmailModalCtrl])
+app.controller('ShareModalCtrl', ['$scope', '$modalInstance', '$http', 'ProjectService', ShareModalCtrl])
 app.controller('ShareCtrl', ['$scope', 'JsonRestClient', ShareCtrl])
 app.controller('WelcomeCtrl', ['$scope', '$upload', WelcomeCtrl])
 app.controller('TitleCtrl', ['$scope', 'ProjectService', TitleCtrl])
+
+
