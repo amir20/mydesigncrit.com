@@ -21,10 +21,10 @@ module ApplicationHelper
   end
 
   def project_img(project, options = {})
-    if project.thumbnail.nil?
-      image_tag 'no-image.png', options.merge('data-no-retina' => true)
-    else
+    if project.thumbnail?
       image_tag ssl_cdn(project.thumbnail), options.merge(height: nil)
+    else
+      image_tag 'no-image.png', options.merge('data-no-retina' => true)
     end
   end
 
