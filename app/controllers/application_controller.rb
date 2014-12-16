@@ -26,10 +26,10 @@ class ApplicationController < ActionController::Base
 
   def detect_device_variant
     case request.user_agent
-      when /MSIE 8.0/i
-        request.variant = :unsupported
-      when /iPhone/i
-        request.variant = :phone
+    when /MSIE 8.0/i
+      request.variant = :unsupported
+    when /iPhone/i
+      request.variant = :phone
     end
   end
 end

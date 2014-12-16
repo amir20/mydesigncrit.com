@@ -16,8 +16,7 @@ class ProjectsController < ApplicationController
     @project = current_user.projects.create(title: 'Untitled', private: params[:private] == 'true')
     authorize! :create, @project.pages.new
 
-    @page = Page.create_from_url_or_image!(params)
-    @project.pages << @page
+    @page = @project.pages.create_from_url_or_image!(params)
     @page.process
     @project.punch(request)
 

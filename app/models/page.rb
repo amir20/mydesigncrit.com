@@ -45,7 +45,7 @@ class Page < ActiveRecord::Base
     end
 
     save
-  rescue Exception => e
+  rescue => e
     logger.error e.message
     logger.error e.backtrace.join("\n")
     self.processed = true
