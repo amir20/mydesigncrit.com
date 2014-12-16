@@ -1,7 +1,7 @@
 DesigncritIo::Application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   devise_scope :user do
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+    get 'sign_out', to: 'devise/sessions#destroy', as: :destroy_user_session
   end
 
   resources :projects, except: [:edit, :new] do
@@ -22,7 +22,6 @@ DesigncritIo::Application.routes.draw do
   match '/delayed_job' => DelayedJobWeb, anchor: false, via: [:get, :post]
 
   %w( 404 422 500 ).each do |code|
-    get code, :to => 'errors#show', code: code
+    get code, to: 'errors#show', code: code
   end
-
 end

@@ -10,16 +10,16 @@ module DesigncritIo
   class Application < Rails::Application
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     config.sass.preferred_syntax = :sass
-    config.exceptions_app = self.routes
+    config.exceptions_app = routes
 
     ActionMailer::Base.smtp_settings = {
-        :user_name => 'amirraminfar',
-        :password => '2229lovedale',
-        :domain => 'designcrit.io',
-        :address => 'smtp.sendgrid.net',
-        :port => 587,
-        :authentication => :plain,
-        :enable_starttls_auto => true
+      user_name: 'amirraminfar',
+      password: '2229lovedale',
+      domain: 'designcrit.io',
+      address: 'smtp.sendgrid.net',
+      port: 587,
+      authentication: :plain,
+      enable_starttls_auto: true
     }
   end
 end

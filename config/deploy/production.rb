@@ -5,9 +5,9 @@ set :stage, :production
 # Supports bulk-adding hosts to roles, the primary
 # server in each group is considered to be the first
 # unless any hosts have the primary property set.
-role :app, %w{designcrit.io}
-role :web, %w{designcrit.io}
-role :db,  %w{designcrit.io}
+role :app, %w(designcrit.io)
+role :web, %w(designcrit.io)
+role :db,  %w(designcrit.io)
 
 set :rails_env, fetch(:stage)
 
@@ -17,7 +17,6 @@ set :rails_env, fetch(:stage)
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
-server 'designcrit.io', user: 'amirraminfar', roles: %w{web app}
-
+server 'designcrit.io', user: 'amirraminfar', roles: %w(web app)
 
 # fetch(:default_env).merge!(rails_env: :production)

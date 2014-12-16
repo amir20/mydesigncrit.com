@@ -12,7 +12,7 @@ set :use_sudo, false
 set :stages, %w(production)
 set :default_stage, 'production'
 set :rvm_type, :system
-set :default_environment, { 'rvmsudo_secure_path' => 0 }
+set :default_environment,  'rvmsudo_secure_path' => 0
 
 namespace :deploy do
   namespace :assets do
@@ -25,36 +25,35 @@ end
 
 namespace :foreman do
   desc "Export the Procfile to Ubuntu's upstart scripts"
-  task :export, :roles => :app do
+  task :export, roles: :app do
     run "cd #{current_path} && rvmsudo bundle exec foreman export upstart /etc/init -a #{application} -l /var/log/#{application} -u amirraminfar -e .env"
   end
 
   desc 'Start the application services'
-  task :start, :roles => :app do
+  task :start, roles: :app do
     sudo "start #{application}"
   end
 
   desc 'Stop the application services'
-  task :stop, :roles => :app do
+  task :stop, roles: :app do
     sudo "stop #{application}"
   end
 
   desc 'Restart the application services'
-  task :restart, :roles => :app do
+  task :restart, roles: :app do
     run "sudo restart #{application} || sudo start #{application}"
   end
 end
 
 namespace :logs do
   desc 'tails log files'
-  task :tail, :roles => :app do
+  task :tail, roles: :app do
     trap('INT') { exit 0 }
-    run "tail -f #{shared_path}/log/production.log" do |channel, stream, data|
+    run "tail -f #{shared_path}/log/production.log" do |_channel, stream, data|
       puts data
       break if stream == :err
     end
   end
-
 end
 
 before 'deploy:assets:precompile', 'deploy:assets:install'
