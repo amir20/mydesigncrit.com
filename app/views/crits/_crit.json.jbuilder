@@ -4,4 +4,3 @@ json.user do
   json.owner crit.user == current_user
   json.can_manage can? :manage, crit
 end
-

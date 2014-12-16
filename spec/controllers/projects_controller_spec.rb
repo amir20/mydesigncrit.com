@@ -6,9 +6,9 @@ describe ProjectsController do
       before(:each) { allow_any_instance_of(Page).to receive(:process) }
 
       it 'create a new project' do
-        expect {
+        expect do
           post :create, private: 'true', url: 'http://amirraminfar.com'
-        }.to change(Project, :count).by(1)
+        end.to change(Project, :count).by(1)
       end
 
       it 'redirect to project/x/pages/y' do

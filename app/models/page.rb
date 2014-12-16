@@ -1,11 +1,10 @@
 class Page < ActiveRecord::Base
-  validates :url, url: {allow_nil: true}
+  validates :url, url: { allow_nil: true }
 
   has_many :crits
   belongs_to :project, touch: true, counter_cache: true
 
   acts_as_paranoid
-
 
   CONNECTION = Fog::Storage.new(
       provider: 'Rackspace',
@@ -16,13 +15,13 @@ class Page < ActiveRecord::Base
 
   def process
     large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
-    if self.screenshot.present?
-      img = ::Magick::Image::read(Pathname.new(Rails.root.join('public' + self.screenshot))).first
+    if screenshot.present?
+      img = ::Magick::Image.read(Pathname.new(Rails.root.join('public' + screenshot))).first
       img.resize!(1024.to_f / img.columns) if img.columns > 1024
       img.write(large_file)
     else
       response = create_screenshot(large_file)
-      img = ::Magick::Image::read(large_file).first
+      img = ::Magick::Image.read(large_file).first
       self.title = response['title']
     end
 
@@ -71,7 +70,7 @@ class Page < ActiveRecord::Base
     File.open(Rails.root.join('public', 'assets', 'jobs', page.id.to_s, params[:image].original_filename), 'wb') do |file|
       file.write(params[:image].read)
     end
-    page.screenshot = "/assets/jobs/#{page.id.to_s}/#{params[:image].original_filename}"
+    page.screenshot = "/assets/jobs/#{page.id}/#{params[:image].original_filename}"
     page.save!
 
     page
@@ -88,6 +87,7 @@ class Page < ActiveRecord::Base
   handle_asynchronously :process
 
   private
+
   def create_screenshot(image)
     Rails.logger.info("Rasterizing #{url}.")
     FileUtils.mkdir_p(image.parent) unless image.parent.exist?
