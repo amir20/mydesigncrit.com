@@ -31,8 +31,8 @@ class CritsController < ApplicationController
     head :no_content
   end
 
-
   private
+
   def crit_params
     params.require(:crit).permit(:width, :height, :x, :y, :comment)
   end

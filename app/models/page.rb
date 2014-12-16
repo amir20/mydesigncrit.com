@@ -1,5 +1,5 @@
 class Page < ActiveRecord::Base
-  validates :url, url: { allow_nil: true }
+  validates :url, url: {allow_nil: true}
 
   has_many :crits
   belongs_to :project, touch: true, counter_cache: true
@@ -15,44 +15,42 @@ class Page < ActiveRecord::Base
   )
 
   def process
-    begin
-      large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
-      if self.screenshot.present?
-        img = ::Magick::Image::read(Pathname.new(Rails.root.join('public' + self.screenshot))).first
-        img.resize!(1024.to_f / img.columns) if img.columns > 1024
-        img.write(large_file)
-      else
-        response = create_screenshot(large_file)
-        img = ::Magick::Image::read(large_file).first
-        self.title = response['title']
-      end
-
-      # Create thumbnail
-      thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
-      img.resize_to_fill(160 * 2, 120 * 2, Magick::NorthGravity).write(thumb_file)
-
-      self.processed = true
-      self.width = img.columns
-      self.height = img.rows
-      self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}_#{SecureRandom.hex}.png")
-      self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}_#{SecureRandom.hex}.png")
-
-      FileUtils.rm_rf(thumb_file.parent)
-
-      project.reload
-      if project.pages.size == 1
-        project.title = title
-        project.thumbnail = thumbnail
-        project.save
-      end
-
-      save
-    rescue Exception => e
-      logger.error e.message
-      logger.error e.backtrace.join("\n")
-      self.processed = true
-      save
+    large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
+    if self.screenshot.present?
+      img = ::Magick::Image::read(Pathname.new(Rails.root.join('public' + self.screenshot))).first
+      img.resize!(1024.to_f / img.columns) if img.columns > 1024
+      img.write(large_file)
+    else
+      response = create_screenshot(large_file)
+      img = ::Magick::Image::read(large_file).first
+      self.title = response['title']
     end
+
+    # Create thumbnail
+    thumb_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'thumbnail.png'))
+    img.resize_to_fill(160 * 2, 120 * 2, Magick::NorthGravity).write(thumb_file)
+
+    self.processed = true
+    self.width = img.columns
+    self.height = img.rows
+    self.thumbnail = upload_to_cdn(thumb_file, "thumbnail_#{id}_#{SecureRandom.hex}.png")
+    self.screenshot = upload_to_cdn(large_file, "screenshot_#{id}_#{SecureRandom.hex}.png")
+
+    FileUtils.rm_rf(thumb_file.parent)
+
+    project.reload
+    if project.pages.size == 1
+      project.title = title
+      project.thumbnail = thumbnail
+      project.save
+    end
+
+    save
+  rescue Exception => e
+    logger.error e.message
+    logger.error e.backtrace.join("\n")
+    self.processed = true
+    save
   end
 
   def upload_to_cdn(file, key)

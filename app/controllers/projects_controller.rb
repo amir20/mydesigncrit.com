@@ -46,7 +46,7 @@ class ProjectsController < ApplicationController
     @project = Project.find(params[:id])
     authorize! :read, @project
 
-    @project.punch(request) unless can? :manage, @project || !request.xhr?
+    @project.punch(request) unless can?(:manage, @project) || !request.xhr?
 
     respond_to do |format|
       format.html { redirect_to [@project, @project.pages.first] unless request.xhr? }
