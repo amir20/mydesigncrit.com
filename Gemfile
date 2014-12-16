@@ -47,6 +47,7 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'rubocop'
 end
 
 # For background jobs
@@ -61,7 +62,7 @@ gem 'omniauth-google-oauth2'
 gem 'cancancan'
 
 # Resizing images
-gem 'rmagick', :require => 'RMagick'
+gem 'rmagick', require: 'RMagick'
 
 gem 'newrelic_rpm'
 gem 'foreman'

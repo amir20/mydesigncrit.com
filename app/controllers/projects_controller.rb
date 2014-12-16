@@ -17,7 +17,6 @@ class ProjectsController < ApplicationController
     authorize! :create, @project.pages.new
 
     @page = @project.pages.create_from_url_or_image!(params)
-    @page.process
     @project.punch(request)
 
     respond_to do |format|

@@ -67,7 +67,8 @@ class Page < ActiveRecord::Base
     dir = Rails.root.join('public', 'assets', 'jobs', page.id.to_s)
     FileUtils.mkdir_p(dir) unless dir.exist?
 
-    File.open(Rails.root.join('public', 'assets', 'jobs', page.id.to_s, params[:image].original_filename), 'wb') do |file|
+    original_filename = params[:image].original_filename
+    File.open(Rails.root.join('public', 'assets', 'jobs', page.id.to_s, original_filename), 'wb') do |file|
       file.write(params[:image].read)
     end
     page.screenshot = "/assets/jobs/#{page.id}/#{params[:image].original_filename}"
@@ -81,7 +82,9 @@ class Page < ActiveRecord::Base
   end
 
   def self.create_from_url_or_image!(params)
-    params[:image].present? ? create_from_image!(params) : create_from_url!(params)
+    page = params[:image].present? ? create_from_image!(params) : create_from_url!(params)
+    page.process
+    page
   end
 
   handle_asynchronously :process

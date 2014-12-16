@@ -9,9 +9,7 @@ class PagesController < ApplicationController
 
   def create
     authorize! :create, @project.pages.new
-    @page = Page.create_from_url_or_image!(params)
-    @project.pages << @page
-    @page.process
+    @page = @project.pages.create_from_url_or_image!(params)
 
     respond_to do |format|
       format.html { redirect_to [@project, @page] }
