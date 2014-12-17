@@ -7,7 +7,7 @@ require 'capybara/rspec'
 require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start 'rails'
 
 Capybara.register_driver :poltergeist do |app|
   options = {
@@ -66,4 +66,13 @@ RSpec.configure do |config|
 
   # Add devise helpers
   config.include Devise::TestHelpers, type: :controller
+  config.include ControllerHelpers, type: :controller
+
+  config.mock_with :rspec do |mocks|
+    # This option should be set when all dependencies are being loaded
+    # before a spec run, as is the case in a typical spec helper. It will
+    # cause any verifying double instantiation for a class that does not
+    # exist to raise, protecting against incorrectly spelt names.
+    mocks.verify_doubled_constant_names = true
+  end
 end

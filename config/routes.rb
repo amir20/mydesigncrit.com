@@ -5,7 +5,7 @@ DesigncritIo::Application.routes.draw do
   end
 
   resources :projects, except: [:edit, :new] do
-    resources :pages, except: [:edit, :new] do
+    resources :pages, except: [:edit, :new, :update] do
       resources :crits, except: [:edit, :new]
     end
   end

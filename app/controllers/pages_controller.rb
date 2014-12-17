@@ -17,11 +17,6 @@ class PagesController < ApplicationController
     end
   end
 
-  def update
-    @page = @project.pages.find(params[:id])
-    authorize! :update, @page
-  end
-
   def destroy
     @page = @project.pages.find(params[:id])
     authorize! :destroy, @page
