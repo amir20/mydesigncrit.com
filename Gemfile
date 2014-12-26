@@ -1,17 +1,17 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.2.0'
 
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 gem 'mysql2'
 
 # Assets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0'
 gem 'haml-rails'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0'
 gem 'validate_url'
 gem 'retina_rails'
 gem 'high_voltage'
@@ -26,13 +26,13 @@ gem 'kaminari'
 gem 'paranoia', '~> 2.0'
 
 # For JSON
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.2'
 
 # Use unicorn as the app server
 gem 'unicorn'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.0.0', require: false
+  gem 'rspec-rails', '~> 3.1.0', require: false
   gem 'capybara', require: false
   gem 'poltergeist', require: false
   gem 'factory_girl_rails'

@@ -11,6 +11,7 @@ module DesigncritIo
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
     config.sass.preferred_syntax = :sass
     config.exceptions_app = routes
+    config.active_record.raise_in_transactional_callbacks = true
 
     ActionMailer::Base.smtp_settings = {
       user_name: 'amirraminfar',
