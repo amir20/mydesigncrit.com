@@ -61,6 +61,7 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 gem 'cancancan', github: 'marshall-lee/cancancan', branch: 'support_rails_4_2'
+gem 'angular_rails_csrf'
 
 # Resizing images
 gem 'rmagick', require: 'RMagick'
