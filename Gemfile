@@ -60,7 +60,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'cancancan'
+gem 'cancancan', github: 'marshall-lee/cancancan', branch: 'support_rails_4_2'
 
 # Resizing images
 gem 'rmagick', require: 'RMagick'

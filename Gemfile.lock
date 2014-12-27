@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/marshall-lee/cancancan.git
+  revision: 82ea0eeb473c599cb5d318b770ef97b244d5024c
+  branch: support_rails_4_2
+  specs:
+    cancancan (1.9.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -56,7 +63,6 @@ GEM
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     builder (3.2.2)
-    cancancan (1.9.2)
     capistrano (2.15.5)
       highline
       net-scp (>= 1.0.0)
@@ -416,7 +422,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass
-  cancancan
+  cancancan!
   capistrano (~> 2.0)
   capistrano_colors
   capybara
