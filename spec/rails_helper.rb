@@ -67,6 +67,7 @@ RSpec.configure do |config|
   # Add devise helpers
   config.include Devise::TestHelpers, type: :controller
   config.include ControllerHelpers, type: :controller
+  config.include FactoryGirl::Syntax::Methods
 
   config.mock_with :rspec do |mocks|
     # This option should be set when all dependencies are being loaded

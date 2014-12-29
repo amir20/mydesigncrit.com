@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 feature 'Visiting welcome page' do
-  scenario 'should have a guest user' do
+  before do
     visit root_path
+  end
+
+  scenario 'should have a guest user' do
     expect(page).to have_content 'Hi, Guest'
   end
 
   scenario 'submitting a url should create one tab with page', js: true do
-    visit root_path
     fill_in :url, with: 'http://amirraminfar.com'
     click_button 'Start'
 

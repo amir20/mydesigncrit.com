@@ -15,9 +15,10 @@
 #
 #  index_users_on_email  (email) UNIQUE
 #
-
-class AnonymousUser < User
-  def self.create_guest
-    create(name: 'Guest', provider: 'designcrit', email: "#{SecureRandom.hex}@designcrit.io")
+FactoryGirl.define do
+  factory :user do
+    sequence(:email) { |n| "person#{n}@example.com" }
+    name 'Factory User'
+    provider 'factory_girl'
   end
 end

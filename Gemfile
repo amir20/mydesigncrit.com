@@ -49,6 +49,7 @@ group :development, :test do
   gem 'binding_of_caller'
   gem 'rubocop'
   gem 'rubocop-rspec'
+  gem 'annotate', '~> 2.6.5'
 end
 
 # For background jobs

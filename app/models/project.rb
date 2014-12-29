@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: projects
+#
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  title       :string(255)
+#  thumbnail   :string(255)
+#  share_id    :string(255)
+#  created_at  :datetime
+#  updated_at  :datetime
+#  pages_count :integer          default("0"), not null
+#  crits_count :integer          default("0"), not null
+#  private     :boolean          default("t"), not null
+#  deleted_at  :datetime
+#
+# Indexes
+#
+#  index_projects_on_deleted_at  (deleted_at)
+#  index_projects_on_user_id     (user_id)
+#
+
 class Project < ActiveRecord::Base
   before_create do
     self.share_id = loop do

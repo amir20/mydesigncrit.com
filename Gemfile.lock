@@ -49,6 +49,9 @@ GEM
       activerecord (>= 3.0.0)
     angular_rails_csrf (1.0.3)
       rails (>= 3, < 5)
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (6.0.0)
     ast (2.0.0)
     astrolabe (1.3.0)
@@ -270,7 +273,7 @@ GEM
     orm_adapter (0.5.0)
     paranoia (2.0.4)
       activerecord (~> 4.0)
-    parser (2.2.0)
+    parser (2.2.0.1)
       ast (>= 1.1, < 3.0)
       slop (~> 3.4, >= 3.4.5)
     poltergeist (1.5.1)
@@ -421,6 +424,7 @@ PLATFORMS
 
 DEPENDENCIES
   angular_rails_csrf
+  annotate (~> 2.6.5)
   autoprefixer-rails
   better_errors
   binding_of_caller
