@@ -30,12 +30,10 @@ class Page < ActiveRecord::Base
 
   acts_as_paranoid
 
-  CONNECTION = Fog::Storage.new(
-      provider: 'Rackspace',
-      rackspace_username: 'amirraminfar',
-      rackspace_api_key: '59408113174c92574d89ef18847b15ed',
-      rackspace_region: 'dfw'
-  )
+  CONNECTION = Fog::Storage.new(provider: 'Rackspace',
+                                rackspace_username: 'amirraminfar',
+                                rackspace_api_key: '59408113174c92574d89ef18847b15ed',
+                                rackspace_region: 'dfw')
 
   def process
     large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))
@@ -78,11 +76,9 @@ class Page < ActiveRecord::Base
 
   def upload_to_cdn(file, key)
     directory = CONNECTION.directories.get('designcrit')
-    file = directory.files.create(
-        key: key,
-        body: File.open(file),
-        public: true
-    )
+    file = directory.files.create(key: key,
+                                  body: File.open(file),
+                                  public: true)
     file.public_url
   end
 
