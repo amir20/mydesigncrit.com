@@ -4,16 +4,16 @@
 #
 #  id          :integer          not null, primary key
 #  project_id  :integer
-#  url         :string(255)
-#  title       :string(255)
-#  screenshot  :string(255)
-#  thumbnail   :string(255)
+#  url         :string
+#  title       :string
+#  screenshot  :string
+#  thumbnail   :string
 #  width       :integer
 #  height      :integer
-#  processed   :boolean          default("f")
+#  processed   :boolean          default(FALSE)
 #  created_at  :datetime
 #  updated_at  :datetime
-#  crits_count :integer          default("0"), not null
+#  crits_count :integer          default(0), not null
 #  deleted_at  :datetime
 #
 # Indexes
@@ -30,10 +30,10 @@ class Page < ActiveRecord::Base
 
   acts_as_paranoid
 
-  CONNECTION = Fog::Storage.new(provider: 'Rackspace',
-                                rackspace_username: 'amirraminfar',
-                                rackspace_api_key: '59408113174c92574d89ef18847b15ed',
-                                rackspace_region: 'dfw')
+  # CONNECTION = Fog::Storage.new(provider: 'Rackspace',
+  #                               rackspace_username: 'amirraminfar',
+  #                               rackspace_api_key: '59408113174c92574d89ef18847b15ed',
+  #                               rackspace_region: 'dfw')
 
   def process
     large_file = Pathname.new(Rails.root.join('public', 'assets', 'jobs', id.to_s, 'screenshot.png'))

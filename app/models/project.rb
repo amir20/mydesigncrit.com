@@ -4,19 +4,20 @@
 #
 #  id          :integer          not null, primary key
 #  user_id     :integer
-#  title       :string(255)
-#  thumbnail   :string(255)
-#  share_id    :string(255)
+#  title       :string
+#  thumbnail   :string
+#  share_id    :string
 #  created_at  :datetime
 #  updated_at  :datetime
-#  pages_count :integer          default("0"), not null
-#  crits_count :integer          default("0"), not null
-#  private     :boolean          default("t"), not null
+#  pages_count :integer          default(0), not null
+#  crits_count :integer          default(0), not null
+#  private     :boolean          default(TRUE), not null
 #  deleted_at  :datetime
 #
 # Indexes
 #
 #  index_projects_on_deleted_at  (deleted_at)
+#  index_projects_on_share_id    (share_id)
 #  index_projects_on_user_id     (user_id)
 #
 

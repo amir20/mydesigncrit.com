@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
 
-ruby '2.2.1'
 
-gem 'rails', '4.2.0'
+gem 'rails', '4.2.3'
 gem 'mysql2'
 
 # Assets
-gem 'sass-rails', '~> 4.0'
+gem 'sass-rails', '~> 5.0'
 gem 'haml-rails'
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
@@ -32,7 +31,7 @@ gem 'jbuilder', '~> 2.2'
 gem 'unicorn'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.1.0', require: false
+  gem 'rspec-rails', '~> 3.3.0', require: false
   gem 'capybara', require: false
   gem 'poltergeist', require: false
   gem 'factory_girl_rails'
@@ -41,7 +40,6 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'capistrano', '~> 2.0'
   gem 'capistrano_colors'
-  gem 'rvm-capistrano'
   gem 'thin'
   gem 'sqlite3'
   gem 'quiet_assets'
@@ -61,7 +59,7 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
-gem 'cancancan', github: 'marshall-lee/cancancan', branch: 'support_rails_4_2'
+gem 'cancancan', '~> 1.10'
 gem 'angular_rails_csrf'
 
 # Resizing images
